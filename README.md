@@ -1,4 +1,6 @@
 ChipsChallenge
 ==============
 
-This is a port of Chip's Challenge, aimed at 32-bit versions of windows.
+This is a port of Chip's Challenge, aimed at 32-bit versions of windows.  Currently, most features (including a good amount of advanced features) work.  There may be several small bugs in the game logic here and there - I haven't played through the whole thing yet (I'm saving this for last).
+
+I am not responsible for any impact whatsoever which this software may have on any machine.  Furthermore, I cannot be held responsible to debug, support, or update any of this code.
