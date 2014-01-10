@@ -5,7 +5,7 @@
 // - Contains the direction, Player, Chip, Monster, Trap, and Game classes
 // - Initializations for all member functions are either provided inline or are located in:
 //		- Game.cpp
-//		- "Game Moving Functions.cpp"
+//		- GameLogic.cpp
 
 #include "stdafx.h"
 using namespace std;

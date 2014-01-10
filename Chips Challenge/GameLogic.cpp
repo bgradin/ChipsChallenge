@@ -1,6 +1,6 @@
 //*****************************************************//
 //	  Brian Gradin, 2013							   //
-//    Chip's challenge -> Game Moving Functions.cpp    //
+//	  Chip's challenge -> GameLogic.cpp				   //
 //*****************************************************//
 // - Contains implementations for most of the functions in the Game class
 // - For descriptions of what each function does, see Game.h
