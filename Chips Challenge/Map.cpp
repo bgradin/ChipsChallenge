@@ -9,10 +9,10 @@ int Map::TryLoad(string pass, int level)
 {
 	ifstream in;
 
-	if (!open_dat(in))
+	if (!OpenDatFile(in))
 		return false;
 	
-	int totalLevels = htoi(read_word(in)); // Grab how many levels are in the pack:
+	int totalLevels = htoi(ReadWord(in)); // Grab how many levels are in the pack:
    
 	if(level > totalLevels) // Are there even n levels in this pack?
 	{
@@ -24,35 +24,35 @@ int Map::TryLoad(string pass, int level)
 
 	while (tmplvl < 149)
 	{
-		int bimap = htoi(read_word(in)); // Grab how many bytes in this level
+		int bimap = htoi(ReadWord(in)); // Grab how many bytes in this level
 
 		int nn = level - 1;
 		while (nn > 0  && level != 0)
 		{
 			nn--; // Tell it we went to the next map
 			in.ignore(bimap);
-			bimap = htoi(read_word(in)); // Grab how many bytes in this level
+			bimap = htoi(ReadWord(in)); // Grab how many bytes in this level
 		}
 		in.ignore(8);
-		int r = htoi(read_word(in));
+		int r = htoi(ReadWord(in));
 		in.ignore(r); // Number of bytes in the first layer
-		r = htoi(read_word(in));
+		r = htoi(ReadWord(in));
 		in.ignore(r); // Number of bytes in the second layer
 	
 		// Number of bytes in the optional area:
-		int biop = htoi(read_word(in));
+		int biop = htoi(ReadWord(in));
 	   string store = "";
 		// Loop through all the fields:
 		while(biop > 0)
 		{
-			int field = read_byte(in); // Field Number
-			int bif = read_byte(in);  // Bytes in field
+			int field = ReadByte(in); // Field Number
+			int bif = ReadByte(in);  // Bytes in field
 			biop = biop - 2 - bif; // Remove the bytes read this session
 			if(field == 6)
 			{
 				while(bif-- > 1)
-					store.push_back(read_byte(in) ^ 153); // xor used to decrypt password
-				read_byte(in); // Read terminating 0
+					store.push_back(ReadByte(in) ^ 153); // xor used to decrypt password
+				ReadByte(in); // Read terminating 0
 			// Unknown or unused field, Skip:
 			} else in.ignore(bif);
 		}
@@ -131,10 +131,10 @@ bool Map::Load(Game& g, int levelID)
 
 	ifstream in;
 
-	if (!open_dat(in))
+	if (!OpenDatFile(in))
 		return false;
 
-	g.totalLevels = htoi(read_word(in)); // Grab how many levels are in the pack:
+	g.totalLevels = htoi(ReadWord(in)); // Grab how many levels are in the pack:
 
 	if(levelID > g.totalLevels) // Are there even n levels in this pack?
 	{
@@ -142,20 +142,20 @@ bool Map::Load(Game& g, int levelID)
 		levelID = g.map.levelnumber;
 	}
 
-	int bimap = htoi(read_word(in)); // Grab how many bytes in this level
+	int bimap = htoi(ReadWord(in)); // Grab how many bytes in this level
 	nn = levelID - 1;
 	while (nn > 0)
 	{
 		nn--; // Tell it we went to the next map
 		in.ignore(bimap);
-		bimap = htoi(read_word(in)); // Grab how many bytes in this level
+		bimap = htoi(ReadWord(in)); // Grab how many bytes in this level
 	}
 
-	g.map.levelnumber = htoi(read_word(in)); // Level Number
-	g.timeLeft = timelimit = htoi(read_word(in)); // Time Limit
-	totalchips = g.chipsLeft = htoi(read_word(in)); // Chips required
-	int mapdetail = htoi(read_word(in)); // Map detail, useless, no need to store it
-	int bifl = htoi(read_word(in)); // Number of bytes in the first layer
+	g.map.levelnumber = htoi(ReadWord(in)); // Level Number
+	g.timeLeft = timelimit = htoi(ReadWord(in)); // Time Limit
+	totalchips = g.chipsLeft = htoi(ReadWord(in)); // Chips required
+	int mapdetail = htoi(ReadWord(in)); // Map detail, useless, no need to store it
+	int bifl = htoi(ReadWord(in)); // Number of bytes in the first layer
 
 	// Reset some key values
 	hint = "";
@@ -202,12 +202,12 @@ bool Map::Load(Game& g, int levelID)
 	// Load the first layer:
 	while(bifl>0)
 	{
-		unsigned int tmp = read_byte(in);
+		unsigned int tmp = ReadByte(in);
 		bifl--;
 		if(tmp == 255) // Run-length encoding
 		{
-			tmp = read_byte(in);
-			int tmpa = read_byte(in);
+			tmp = ReadByte(in);
+			int tmpa = ReadByte(in);
 			bifl = bifl - 2;
 			for (unsigned int i = 0; i < tmp; i++)
 			{
@@ -251,19 +251,19 @@ bool Map::Load(Game& g, int levelID)
 	g.chip.canMove = 0;
 
 	// Bytes in the second layer:
-	int bisl = htoi(read_word(in));
+	int bisl = htoi(ReadWord(in));
 
 	xx = yy = 0;
 
 	// Load the second layer:
 	while(bisl>0)
 	{
-		int tmp = read_byte(in);
+		int tmp = ReadByte(in);
 		bisl--;
 		if(tmp == 255)
 		{
-			tmp = read_byte(in);
-			int tmpa = read_byte(in);
+			tmp = ReadByte(in);
+			int tmpa = ReadByte(in);
 			bisl = bisl - 2;
 			for (int i = 0; i < tmp; i++)
 			{
@@ -291,30 +291,30 @@ bool Map::Load(Game& g, int levelID)
 	}
 
 	// Number of bytes in the optional area:
-	int biop = htoi(read_word(in));
+	int biop = htoi(ReadWord(in));
 
 	// Loop through all the fields:
 	while(biop > 0)
 	{
-		int field = read_byte(in); // Field Number
-		int bif = read_byte(in);  // Bytes in field
+		int field = ReadByte(in); // Field Number
+		int bif = ReadByte(in);  // Bytes in field
 		biop = biop - 2 - bif; // Remove the bytes read this session
 
 		// Map title:
 		if(field == 3)
 			while(bif-- > 0)
-				leveltitle.push_back(read_byte(in));
+				leveltitle.push_back(ReadByte(in));
 		// List of bear traps:
 		else if(field == 4)
 		{
 			while(bif > 0)
 			{
 				bif = bif - 10;
-				int b_x = htoi(read_word(in));
-				int b_y = htoi(read_word(in));
-				int t_x = htoi(read_word(in));
-				int t_y = htoi(read_word(in));
-				bool o = bool(htoi(read_word(in)) != 0);
+				int b_x = htoi(ReadWord(in));
+				int b_y = htoi(ReadWord(in));
+				int t_x = htoi(ReadWord(in));
+				int t_y = htoi(ReadWord(in));
+				bool o = bool(htoi(ReadWord(in)) != 0);
 				g.traps.push_back(Trap(b_x, b_y, t_x, t_y, o));
 			}
 		// List of cloning machines:
@@ -323,22 +323,22 @@ bool Map::Load(Game& g, int levelID)
 			while(bif > 0)
 			{
 				bif = bif - 8;
-				int b_x = htoi(read_word(in));
-				int b_y = htoi(read_word(in));
-				int c_x = htoi(read_word(in));
-				int c_y = htoi(read_word(in));
+				int b_x = htoi(ReadWord(in));
+				int b_y = htoi(ReadWord(in));
+				int c_x = htoi(ReadWord(in));
+				int c_y = htoi(ReadWord(in));
 				g.cloners.insert(make_pair(make_pair(b_x, b_y), make_pair(c_x, c_y)));
 			}
 		// Password:
 		} else if(field == 6)
 		{
 			while(bif-- > 1)
-				password.push_back(read_byte(in) ^ 153); // xor used to decrypt password
-			read_byte(in); // Read terminating 0
+				password.push_back(ReadByte(in) ^ 153); // xor used to decrypt password
+			ReadByte(in); // Read terminating 0
 		// Hint:
 		} else if(field == 7)
 			while(bif-- > 0)
-				hint.push_back(read_byte(in));
+				hint.push_back(ReadByte(in));
 		// Level-specific rules
 		else if (field == 9)
 		{
@@ -351,8 +351,8 @@ bool Map::Load(Game& g, int levelID)
 			{
 				bif = bif - 2;
 				
-				int x = read_byte(in);
-				int y = read_byte(in);
+				int x = ReadByte(in);
+				int y = ReadByte(in);
 				
 				if(layers[0][x][y] >= 64 && layers[0][x][y] < 100 && layers[1][x][y] != 49)
 					g.monsters.push_back(Monster(x, y, layers[0][x][y].get()));
