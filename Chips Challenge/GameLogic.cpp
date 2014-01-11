@@ -707,21 +707,21 @@ void Game::incrementTriesAndReloadMap()
 {
 	totalTries++;
 
-	if (timeLeft < map.timelimit - 10)
+	if (timeLeft < map.timeLimit - 10)
 		actualTries++;
 
 	if (actualTries == 11)
 	{
 		if (MessageBox(hWnd, L"You seem to be having trouble with this level. Would you like to skip to the next level?", L"Chip's Challenge", MB_YESNO) == IDYES)
-			map.Load(*this, map.levelnumber + 1);
+			map.Load(*this, map.levelNumber + 1);
 		else
 		{
 			actualTries = 0;
-			map.Load(*this, map.levelnumber);
+			map.Load(*this, map.levelNumber);
 		}
 	}
 	else
-		map.Load(*this, map.levelnumber);
+		map.Load(*this, map.levelNumber);
 }
 
 void Game::death(int code)
@@ -1059,29 +1059,29 @@ void Game::moveChip(int deltaX, int deltaY)
 		DrawMap();
 		CallVictory();
 
-		if (map.levelnumber == 50)
+		if (map.levelNumber == 50)
 			MessageBox(hWnd, L"Picking up chips is what the challenge is all about. But on the ice, Chip gets chapped and feels like a chump instead of a champ.", L"Chip's Challenge", MB_OK);
-		if (map.levelnumber == 60)
+		if (map.levelNumber == 60)
 			MessageBox(hWnd, L"Chip hits the ice and decides to chill out. Then he runs into a fake wall and turns the maze into a thrash-a-thon!", L"Chip's Challenge", MB_OK);
-		if (map.levelnumber == 70)
+		if (map.levelNumber == 70)
 			MessageBox(hWnd, L"Chip is halfway through the world's hardest puzzle. If he succeeds, maybe the kids will stop calling him computer breath!", L"Chip's Challenge", MB_OK);
-		if (map.levelnumber == 80)
+		if (map.levelNumber == 80)
 			MessageBox(hWnd, L"Chip used to spend his time programming computer games and making models. But that was just practice for this brain-buster!", L"Chip's Challenge", MB_OK);
-		if (map.levelnumber == 90)
+		if (map.levelNumber == 90)
 			MessageBox(hWnd, L"\"I can do it! I know I can!\" Chip thinks as the going gets tougher. Besides, Melinda the Mental Marvel waits at the end!", L"Chip's Challenge", MB_OK);
-		if (map.levelnumber == 100)
+		if (map.levelNumber == 100)
 			MessageBox(hWnd, L"Besides being an angel on earth, Melinda is the top scorer in the Challenge—and the president of the Bit Busters.", L"Chip's Challenge", MB_OK);
-		if (map.levelnumber == 110)
+		if (map.levelNumber == 110)
 			MessageBox(hWnd, L"Chip can't wait to join the Bit Busters! The club's already figured out the school's password and accessed everyone's grades!", L"Chip's Challenge", MB_OK);
-		if (map.levelnumber == 120)
+		if (map.levelNumber == 120)
 			MessageBox(hWnd, L"If Chip's grades aren't as good as Melinda's, maybe she'll come over to his house and help him study!", L"Chip's Challenge", MB_OK);
-		if (map.levelnumber == 130)
+		if (map.levelNumber == 130)
 			MessageBox(hWnd, L"I've made it this far,' Chip thinks. 'Totally fair, with my mega-brain.' Then he starts the next maze. 'Totally unfair!' he yelps.", L"Chip's Challenge", MB_OK);
-		if (map.levelnumber == 140)
+		if (map.levelNumber == 140)
 			MessageBox(hWnd, L"Groov-u-loids! Chip makes it almost to the end. He's stoked!", L"Chip's Challenge", MB_OK);
 
-		if (map.levelnumber + 1 <= totalLevels) map.Load(*this, map.levelnumber + 1);
-		else if (map.levelnumber == 144 || map.levelnumber == totalLevels)
+		if (map.levelNumber + 1 <= totalLevels) map.Load(*this, map.levelNumber + 1);
+		else if (map.levelNumber == 144 || map.levelNumber == totalLevels)
 			isBeaten = true;
 		return;
 	}

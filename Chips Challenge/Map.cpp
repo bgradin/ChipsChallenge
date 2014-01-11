@@ -5,71 +5,77 @@
 //
 //  PURPOSE:  Checks a level number with a password
 //
-int Map::TryLoad(string pass, int level)
+int Map::TryLoad(Game& game, string password, int level)
 {
-	ifstream in;
+	ifstream inputStream;
 
-	if (!OpenDatFile(in))
-		return false;
+	if (!OpenDatFile(inputStream))
+		return -1;
 	
-	int totalLevels = htoi(ReadWord(in)); // Grab how many levels are in the pack:
-   
+	int totalLevels = htoi(ReadWord(inputStream)); // Grab how many levels are in the pack:
+
 	if(level > totalLevels) // Are there even n levels in this pack?
 	{
-		if (level > 144) ReportError("Level number out of range");
-		return false;
+		if (level > game.totalLevels)
+			ReportError("Level number out of range");
+		return -1;
 	}
 
-	int tmplvl = 1;
+	int levelIterator = 1;
 
-	while (tmplvl < 149)
+	while (levelIterator < game.totalLevels)
 	{
-		int bimap = htoi(ReadWord(in)); // Grab how many bytes in this level
+		// Grab how many bytes in this level
+		int levelBytes = htoi(ReadWord(inputStream));
 
-		int nn = level - 1;
-		while (nn > 0  && level != 0)
+		// Skip levels until we get to the level before the requested level
+		int levelsToSkip = levelIterator - 1;
+		while (levelsToSkip > 0  && level != 0)
 		{
-			nn--; // Tell it we went to the next map
-			in.ignore(bimap);
-			bimap = htoi(ReadWord(in)); // Grab how many bytes in this level
+			levelsToSkip--;
+			inputStream.ignore(levelBytes);
+			levelBytes = htoi(ReadWord(inputStream)); // Grab how many bytes in this level
 		}
-		in.ignore(8);
-		int r = htoi(ReadWord(in));
-		in.ignore(r); // Number of bytes in the first layer
-		r = htoi(ReadWord(in));
-		in.ignore(r); // Number of bytes in the second layer
+		inputStream.ignore(8);
+		int layerBytes = htoi(ReadWord(inputStream));
+		inputStream.ignore(layerBytes);
+		layerBytes = htoi(ReadWord(inputStream));
+		inputStream.ignore(layerBytes);
 	
 		// Number of bytes in the optional area:
-		int biop = htoi(ReadWord(in));
-	   string store = "";
+		int optionalAreaBytes = htoi(ReadWord(inputStream));
+		string store = "";
+
 		// Loop through all the fields:
-		while(biop > 0)
+		while(optionalAreaBytes > 0)
 		{
-			int field = ReadByte(in); // Field Number
-			int bif = ReadByte(in);  // Bytes in field
-			biop = biop - 2 - bif; // Remove the bytes read this session
-			if(field == 6)
+			int field = ReadByte(inputStream);
+			int fieldBytes = ReadByte(inputStream);
+			optionalAreaBytes = optionalAreaBytes - 2 - fieldBytes; // Remove the bytes read this session
+			if(field == 6) // 6 = password field
 			{
-				while(bif-- > 1)
-					store.push_back(ReadByte(in) ^ 153); // xor used to decrypt password
-				ReadByte(in); // Read terminating 0
-			// Unknown or unused field, Skip:
-			} else in.ignore(bif);
+				while(fieldBytes-- > 1)
+					store.push_back(ReadByte(inputStream) ^ 153); // xor used to decrypt password
+				ReadByte(inputStream); // Read terminating 0
+			}
+				else inputStream.ignore(fieldBytes);
 		}
 
 		if (level != 0)
 		{
-			in.close();
-			return bool(pass == store);
-		} else if (pass == store)
-		{
-			in.close();
-			return tmplvl;
+			inputStream.close();
+			return (password == store) ? level : -1;
 		}
-		else tmplvl++;
+		else if (password == store)
+		{
+			inputStream.close();
+			return levelIterator;
+		}
+		else levelIterator++;
 	}
-	in.close();
-	return false;
+
+	inputStream.close();
+	return -1;
 }
 
 //
@@ -82,8 +88,10 @@ MapLayer::MapLayer()
 {
 	// Initialize all tiles in the layer to 0
 	for (int i = 0; i < 32; i++)
+	{
 		for (int j = 0; j < 32; j++)
-			tiles[i][j] = 0;
+			m_tiles[i][j] = 0;
+	}
 }
 
 //
@@ -100,14 +108,15 @@ bool MapLayer::isEmpty()
 	{
 		for (int j = 0; j < 32; j++)
 		{
-			if (tiles[i][j] != 0) // 0 = empty tile
+			if (m_tiles[i][j] != 0) // 0 = empty tile
 			{
 				result = false;
-				break;			// We don't have to keep checking
+				break; // We don't have to keep checking
 			}
 		}
 
-		if (!result) break; // We don't have to keep checking
+		if (!result)
+			break; // We don't have to keep checking
 	}
 
 	return result;
@@ -118,292 +127,303 @@ bool MapLayer::isEmpty()
 //
 //  PURPOSE:  Sets up the specified map and all corresponding variables in the game object
 //
-bool Map::Load(Game& g, int levelID)
+bool Map::Load(Game& game, int levelID)
 {
-	g.chip.isDead = g.chip.lastMoveWasForced = g.isBeaten = g.chip.notForward = g.isPaused = g.isActive = g.isStarted = g.isLoaded = false;
-	int nn, xx = 0, yy = 0; // Init variables
-	g.monstersCanMove = g.chip.movedRecently = g.upKeyIsPressed = g.leftKeyIsPressed = g.rightKeyIsPressed = g.downKeyIsPressed = g.chip.isOnHintTile = false;
+	game.chip.isDead = game.chip.lastMoveWasForced = game.isBeaten = game.chip.notForward = game.isPaused = game.isActive = game.isStarted = game.isLoaded = game.monstersCanMove = game.chip.movedRecently = game.upKeyIsPressed = game.leftKeyIsPressed = game.rightKeyIsPressed = game.downKeyIsPressed = game.chip.isOnHintTile = false;
+	int previousLevelID, currentX = 0, currentY = 0;
 
-	g.clickedPoint.x = g.clickedPoint.y = 50;
+	game.clickedPoint.x = game.clickedPoint.y = 50;
 
-	if (g.map.levelnumber != levelID)
-		g.actualTries = g.totalLevels = 0;
+	if (game.map.levelNumber != levelID)
+		game.actualTries = game.totalLevels = 0;
 
-	ifstream in;
+	ifstream inputStream;
 
-	if (!OpenDatFile(in))
+	if (!OpenDatFile(inputStream))
 		return false;
 
-	g.totalLevels = htoi(ReadWord(in)); // Grab how many levels are in the pack:
+	game.totalLevels = htoi(ReadWord(inputStream)); // Grab how many levels are in the pack:
 
-	if(levelID > g.totalLevels) // Are there even n levels in this pack?
+	if(levelID > game.totalLevels) // Are there even n levels in this pack?
 	{
-		ReportError("You can't load level number " + itos(levelID) + " since the pack only contains " + itos(g.totalLevels) + " levels!");
-		levelID = g.map.levelnumber;
+		ReportError("You can't load level number " + itos(levelID) + " since the pack only contains " + itos(game.totalLevels) + " levels!");
+		levelID = game.map.levelNumber;
+	}
+	
+	int levelBytes = htoi(ReadWord(inputStream)); // Grab how many bytes in this level
+	previousLevelID = levelID - 1;
+	while (previousLevelID > 0)
+	{
+		previousLevelID--; // Tell it we went to the next map
+		inputStream.ignore(levelBytes);
+		levelBytes = htoi(ReadWord(inputStream)); // Grab how many bytes in this level
 	}
 
-	int bimap = htoi(ReadWord(in)); // Grab how many bytes in this level
-	nn = levelID - 1;
-	while (nn > 0)
-	{
-		nn--; // Tell it we went to the next map
-		in.ignore(bimap);
-		bimap = htoi(ReadWord(in)); // Grab how many bytes in this level
-	}
-
-	g.map.levelnumber = htoi(ReadWord(in)); // Level Number
-	g.timeLeft = timelimit = htoi(ReadWord(in)); // Time Limit
-	totalchips = g.chipsLeft = htoi(ReadWord(in)); // Chips required
-	int mapdetail = htoi(ReadWord(in)); // Map detail, useless, no need to store it
-	int bifl = htoi(ReadWord(in)); // Number of bytes in the first layer
+	game.map.levelNumber = htoi(ReadWord(inputStream)); // Level Number
+	game.timeLeft = timeLimit = htoi(ReadWord(inputStream)); // Time Limit
+	totalChips = game.chipsLeft = htoi(ReadWord(inputStream)); // Chips required
+	htoi(ReadWord(inputStream)); // Map detail, useless, no need to store it
+	int firstLayerBytes = htoi(ReadWord(inputStream)); // Number of bytes in the first layer
 
 	// Reset some key values
 	hint = "";
 	password = "";
-	leveltitle = "";
+	levelTitle = "";
 
 	// We are ingame now:
-	ingame = true;
+	inGame = true;
 
 	// Reset Items
-	g.chip.hasFlippers = false;
-	g.chip.hasFireBoots = false;
-	g.chip.hasSkates = false;
-	g.chip.hasSuctionBoots = false;
-	g.chip.hasGreenKey = false;
-	g.chip.blueKeys = 0;
-	g.chip.redKeys = 0;
-	g.chip.yellowKeys = 0;
+	game.chip.hasFlippers = false;
+	game.chip.hasFireBoots = false;
+	game.chip.hasSkates = false;
+	game.chip.hasSuctionBoots = false;
+	game.chip.hasGreenKey = false;
+	game.chip.blueKeys = 0;
+	game.chip.redKeys = 0;
+	game.chip.yellowKeys = 0;
 
 	// Reset the layers:
 	layers.clear();
 	layers.push_back(MapLayer());
 	layers.push_back(MapLayer());
-   
+
 	// Clear movement deque:
-	while(g.recentKeyPresses.size() > 0) g.recentKeyPresses.pop();
+	while(game.recentKeyPresses.size() > 0)
+		game.recentKeyPresses.pop();
 
-	// Clear the moving blocks list:
-	g.movingBlocks.clear();
-
-	// Clear the monster list:
-	g.monsters.clear();
-
-	// Clear beartrap list:
-	g.traps.clear();
-
-	// Clear cloning list:
-	g.cloners.clear();
+	game.movingBlocks.clear();
+	game.monsters.clear();
+	game.traps.clear();
+	game.cloners.clear();
 
 	// Reset Chip
-	g.chip.x = 0;
-	g.chip.y = 0;
+	game.chip.x = 0;
+	game.chip.y = 0;
 
 	// Load the first layer:
-	while(bifl>0)
+	while (firstLayerBytes > 0)
 	{
-		unsigned int tmp = ReadByte(in);
-		bifl--;
-		if(tmp == 255) // Run-length encoding
+		unsigned int tileID = ReadByte(inputStream);
+		firstLayerBytes--;
+		if(tileID == 255) // Run-length encoding
 		{
-			tmp = ReadByte(in);
-			int tmpa = ReadByte(in);
-			bifl = bifl - 2;
-			for (unsigned int i = 0; i < tmp; i++)
+			tileID = ReadByte(inputStream);
+			int currentTileID = ReadByte(inputStream);
+			firstLayerBytes = firstLayerBytes - 2;
+			for (unsigned int i = 0; i < tileID; i++)
 			{
-				// Assign the tile to the correct place:
-				layers[0][xx][yy] = tmpa;
-				// Find Chip:
-				if (tmp >= 108 && tmp <= 111)
+				layers[0][currentX][currentY] = currentTileID;
+
+				if (tileID >= CHIP_NORTH_TILE && tileID <= CHIP_EAST_TILE)
 				{
-					g.chip.x = xx;
-					g.chip.y = yy;
+					game.chip.x = currentX;
+					game.chip.y = currentY;
 				}
-				// Move to the next square:
-				xx++;
-				if(xx > 31)
+
+				currentX++;
+				if (currentX > 31)
 				{
-					xx = 0;
-					yy++;
+					currentX = 0;
+					currentY++;
 				}
 			}
-		} else {
-			// Assign the tile:
-			layers[0][xx][yy] = tmp;
+		}
+		else
+		{
+			layers[0][currentX][currentY] = tileID;
 
-			// Find Chip:
-			if(tmp>=108 && tmp<=111)
+			if (tileID >= CHIP_NORTH_TILE && tileID <= CHIP_EAST_TILE)
 			{
-				g.chip.x = xx;
-				g.chip.y = yy;
+				game.chip.x = currentX;
+				game.chip.y = currentY;
 			}
-			// Move to the next square:
-			xx++;
 
-			if(xx > 31)
+			currentX++;
+			if (currentX > 31)
 			{
-				xx = 0;
-				yy++;
+				currentX = 0;
+				currentY++;
 			}
 		}
 	}
-	// Reset Chip Canmove
-	g.chip.canMove = 0;
 
-	// Bytes in the second layer:
-	int bisl = htoi(ReadWord(in));
+	game.chip.canMove = 0;
 
-	xx = yy = 0;
+	int secondLayerBytes = htoi(ReadWord(inputStream));
+
+	currentX = currentY = 0;
 
 	// Load the second layer:
-	while(bisl>0)
+	while (secondLayerBytes > 0)
 	{
-		int tmp = ReadByte(in);
-		bisl--;
-		if(tmp == 255)
+		int tileID = ReadByte(inputStream);
+		secondLayerBytes--;
+		if (tileID == 255)
 		{
-			tmp = ReadByte(in);
-			int tmpa = ReadByte(in);
-			bisl = bisl - 2;
-			for (int i = 0; i < tmp; i++)
+			tileID = ReadByte(inputStream);
+			int currentTileID = ReadByte(inputStream);
+			secondLayerBytes = secondLayerBytes - 2;
+			for (int i = 0; i < tileID; i++)
 			{
-				// Assign the tile to the correct place:
-				layers[1][xx][yy] = tmpa;
-				// Move to the next square:
-				xx++;
-				if(xx > 31)
+				layers[1][currentX][currentY] = currentTileID;
+
+				currentX++;
+				if (currentX > 31)
 				{
-					xx = 0;
-					yy++;
+					currentX = 0;
+					currentY++;
 				}
 			}
-		} else {
-			// Assign the tile:
-			layers[1][xx][yy] = tmp;
-			// Move to the next square:
-			xx++;
-			if(xx > 31)
+		}
+		else
+		{
+			layers[1][currentX][currentY] = tileID;
+
+			currentX++;
+			if(currentX > 31)
 			{
-				xx = 0;
-				yy++;
+				currentX = 0;
+				currentY++;
 			}
 		}
 	}
 
-	// Number of bytes in the optional area:
-	int biop = htoi(ReadWord(in));
+	int optionalAreaBytes = htoi(ReadWord(inputStream));
 
 	// Loop through all the fields:
-	while(biop > 0)
+	while(optionalAreaBytes > 0)
 	{
-		int field = ReadByte(in); // Field Number
-		int bif = ReadByte(in);  // Bytes in field
-		biop = biop - 2 - bif; // Remove the bytes read this session
+		int field = ReadByte(inputStream); 
+		int fieldBytes = ReadByte(inputStream);
+		optionalAreaBytes = optionalAreaBytes - 2 - fieldBytes; // Remove the bytes read this session
 
 		// Map title:
-		if(field == 3)
-			while(bif-- > 0)
-				leveltitle.push_back(ReadByte(in));
+		if (field == 3)
+		{
+			while(fieldBytes-- > 0)
+				levelTitle.push_back(ReadByte(inputStream));
+		}
+
 		// List of bear traps:
-		else if(field == 4)
+		else if (field == 4)
 		{
-			while(bif > 0)
+			while (fieldBytes > 0)
 			{
-				bif = bif - 10;
-				int b_x = htoi(ReadWord(in));
-				int b_y = htoi(ReadWord(in));
-				int t_x = htoi(ReadWord(in));
-				int t_y = htoi(ReadWord(in));
-				bool o = bool(htoi(ReadWord(in)) != 0);
-				g.traps.push_back(Trap(b_x, b_y, t_x, t_y, o));
+				fieldBytes = fieldBytes - 10;
+				int buttonX = htoi(ReadWord(inputStream));
+				int buttonY = htoi(ReadWord(inputStream));
+				int trapX = htoi(ReadWord(inputStream));
+				int trapY = htoi(ReadWord(inputStream));
+				bool isOpen = bool(htoi(ReadWord(inputStream)) != 0);
+				game.traps.push_back(Trap(buttonX, buttonY, trapX, trapY, isOpen));
 			}
+		}
+
 		// List of cloning machines:
-		} else if(field == 5)
+		else if(field == 5)
 		{
-			while(bif > 0)
+			while (fieldBytes > 0)
 			{
-				bif = bif - 8;
-				int b_x = htoi(ReadWord(in));
-				int b_y = htoi(ReadWord(in));
-				int c_x = htoi(ReadWord(in));
-				int c_y = htoi(ReadWord(in));
-				g.cloners.insert(make_pair(make_pair(b_x, b_y), make_pair(c_x, c_y)));
+				fieldBytes = fieldBytes - 8;
+				int buttonX = htoi(ReadWord(inputStream));
+				int buttonY = htoi(ReadWord(inputStream));
+				int clonerX = htoi(ReadWord(inputStream));
+				int clonerY = htoi(ReadWord(inputStream));
+				game.cloners.insert(make_pair(make_pair(buttonX, buttonY), make_pair(clonerX, clonerY)));
 			}
+		}
+
 		// Password:
-		} else if(field == 6)
+		else if (field == 6)
 		{
-			while(bif-- > 1)
-				password.push_back(ReadByte(in) ^ 153); // xor used to decrypt password
-			ReadByte(in); // Read terminating 0
+			while (fieldBytes-- > 1)
+				password.push_back(ReadByte(inputStream) ^ 153); // xor used to decrypt password
+			ReadByte(inputStream); // Read terminating 0
+		}
+
 		// Hint:
-		} else if(field == 7)
-			while(bif-- > 0)
-				hint.push_back(ReadByte(in));
+		else if(field == 7)
+		{
+			while (fieldBytes-- > 0)
+				hint.push_back(ReadByte(inputStream));
+		}
+
 		// Level-specific rules
 		else if (field == 9)
 		{
 			ReportError("This isn't supposed to be here!");
 		}
+
 		// Monsters:
-		else if(field == 10)
+		else if (field == 10)
 		{
-			while(bif > 0)
+			while(fieldBytes > 0)
 			{
-				bif = bif - 2;
+				fieldBytes = fieldBytes - 2;
 				
-				int x = ReadByte(in);
-				int y = ReadByte(in);
+				int x = ReadByte(inputStream);
+				int y = ReadByte(inputStream);
 				
-				if(layers[0][x][y] >= 64 && layers[0][x][y] < 100 && layers[1][x][y] != 49)
-					g.monsters.push_back(Monster(x, y, layers[0][x][y].get()));
+				if(layers[0][x][y] >= BUG_NORTH_TILE && layers[0][x][y] <= PARAMECIUM_EAST_TILE && layers[1][x][y] != CLONING_MACHINE_TILE)
+					game.monsters.push_back(Monster(x, y, layers[0][x][y].get()));
 				else if (layers[1][x][y] >= 64 && layers[1][x][y] < 100)
-					g.monsters.push_back(Monster(x, y, layers[1][x][y].get()));
+					game.monsters.push_back(Monster(x, y, layers[1][x][y].get()));
 			}
+		}
+		
 		// Unknown or unused field, Skip:
-		} else in.ignore(bif);
+		else
+			inputStream.ignore(fieldBytes);
 	}
 
 	// Only restart the music if we change maps:
-	if((oldmap != levelnumber || oldmap == 0)  && playMusic)
+	if ((oldMap != levelNumber || oldMap == 0)  && playMusic)
 	{
-		g.backgroundMusic.stop();
-		g.backgroundMusic.start(g.map.levelnumber);
-		oldmap = levelnumber;
+		game.backgroundMusic.stop();
+		game.backgroundMusic.start(game.map.levelNumber);
+		oldMap = levelNumber;
 	}
 
-	if (levelnumber == 1)
+	if (levelNumber == 1)
 		DisableMenuItem(ID_LEVEL_PREVIOUS);
 	else EnableMenuItem(ID_LEVEL_PREVIOUS);
-	if (levelnumber == 149)
+
+	if (levelNumber == game.totalLevels)
 		DisableMenuItem(ID_LEVEL_NEXT);
 	else EnableMenuItem(ID_LEVEL_NEXT);
 
-	if (g.saveData["Level" + itos(levelnumber)] == "")
-		g.saveData["Level" + itos(levelnumber)] = password;
+	if (game.saveData["Level" + itos(levelNumber)] == "")
+		game.saveData["Level" + itos(levelNumber)] = password;
 
-	if (g.saveData["Current Level"] == "")
-		g.saveData["Current Level"] = itos(levelnumber);
-	else if (g.saveData["Current Level"] != itos(levelnumber))
-		g.saveData.replace("Current Level", itos(levelnumber));
+	if (game.saveData["Current Level"] == "")
+		game.saveData["Current Level"] = itos(levelNumber);
+	else if (game.saveData["Current Level"] != itos(levelNumber))
+		game.saveData.replace("Current Level", itos(levelNumber));
 
-	if (levelnumber > atoi(g.saveData["Highest Level"].c_str()))
-		g.saveData.replace("Highest Level", itos(levelnumber));
+	if (levelNumber > atoi(game.saveData["Highest Level"].c_str()))
+		game.saveData.replace("Highest Level", itos(levelNumber));
 
-	in.close();
+	inputStream.close();
+
 	DrawMap();
-	DrawLevelNumber(levelnumber);
-	string str = "Chip's Challenge - " + leveltitle;
-	str.pop_back(); // leveltitle has a null byte
-	if (g.oddEvenLabel)
-		str += (((g.currentFrame % 2) == 0) ? (string) " (odd)" : (string) " (even)");
+	DrawLevelNumber(levelNumber);
+
+	string str = "Chip's Challenge - " + levelTitle;
+	str.pop_back(); // levelTitle has a null byte
+
+	if (game.oddEvenLabel)
+		str += (((game.currentFrame % 2) == 0) ? (string) " (odd)" : (string) " (even)");
 	TCHAR* tch = new TCHAR[str.length() + 1];
 	mbstowcs_s(NULL, tch, str.length() + 1, str.c_str(), str.length());
 	SetWindowText(hWnd, tch);
+
 	delete [] tch;
 
-	if (g.isSlippery(g.chip.x, g.chip.y, g.chip)) g.chip.lastMoveWasForced = g.chip.notForward = true;
+	if (game.isSlippery(game.chip.x, game.chip.y, game.chip))
+		game.chip.lastMoveWasForced = game.chip.notForward = true;
 
-	g.isLoaded = true;
+	game.isLoaded = true;
 
 	return true;
 }

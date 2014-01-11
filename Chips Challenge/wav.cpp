@@ -121,7 +121,7 @@ void wav::ShutdownDirectSound()
 }
 
 
-bool wav::LoadWaveFile(const char* filename, IDirectSoundBuffer8** secondaryBuffer)
+bool wav::LoadWaveFile(const char* fileName, IDirectSoundBuffer8** secondaryBuffer)
 {
 	int error;
 	FILE* filePtr;
@@ -137,7 +137,7 @@ bool wav::LoadWaveFile(const char* filename, IDirectSoundBuffer8** secondaryBuff
 
 
 	// Open the wave file in binary.
-	error = fopen_s(&filePtr, filename, "rb");
+	error = fopen_s(&filePtr, fileName, "rb");
 	if(error != 0)
 	{
 		return false;

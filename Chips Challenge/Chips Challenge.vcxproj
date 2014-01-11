@@ -133,8 +133,8 @@
   <ItemGroup>
     <ClCompile Include="Chips Challenge.cpp" />
     <ClCompile Include="Conversion.cpp" />
-    <ClCompile Include="File IO.cpp" />
-    <ClCompile Include="Game Moving Functions.cpp" />
+    <ClCompile Include="FileIO.cpp" />
+    <ClCompile Include="GameLogic.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="ini.cpp" />
     <ClCompile Include="Map.cpp" />
