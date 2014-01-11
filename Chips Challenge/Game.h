@@ -83,10 +83,10 @@ class Monster : public Player
 {
 public:
 	Monster() { x = y = type = canMove = notForward = 0; }
-	Monster(int newX, int newY, int newType) : type(newType / 4)
+	Monster(POINT newLocation, int newType) : type(newType / 4)
 	{
-		x = newX;
-		y = newY;
+		x = newLocation.x;
+		y = newLocation.y;
 		canMove = true;
 		notForward = false;
 		skipFrame = false;
@@ -121,7 +121,7 @@ public:
 class Trap
 {
 public:
-	Trap(int b_x, int b_y, int t_x, int t_y, bool o) : m_buttonX(b_x), m_buttonY(b_y), m_trapX(t_x), m_trapY(t_y), isOpen(o) {}
+	Trap(POINT buttonLocation, POINT trapLocation, bool open) : m_buttonX(buttonLocation.x), m_buttonY(buttonLocation.y), m_trapX(trapLocation.x), m_trapY(trapLocation.y), isOpen(open) {}
 
 	int getButtonX() { return m_buttonX; }
 	int getButtonY() { return m_buttonY; }
@@ -139,7 +139,7 @@ private:
 	int m_trapY;
 };
 
-typedef deque<pair<pair<int, int>, direction>>::iterator blockIterator;
+typedef deque<pair<POINT, direction>>::iterator blockIterator;
 
 class Game
 {
@@ -197,21 +197,21 @@ public:
 	//
 	// PURPOSE:  Returns whether or not a specified tile appears solid to chip or a moving block
 	//
-	bool isSolid(int, int, int, int, bool b = false);
+	bool isSolid(int, int, POINT, bool b = false);
 
 	//
 	// FUNCTION: isSolid(int, int, int, int, int)
 	//
 	// PURPOSE:  Returns whether or not a specified tile appears solid to a monster
 	//
-	bool isSolid(int, int, int, int, int);
+	bool isSolid(int, int, POINT, int);
 
 	//
 	// FUNCTION: isSlippery(int, int, Chip)
 	//
 	// PURPOSE:  Returns whether or not the current object is standing on a tile which is "slippery"
 	//
-	bool isSlippery(int, int, Chip c = Chip());
+	bool isSlippery(POINT, Chip c = Chip());
 
 	//
 	// FUNCTION: eraseBlock(blockIterator&)
@@ -246,14 +246,14 @@ public:
 	//
 	// PURPOSE:  Returns whether or not the trap at the specified location is open
 	//
-	bool isOpen(int, int);
+	bool isOpen(POINT);
 
 	//
 	// FUNCTION: toggleOpen(int, int, bool)
 	//
 	// PURPOSE:  Allow specification of whether or not the trap at the location is open
 	//
-	void toggleOpen(int, int, bool);
+	void toggleOpen(POINT, bool);
 
 	//
 	// FUNCTION: moveChip(int, int, bool)
@@ -293,7 +293,7 @@ public:
 	//					- Whether or not the object is a monster
 	//					- Whether or not the object is a block
 	//
-	bool commonMovement(int, int, int, int, int&, int&, bool m = false, bool b = false);
+	bool commonMovement(POINT, int, int, int&, int&, bool m = false, bool b = false);
 
 	//
 	// FUNCTION: load_sounds()
@@ -318,7 +318,7 @@ public:
 	// PURPOSE:  Handles cloner button pressing
 	//				- Takes the current object position and x and y change as parameters
 	//
-	bool handleClonerButton(int, int, int, int);
+	bool handleClonerButton(POINT, int, int);
 
 	//
 	// FUNCTION: redraw(int, int, int, int, int)
@@ -326,7 +326,7 @@ public:
 	// PURPOSE:  Redraws the tiles a moving object comes from and moves to
 	//				- Takes the tile id, position and x and y change as parameters
 	//
-	void redraw(int, int, int, int, int);
+	void redraw(int, POINT, int, int);
 
 	//
 	// FUNCTION: redrawOldTile(int, int, int)
@@ -334,7 +334,7 @@ public:
 	// PURPOSE:  Redraws the tile a moving object comes from
 	//				- Takes the tile id and position as parameters
 	//
-	void redrawOldTile(int, int, int);
+	void redrawOldTile(int, POINT);
 
 	//
 	// FUNCTION: redrawNewTile(int, int, int)
@@ -342,28 +342,28 @@ public:
 	// PURPOSE:  Redraws the tile a moving object moves to
 	//				- Takes the tile id and new position for the object as parameters
 	//
-	void redrawNewTile(int, int, int);
+	void redrawNewTile(int, POINT);
 
 	//
 	// FUNCTION: bottom_most(int, int)
 	//
 	// PURPOSE:  Returns the object code of the bottom most tile at the specified location
 	//
-	int  bottomMostTile(int, int);
+	int  bottomMostTile(POINT);
 
 	//
 	// FUNCTION: bottom_most_index(int, int)
 	//
 	// PURPOSE:  Returns the zero-based index (where zero is the top) of the layer containing the bottom-most tile
 	//
-	int  bottomMostIndex(int, int);
+	int  bottomMostIndex(POINT);
 
 	//
 	// FUNCTION: revealbluewall(int, int)
 	//
 	// PURPOSE:  Checks if there is a reveal-able wall the specified location, and if there is, reveal it
 	//
-	void revealBlueWall(int, int);
+	void revealBlueWall(POINT);
 
 	//-------------------------------------//
 	//           Member variables          //
@@ -378,7 +378,7 @@ public:
 	map<string, wav> soundEffects;
 	Map map;
 	list<Trap> traps;
-	deque<pair<pair<int, int>, direction>> movingBlocks;
+	deque<pair<POINT, direction>> movingBlocks;
 	INI saveData;
 
 	//// Keypressing and movement ////
