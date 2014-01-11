@@ -2,11 +2,9 @@
 
 #include "stdafx.h"
 
-#define MAX_LOADSTRING			100
-const int FRAMES_PER_SECOND =	11; // Should be odd, so that there are never consecutive, even frames
-									// (some things rely the on modulus operations based off the current frame number)
-
-int aniCounter = 0; // Animation counter
+#define MAX_LOADSTRING 100
+const int FRAMES_PER_SECOND = 11; // Should be odd, so that there are never consecutive, even frames
+								  // (some things rely the on modulus operations based off the current frame number)
 
 // Global Variables:
 HINSTANCE hInst;								// current instance
@@ -15,15 +13,33 @@ Game game;										// game instance
 TCHAR szTitle[MAX_LOADSTRING];					// The title bar text
 TCHAR szWindowClass[MAX_LOADSTRING];			// the main window class name
 
-// Load resources for drawing map
+// Drawing objects - declared here to expediate the repetitive drawing process
 HDC hdc;
 HDC hdcmem;
 HDC hbcmem;
-HBITMAP colorsprites, blackwhitesprites, nums;
+HBITMAP colorSprites, blackWhiteSprites, numbers;
 HBITMAP hdcbmold, hdcbm;
+HBITMAP bg, side, mainCont, tmpbm, tmpold, bm_left, bm_right, sidebg, win_bm;
+PAINTSTRUCT ps;
+RECT rc;
+HDC tmphdc;
+HDC tmp;
+HFONT font;
+HBRUSH hbr;
+HPEN pen;
+BITMAP structBitmapHeader;
+HGDIOBJ hBitmap;
+HCURSOR crosshairs = LoadCursorW(hInst, IDC_CROSS);
+HCURSOR normal = LoadCursorW(hInst, IDC_ARROW);
+POINT cursor;
+
+int animationCounter = 0, animationFrame;
 int color;
+int modifier;
 bool playSoundEffects;
 bool playMusic;
+bool addIgnorePasswordsOption = false, ignorePassword;
+bool addOddEvenControl = false;
 
 // Forward declarations of functions included in this code module:
 ATOM				MyRegisterClass(HINSTANCE hInstance);
@@ -41,7 +57,7 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmd
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
- 	// TODO: Place code here.
+	// TODO: Place code here.
 	MSG msg;
 	HACCEL hAccelTable;
 
@@ -52,9 +68,7 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmd
 
 	// Perform application initialization:
 	if (!InitInstance (hInstance, nCmdShow))
-	{
 		return FALSE;
-	}
 
 	hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CHIPSCHALLENGE));
 
@@ -120,39 +134,35 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	game.saveData.replace("Midi", itos((playMusic = (game.saveData["Midi"] == "1"))));
 
 	string cur_level = game.saveData["Current Level"];
-	if (cur_level != "")	game.map.Load(game, atoi(cur_level.c_str()));
-	else game.map.Load(game, 1);
 
-	// Make sure the title is correct the first time this runs
+	if (cur_level != "")
+		game.map.Load(game, atoi(cur_level.c_str()));
+	else
+		game.map.Load(game, 1);
+
 	_tcscat_s(szTitle, MAX_LOADSTRING, stows(" - ").c_str());
 	_tcscat_s(szTitle, MAX_LOADSTRING, stows(game.map.levelTitle).c_str());
 
-	hInst = hInstance; // Store instance handle in our global variable
+	hInst = hInstance;
 
-   hWnd = CreateWindow(szWindowClass, szTitle, (SS_BITMAP|WS_TILED|WS_SYSMENU|WS_MINIMIZEBOX),
-      CW_USEDEFAULT, CW_USEDEFAULT, 518, 401, NULL, NULL, hInstance, NULL);
+	hWnd = CreateWindow(szWindowClass, szTitle, (SS_BITMAP|WS_TILED|WS_SYSMENU|WS_MINIMIZEBOX), CW_USEDEFAULT, CW_USEDEFAULT, 518, 401, NULL, NULL, hInstance, NULL);
 
-   if (!hWnd)
-   {
-      return FALSE;
-   }
+	if (!hWnd)
+		return FALSE;
 
-   game.loadSounds();
+	game.loadSounds();
 
-   ShowWindow(hWnd, nCmdShow);
-   UpdateWindow(hWnd);
+	ShowWindow(hWnd, nCmdShow);
+	UpdateWindow(hWnd);
 
-   return TRUE;
+	return TRUE;
 }
 
 // Globalized function to call victory dialog
-void CallVictory() {DialogBox(hInst, MAKEINTRESOURCE(IDD_VICTORY), hWnd, Victory);}
+void CallVictory() { DialogBox(hInst, MAKEINTRESOURCE(IDD_VICTORY), hWnd, Victory); }
 
 // Error function
-void ReportError(const string text)
-{
-	MessageBox(hWnd, stows(text).c_str(), L"Error", MB_OK | MB_ICONEXCLAMATION);
-}
+void ReportError(const string text) { MessageBox(hWnd, stows(text).c_str(), L"Error", MB_OK | MB_ICONEXCLAMATION); }
 
 //
 //  FUNCTION: HelpTopic(const int);
@@ -166,56 +176,48 @@ wstring HelpTopic(char* topic)
 
 	s += "\\CHIPS.CHM";
 
-	if (topic != "") s += string("::/html\\topic") + topic + string(".htm");
+	if (topic != "")
+		s += string("::/html\\topic") + topic + string(".htm");
 
 	return stows(s);
 }
 
-// Menu item check function
-bool check(UINT item)
+UINT ModifyMenuItem(HWND hWnd, UINT item, function<void (UINT&)> modifyState)
 {
-	MENUITEMINFO mii = {sizeof(MENUITEMINFO)};
-	mii.fMask = MIIM_STATE;
-	GetMenuItemInfo(GetMenu(hWnd), item, FALSE, &mii);
-	mii.fState ^= MFS_CHECKED;
-	SetMenuItemInfo(GetMenu(hWnd), item, FALSE, &mii);
-	return bool(mii.fState == MFS_CHECKED);
+	MENUITEMINFO menuItem = {sizeof(MENUITEMINFO)};
+	menuItem.fMask = MIIM_STATE;
+
+	GetMenuItemInfo(GetMenu(hWnd), item, FALSE, &menuItem);
+	modifyState(menuItem.fState);
+	SetMenuItemInfo(GetMenu(hWnd), item, FALSE, &menuItem);
+
+	return menuItem.fState;
 }
 
-// Menu item disable function
-bool DisableMenuItem(UINT item)
+bool ToggleMenuItemCheck(HWND hWnd, UINT item)
 {
-	MENUITEMINFO mii = {sizeof(MENUITEMINFO)};
-	mii.fMask = MIIM_STATE;
-	GetMenuItemInfo(GetMenu(hWnd), item, FALSE, &mii);
-	if (mii.fState == MFS_ENABLED)
-		mii.fState = MFS_DISABLED;
-	SetMenuItemInfo(GetMenu(hWnd), item, FALSE, &mii);
-	return bool(mii.fState == MFS_ENABLED);
+	return ModifyMenuItem(hWnd, item, [](UINT& state) { state = (state == MFS_CHECKED) ? MFS_UNCHECKED : MFS_CHECKED; }) == MFS_CHECKED;
 }
 
-// Menu item enable function
-bool EnableMenuItem(UINT item)
+bool DisableMenuItem(HWND hWnd, UINT item)
 {
-	MENUITEMINFO mii = {sizeof(MENUITEMINFO)};
-	mii.fMask = MIIM_STATE;
-	GetMenuItemInfo(GetMenu(hWnd), item, FALSE, &mii);
-	if (mii.fState == MFS_DISABLED)
-		mii.fState = MFS_ENABLED;
-	SetMenuItemInfo(GetMenu(hWnd), item, FALSE, &mii);
-	return bool(mii.fState == MFS_ENABLED);
+	return ModifyMenuItem(hWnd, item, [](UINT& state) { if (state == MFS_ENABLED) state = MFS_DISABLED; }) == MFS_ENABLED;
 }
 
-// Timer handling function
-int tracker;
-void timer_fire()
+bool EnableMenuItem(HWND hWnd, UINT item)
+{
+	return ModifyMenuItem(hWnd, item, [](UINT& state) { if (state == MFS_DISABLED) state = MFS_ENABLED; }) == MFS_ENABLED;
+}
+
+void processGameFrame()
 {
 	if (game.isActive)
 	{
-		// THE FOLLOWING THREE FUNCTION CALLS MUST BE IN THIS ORDER
+		// DO NOT MODIFY THE ORDER OF THE FOLLOWING FIVE LINES
 		game.handleMovingBlocks();
 		game.handleChip();
-		if (game.chip.isDead) return;
+		if (game.chip.isDead)
+			return;
 		game.handleMonsters();
 
 		if (game.chipHasHitMonster()) // If a monster hit chip
@@ -223,13 +225,17 @@ void timer_fire()
 			game.death(3);
 			return;
 		}
-		if (game.currentFrame == 1)
+
+		if (game.currentFrame == 0)
 		{
 			game.currentFrame = FRAMES_PER_SECOND;
 			game.timeLeft--;
+
 			if (game.timeLeft < 16 && game.currentFrame % FRAMES_PER_SECOND == 0 && game.map.timeLimit != 0)
 				game.soundEffects["TickSound"].play();
+
 			DrawMap();
+
 			if (game.timeLeft == 0)
 			{
 				game.isActive = false;
@@ -240,94 +246,146 @@ void timer_fire()
 		else
 			game.currentFrame--;
 	}
+
 	if (game.isBeaten)
 	{
-		if (aniCounter > 800)
+		if (animationCounter > 800)
 		{
 			game.isActive = game.isLoaded = false;
-			if (aniCounter == 802)
+
+			if (animationCounter == 802)
 			{
-				aniCounter++;
+				animationCounter++;
+
 				game.isBeaten = false;
 				MessageBox(hWnd, L"Great Job, Chip!\nYou did it! You finished the challenge!", L"Chip's Challenge", MB_OK);
 				game.isBeaten = true;
 			}
+
 			InvalidateRect(hWnd, NULL, true);
 			TCHAR buff[1001];
 			LoadString(hInst, MELINDA_MSG, buff, 1000);
 			MessageBox(hWnd, buff, L"Chip's Challenge", MB_OK);
 
-			int time_bonus  = game.timeLeft * 10;
-			int level_bonus = (int)floor((game.map.levelNumber * 500) * (pow(0.8, game.actualTries - 1)));
-			int level_score, total_score, level_time, new_level_score;
+			int timeBonus  = game.timeLeft * 10;
+			int levelBonus = (int) floor((game.map.levelNumber * 500) * (pow(0.8, game.actualTries - 1)));
+			int levelScore, totalScore, levelTime, newLevelScore;
 
-			if (level_bonus < 500) level_bonus = 500;
-			string temp = game.saveData["Level"+itos(game.map.levelNumber)];
+			if (levelBonus < 500)
+				levelBonus = 500;
+
+			string levelString = game.saveData["Level" + itos(game.map.levelNumber)];
+
 			int i;
-			if (temp.find(',') != -1 && temp.find(',', temp.find(',') + 1) != -1)
-				level_time = stoi(temp.substr(i = temp.find(',') + 1, temp.find(',', i + 1) - i));
-			else level_time = 0;
-			if (temp.find(',') != -1 && temp.find(',', temp.find(',') + 1) != -1)
-				level_score = stoi(temp.substr(temp.find(',', temp.find(',') + 1) + 1));
-			else level_score = 0;
-			temp = game.saveData["Current Score"];
-			if (temp == "") total_score = 0;
-			else total_score = stoi(temp);
 
-			new_level_score = level_bonus + time_bonus;
-			if (new_level_score > level_score) total_score += new_level_score - level_score;
+			if (levelString.find(',') != -1 && levelString.find(',', levelString.find(',') + 1) != -1)
+				levelTime = stoi(levelString.substr(i = levelString.find(',') + 1, levelString.find(',', i + 1) - i));
+			else
+				levelTime = 0;
+
+			if (levelString.find(',') != -1 && levelString.find(',', levelString.find(',') + 1) != -1)
+				levelScore = stoi(levelString.substr(levelString.find(',', levelString.find(',') + 1) + 1));
+			else
+				levelScore = 0;
+
+			levelString = game.saveData["Current Score"];
+
+			if (levelString == "")
+				totalScore = 0;
+			else
+				totalScore = stoi(levelString);
+
+			newLevelScore = levelBonus + timeBonus;
+			if (newLevelScore > levelScore)
+				totalScore += newLevelScore - levelScore;
 
 			// Update INI
-			game.saveData.replace("Current Score", itos(total_score));
-			new_level_score = (new_level_score > level_score) ? new_level_score : level_score;
-			string update = game.map.password + "," + itos(game.timeLeft) + "," + itos(new_level_score);
+			game.saveData.replace("Current Score", itos(totalScore));
+			newLevelScore = (newLevelScore > levelScore) ? newLevelScore : levelScore;
+			string update = game.map.password + "," + itos(game.timeLeft) + "," + itos(newLevelScore);
 			if (game.saveData["Level" + itos(game.map.levelNumber)] == update) 
 				game.saveData.replace("Level" + itos(game.map.levelNumber), update);
 
 			int complete = 0, highest = atoi(game.saveData["Highest Level"].c_str());
-			for (int i = 1; i <= highest; i++) if (game.saveData["Level" + itos(i)].find(",") != -1) complete++;
+			for (int i = 1; i <= highest; i++)
+			{
+				if (game.saveData["Level" + itos(i)].find(",") != -1)
+					complete++;
+			}
 
 			string str = "You completed ";
 			str.append(itos(complete));
 			str.append(" levels, and your total score for the challenge is ");
-			str.append(itos(total_score));
+			str.append(itos(totalScore));
 			str.append(" points.\n\nYou can still improve your score, by completing levels that you skipped, ");
 			str.append("and getting better times on each level. When you replay a level, if your new score is");
 			str.append(" better than your old, your score will be adjusted by the difference.  Select Best ");
 			str.append("Times from the Game menu to see your scores for each level.");
 			MessageBox(hWnd, stows(str).c_str(), L"Chip's Challenge", MB_OK);
-		} else {
-			if (aniCounter == 0)
+		}
+		else
+		{
+			if (animationCounter == 0)
 			{
-				aniCounter = 32;
-				tracker = 0;
-			} else if (aniCounter <= 800) aniCounter += 2;
+				animationCounter = 32;
+				animationFrame = 0;
+			}
+			else if (animationCounter <= 800)
+				animationCounter += 2;
+
 			InvalidateRect(hWnd, NULL, true);
-			double bla = sqrt((double)(aniCounter - 32) / 2);
-			double bla2 = sqrt((double)((aniCounter - 32) / 2) + 0.25);
-			if (bla == floor(bla) || bla2 * 2 == floor(bla2 * 2)) tracker++;
+
+			double counterEvenRoot = sqrt((double)(animationCounter - 32) / 2);
+			double counterOddRoot = sqrt((double)((animationCounter - 32) / 2) + 0.25);
+
+			if (counterEvenRoot == floor(counterEvenRoot) || counterOddRoot * 2 == floor(counterOddRoot * 2))
+				animationFrame++;
+
 			SetTimer(hWnd, NULL, 250 / FRAMES_PER_SECOND, NULL);
 		}
 	}
 	SetTimer(hWnd, NULL, 1000 / FRAMES_PER_SECOND, NULL);
 }
 
-// Drawing objects - declared here to expediate the repetitive drawing process
-HBITMAP bg, side, mainCont, tmpbm, tmpold, bm_left, bm_right, sidebg, win_bm;
-PAINTSTRUCT ps;
-RECT rc;
-HDC tmphdc;
-HDC tmp;
-HFONT font;
-HBRUSH hbr;
-HPEN pen;
-BITMAP structBitmapHeader;
-HGDIOBJ hBitmap;
-HCURSOR crosshairs = LoadCursorW(hInst, IDC_CROSS);
-HCURSOR normal = LoadCursorW(hInst, IDC_ARROW);
-POINT cursor;
-bool addPass = false, ignorePass;
-bool addOddEvenControl = false;
+void handleKeyPress(Game& game, int newDirection, bool& keyIsPressed)
+{
+	if (!game.isPaused)
+	{
+		if (game.recentKeyPresses.size() < 2 && !keyIsPressed)
+		{
+			if (game.recentKeyPresses.size() > 0)
+			{
+				if (game.recentKeyPresses.back() != newDirection)
+					game.recentKeyPresses.push(direction(newDirection));
+			}
+			else
+				game.recentKeyPresses.push(direction(newDirection));
+		}
+
+		keyIsPressed = true;
+
+		if (!game.isStarted)
+		{
+			game.isActive = true;
+			processGameFrame();
+		}
+	}
+}
+
+void updateTitle(HWND hWnd, Game& game)
+{
+	string str = "Chip's Challenge - " + game.map.levelTitle;
+
+	if (game.oddEvenLabel)
+	{
+		str[str.length() - 1] = ' ';
+		str += (game.currentFrame % 2) == 0 ? "(odd)" : "(even)";
+	}
+
+	TCHAR* tch = new TCHAR[str.length() + 1];
+	mbstowcs_s(NULL, tch, str.length() + 1, str.c_str(), str.length());
+	SetWindowText(hWnd, tch);
+}
 
 //
 //  FUNCTION: WndProc(HWND, UINT, WPARAM, LPARAM)
@@ -348,33 +406,32 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_ERASEBKGND:
 		return true;
 	case WM_TIMER:
-		timer_fire();
+		processGameFrame();
 		break;
 	case WM_SETCURSOR:
 		{
-			GetCursorPos(&cursor); // Get cursor position
+			GetCursorPos(&cursor);
 			ScreenToClient(hWnd, &cursor); // map to current window
 
-			if (cursor.x >= 32 && cursor.x < 320
-			 && cursor.y >= 32 && cursor.y < 320)
+			if (cursor.x >= 32 && cursor.x < 320 && cursor.y >= 32 && cursor.y < 320)
 				SetCursor(crosshairs);
-			else SetCursor(normal);
+			else
+				SetCursor(normal);
 		}
 		break;
 	case WM_LBUTTONDOWN:
 		{
 			if (!game.isPaused)
 			{
-				GetCursorPos(&cursor); // Get cursor position
+				GetCursorPos(&cursor);
 				ScreenToClient(hWnd, &cursor); // map to current window
 
-				if (cursor.x >= 32 && cursor.x < 320
-				 && cursor.y >= 32 && cursor.y < 320)
+				if (cursor.x >= 32 && cursor.x < 320 && cursor.y >= 32 && cursor.y < 320)
 				{
 					if (!game.isStarted)
 					{
 						game.isActive = true;
-						timer_fire();
+						processGameFrame();
 					}
 
 					game.clickedPoint.x = ((int)cursor.x - 32) / 32 + (game.centerTileLocation.x - 4);
@@ -395,89 +452,26 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_SETFOCUS:
 		game.isPaused = false;
 
-		if (game.isStarted && !game.chip.isDead) game.isActive = true;
+		if (game.isStarted && !game.chip.isDead)
+			game.isActive = true;
 
 		DrawMap();
-		timer_fire();
+		processGameFrame();
 		break;
 	case WM_KEYDOWN:
 		switch (wParam)
 		{
 		case VK_UP:
-			if (!game.isPaused)
-			{
-				if (game.recentKeyPresses.size() < 2 && !game.upKeyIsPressed)
-				{
-					if (game.recentKeyPresses.size() > 0)
-					{
-						if (game.recentKeyPresses.back() != UP)
-							game.recentKeyPresses.push(direction(UP));
-					} else game.recentKeyPresses.push(direction(UP));
-				}
-				game.upKeyIsPressed = true;
-				if (!game.isStarted)
-				{
-					game.isActive = true;
-					timer_fire();
-				}
-			}
+			handleKeyPress(game, UP, game.upKeyIsPressed);
 			break;
 		case VK_DOWN:
-			if (!game.isPaused)
-			{
-				if (game.recentKeyPresses.size() < 2 && !game.downKeyIsPressed)
-				{
-					if (game.recentKeyPresses.size() > 0)
-					{
-						if (game.recentKeyPresses.back() != DOWN)
-							game.recentKeyPresses.push(direction(DOWN));
-					} else game.recentKeyPresses.push(direction(DOWN));
-				}
-				game.downKeyIsPressed = true;
-				if (!game.isStarted)
-				{
-					game.isActive = true;
-					timer_fire();
-				}
-			}
+			handleKeyPress(game, DOWN, game.downKeyIsPressed);
 			break;
 		case VK_LEFT:
-			if (!game.isPaused)
-			{
-				if (game.recentKeyPresses.size() < 2 && !game.leftKeyIsPressed)
-				{
-					if (game.recentKeyPresses.size() > 0 )
-					{
-						if (game.recentKeyPresses.back() != LEFT)
-							game.recentKeyPresses.push(direction(LEFT));
-					} else game.recentKeyPresses.push(direction(LEFT));
-				}
-				game.leftKeyIsPressed = true;
-				if (!game.isStarted)
-				{
-					game.isActive = true;
-					timer_fire();
-				}
-			}
+			handleKeyPress(game, LEFT, game.leftKeyIsPressed);
 			break;
 		case VK_RIGHT:
-			if (!game.isPaused)
-			{
-				if (game.recentKeyPresses.size() < 2 && !game.rightKeyIsPressed)
-				{
-					if (game.recentKeyPresses.size() > 0)
-					{
-						if (game.recentKeyPresses.back() != RIGHT)
-							game.recentKeyPresses.push(direction(RIGHT));
-					} else game.recentKeyPresses.push(direction(RIGHT));
-				}
-				game.rightKeyIsPressed = true;
-				if (!game.isStarted)
-				{
-					game.isActive = true;
-					timer_fire();
-				}
-			}
+			handleKeyPress(game, RIGHT, game.rightKeyIsPressed);
 			break;
 		}
 		break;
@@ -504,73 +498,54 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 			hdc = GetDC(hWnd);
 			hdcmem = CreateCompatibleDC(hdc);
-			//ReleaseDC(hWnd, hdc);
 			GetClientRect(hWnd, &rc);
+
 			hdcbm = CreateCompatibleBitmap(hdc, rc.right, rc.bottom);
 			hbcmem = CreateCompatibleDC(hdcmem);
 			hdcbmold = (HBITMAP)SelectObject(hdcmem, hdcbm);
 
-			// Load bitmaps
 			bg					= LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BACKGROUND));
 			mainCont			= LoadBitmap(hInst, MAKEINTRESOURCE(IDB_GAME_CONT));
 			side				= LoadBitmap(hInst, MAKEINTRESOURCE(IDB_SIDEINFO));
-			colorsprites		= LoadBitmap(hInst, MAKEINTRESOURCE(IDB_COLOR_SPRITES));
-			blackwhitesprites	= LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BLACKWHITE_SPRITES));
+			colorSprites		= LoadBitmap(hInst, MAKEINTRESOURCE(IDB_COLOR_SPRITES));
+			blackWhiteSprites	= LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BLACKWHITE_SPRITES));
 			sidebg				= LoadBitmap(hInst, MAKEINTRESOURCE(IDB_SIDEBG));
-			nums				= LoadBitmap(hInst, MAKEINTRESOURCE(IDB_NUMBERS));
+			numbers				= LoadBitmap(hInst, MAKEINTRESOURCE(IDB_NUMBERS));
 			bm_left				= LoadBitmap(hInst, MAKEINTRESOURCE(IDB_LEFT));
 			bm_right			= LoadBitmap(hInst, MAKEINTRESOURCE(IDB_RIGHT));
 			win_bm				= LoadBitmap(hInst, MAKEINTRESOURCE(IDB_VICTORY));
-			if(bg == NULL || mainCont == NULL || side == NULL || colorsprites == NULL 
-			|| blackwhitesprites == NULL || sidebg == NULL || nums == NULL || bm_left == NULL 
-			|| bm_right == NULL)
+			if(bg == NULL || mainCont == NULL || side == NULL || colorSprites == NULL || blackWhiteSprites == NULL || sidebg == NULL || numbers == NULL || bm_left == NULL || bm_right == NULL)
 				ReportError("A bitmap failed to load.");
 
 			if (playSoundEffects = (game.saveData["Sounds"] == "1"))
-			{
-				MENUITEMINFO mii = {sizeof(MENUITEMINFO)};
-				mii.fMask = MIIM_STATE;
-				GetMenuItemInfo(GetMenu(hWnd), ID_OPTIONS_SOUNDEFFECTS, FALSE, &mii);
-				mii.fState = MFS_CHECKED;
-				SetMenuItemInfo(GetMenu(hWnd), ID_OPTIONS_SOUNDEFFECTS, FALSE, &mii);
-			}
+				ToggleMenuItemCheck(hWnd, ID_OPTIONS_SOUNDEFFECTS);
 
 			if ((game.saveData["Midi"] == "1"))
-			{
-				MENUITEMINFO mii = {sizeof(MENUITEMINFO)};
-				mii.fMask = MIIM_STATE;
-				GetMenuItemInfo(GetMenu(hWnd), ID_OPTIONS_BACKGROUNDMUSIC, FALSE, &mii);
-				mii.fState = MFS_CHECKED;
-				SetMenuItemInfo(GetMenu(hWnd), ID_OPTIONS_BACKGROUNDMUSIC, FALSE, &mii);
-			}
+				ToggleMenuItemCheck(hWnd, ID_OPTIONS_BACKGROUNDMUSIC);
 
 			if (color = (game.saveData["Color"] == "1" || game.saveData["Color"] == ""))
-			{
-				MENUITEMINFO mii = {sizeof(MENUITEMINFO)};
-				mii.fMask = MIIM_STATE;
-				GetMenuItemInfo(GetMenu(hWnd), ID_OPTIONS_COLOR, FALSE, &mii);
-				mii.fState = MFS_CHECKED;
-				SetMenuItemInfo(GetMenu(hWnd), ID_OPTIONS_COLOR, FALSE, &mii);
-			}
+				ToggleMenuItemCheck(hWnd, ID_OPTIONS_COLOR);
+
 			SetTimer(hWnd, NULL, 0, NULL);
 		}
 		break;
 	case WM_COMMAND:
-		wmId    = LOWORD(wParam);
+		wmId = LOWORD(wParam);
 		wmEvent = HIWORD(wParam);
+
 		// Parse the menu selections:
 		switch (wmId)
 		{
 		case ID_ADD_IGNORE:
-			if (!addPass)
+			if (!addIgnorePasswordsOption)
 			{
 				HMENU menu = GetSubMenu(GetMenu(hWnd), 1);
-				ignorePass = addPass = true;
+				ignorePassword = addIgnorePasswordsOption = true;
 				AppendMenu(menu, MF_STRING | MF_CHECKED, ID_GAME_IGNOREPASSWORDS, L"&Ignore Passwords");
 			}
 			break;
 		case ID_GAME_IGNOREPASSWORDS:
-			ignorePass = check(ID_GAME_IGNOREPASSWORDS);
+			ignorePassword = ToggleMenuItemCheck(hWnd, ID_GAME_IGNOREPASSWORDS);
 			break;
 		case ID_ADD_ODDEVEN_CONTROL:
 			if (!addOddEvenControl)
@@ -580,55 +555,35 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				AppendMenu(menu, MF_STRING | MF_CHECKED, ID_GAME_ODDEVEN_LABEL, L"&Odd/even label");
 
 				if (!game.isStarted)
-				{
-					string str = "Chip's Challenge - " + game.map.levelTitle;
-					str[str.length() - 1] = ' ';
-					str += (game.currentFrame % 2) == 0 ? "(odd)" : "(even)";
-					TCHAR* tch = new TCHAR[str.length() + 1];
-					mbstowcs_s(NULL, tch, str.length() + 1, str.c_str(), str.length());
-					SetWindowText(hWnd, tch);
-				}
+					updateTitle(hWnd, game);
 				break;
 			}
 		case ID_GAME_ODDEVEN_LABEL:
-			game.oddEvenLabel = check(ID_GAME_ODDEVEN_LABEL);
+			game.oddEvenLabel = ToggleMenuItemCheck(hWnd, ID_GAME_ODDEVEN_LABEL);
 
-			if (!game.oddEvenLabel)
-			{
-				string str = "Chip's Challenge - " + game.map.levelTitle;
-				TCHAR* tch = new TCHAR[str.length() + 1];
-				mbstowcs_s(NULL, tch, str.length() + 1, str.c_str(), str.length());
-				SetWindowText(hWnd, tch);
-			} else if (!game.isStarted)
-			{
-				string str = "Chip's Challenge - " + game.map.levelTitle;
-				str[str.length() - 1] = ' ';
-				str += (game.currentFrame % 2) == 0 ? "(odd)" : "(even)";
-				TCHAR* tch = new TCHAR[str.length() + 1];
-				mbstowcs_s(NULL, tch, str.length() + 1, str.c_str(), str.length());
-				SetWindowText(hWnd, tch);
-			}
-			break;
+			updateTitle(hWnd, game);
 		case ID_GAME_NEWGAME:
 			{
-				if (MessageBox(hWnd, 
-				   L"Starting a new game will begin you back at level 1, reset your score to zero, and forget the passwords to any levels you have visited.  Is this what you want?", 
-				   L"Chip's Challenge", 
-				   MB_YESNO) == IDYES)
+				if (MessageBox(hWnd, L"Starting a new game will begin you back at level 1, reset your score to zero, and forget the passwords to any levels you have visited.  Is this what you want?", L"Chip's Challenge", MB_YESNO) == IDYES)
 				{
 					char* environmentString = new char[MAX_PATH];
 					size_t len = MAX_PATH;
 					_dupenv_s(&environmentString, &len, "APPDATA");
 					DeleteFile(stows(string(string(environmentString) + "\\Chip's Challenge\\entpack.ini")).c_str());
 					delete [] environmentString;
+
 					game.saveData = INI();
 					game.map.Load(game);
 				}
 			}
 			break;
 		case ID_GAME_PAUSE:
-			if (!game.isStarted) game.isStarted = true;
-			if ((game.isActive = !(game.isPaused = check(ID_GAME_PAUSE))) && game.isStarted) timer_fire();
+			if (!game.isStarted)
+				game.isStarted = true;
+
+			if ((game.isActive = !(game.isPaused = ToggleMenuItemCheck(hWnd, ID_GAME_PAUSE))) && game.isStarted)
+				processGameFrame();
+
 			DrawMap();
 			break;
 		case ID_GAME_BESTTIMES:
@@ -636,20 +591,22 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			break;
 		case ID_OPTIONS_BACKGROUNDMUSIC:
 		{
-			if (playMusic = check(ID_OPTIONS_BACKGROUNDMUSIC))
+			if (playMusic = ToggleMenuItemCheck(hWnd, ID_OPTIONS_BACKGROUNDMUSIC))
 				game.backgroundMusic.start(game.map.levelNumber);
-			else game.backgroundMusic.stop();
+			else
+				game.backgroundMusic.stop();
+
 			game.saveData.replace("Midi", itos(playMusic));
 		}
 			break;
 		case ID_OPTIONS_SOUNDEFFECTS:
 		{
-			game.saveData.replace("Sounds", itos(playSoundEffects = check(ID_OPTIONS_SOUNDEFFECTS)));
+			game.saveData.replace("Sounds", itos(playSoundEffects = ToggleMenuItemCheck(hWnd, ID_OPTIONS_SOUNDEFFECTS)));
 		}
 			break;
 		case ID_OPTIONS_COLOR:
 		{
-			game.saveData.replace("Color",itos(color = check(ID_OPTIONS_COLOR)));
+			game.saveData.replace("Color",itos(color = ToggleMenuItemCheck(hWnd, ID_OPTIONS_COLOR)));
 			DrawMap();
 		}
 			break;
@@ -672,14 +629,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			game.incrementTriesAndReloadMap();
 			break;
 		case ID_LEVEL_NEXT:
-			if (game.saveData["Level" + itos(game.map.levelNumber + 1)] == "" && !ignorePass)
+			if (game.saveData["Level" + itos(game.map.levelNumber + 1)] == "" && !ignorePassword)
 				DialogBoxParam(hInst, MAKEINTRESOURCE(IDD_PASSENTRY), hWnd, PassEntry, 1);
-			else if (game.map.levelNumber + 1 <= game.totalLevels) game.map.Load(game, game.map.levelNumber + 1);
+			else if (game.map.levelNumber + 1 <= game.totalLevels)
+				game.map.Load(game, game.map.levelNumber + 1);
 			break;
 		case ID_LEVEL_PREVIOUS:
-			if (game.saveData["Level" + itos(game.map.levelNumber - 1)] == "" && !ignorePass)
+			if (game.saveData["Level" + itos(game.map.levelNumber - 1)] == "" && !ignorePassword)
 				DialogBoxParam(hInst, MAKEINTRESOURCE(IDD_PASSENTRY), hWnd, PassEntry, -1);
-			else game.map.Load(game, game.map.levelNumber - 1);
+			else
+				game.map.Load(game, game.map.levelNumber - 1);
 			break;
 		case ID_LEVEL_GOTO:
 			DrawMap();
@@ -717,12 +676,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		BitBlt(hdcmem, 339, 26, 154, 300, hbcmem, 0, 0, SRCCOPY);
 		DrawLevelNumber(game.map.levelNumber);
 
-		(color) ? (HBITMAP)SelectObject(hbcmem, colorsprites) : (HBITMAP)SelectObject(hbcmem, blackwhitesprites);
+		if (color)
+			SelectObject(hbcmem, colorSprites);
+		else
+			SelectObject(hbcmem, blackWhiteSprites);
 
 		// Find x and y coordinate for the top left of the visible screen
 		game.centerTileLocation.x = game.chip.x;
 		game.centerTileLocation.y = game.chip.y;
-		int xpos = 0, ypos = 0;
+
+		int currentX = 0, currentY = 0;
 		if (game.centerTileLocation.x < 4)  game.centerTileLocation.x = 4;
 		if (game.centerTileLocation.x > 27) game.centerTileLocation.x = 27;
 		if (game.centerTileLocation.y < 4)  game.centerTileLocation.y = 4;
@@ -740,15 +703,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			{
 				for (int j = 0; j < 9; j++)
 				{
-					if (((((unsigned int) (h + 1)) < game.map.layers.size() && game.map.layers[h + 1][x + i][y + j] != 0) 
-					   && game.map.layers[h][x + i][y + j] >= 64 && game.map.layers[h][x + i][y + j] <= 111))
+					if (((((unsigned int) (h + 1)) < game.map.layers.size() && game.map.layers[h + 1][x + i][y + j] != 0) && game.map.layers[h][x + i][y + j] >= 64 && game.map.layers[h][x + i][y + j] <= 111))
 					{
-						game.getPosition(game.map.layers[h][x + i][y + j].get(), xpos, ypos, true);
-						BitBlt(hdcmem, (i * 32) + 32, (j * 32) + 32, 32, 32, hbcmem, xpos + 96, ypos, SRCPAINT);
-						BitBlt(hdcmem, (i * 32) + 32, (j * 32) + 32, 32, 32, hbcmem, xpos, ypos, SRCAND);
-					} else {
-						game.getPosition(game.map.layers[h][x + i][y + j].get(), xpos, ypos, false);
-						BitBlt(hdcmem, (i * 32) + 32, (j * 32) + 32, 32, 32, hbcmem, xpos, ypos, SRCCOPY);
+						game.getPosition(game.map.layers[h][x + i][y + j].get(), currentX, currentY, true);
+						BitBlt(hdcmem, (i * 32) + 32, (j * 32) + 32, 32, 32, hbcmem, currentX + 96, currentY, SRCPAINT);
+						BitBlt(hdcmem, (i * 32) + 32, (j * 32) + 32, 32, 32, hbcmem, currentX, currentY, SRCAND);
+					}
+					else
+					{
+						game.getPosition(game.map.layers[h][x + i][y + j].get(), currentX, currentY, false);
+						BitBlt(hdcmem, (i * 32) + 32, (j * 32) + 32, 32, 32, hbcmem, currentX, currentY, SRCCOPY);
 					}
 				}
 			}
@@ -760,30 +724,33 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			if (game.isLoaded)
 			{
 				bool armsLifted = false;
-				int ci_x = (aniCounter > 287) ? ((((int)(aniCounter / 32)) % 2 == 1) ? armsLifted = true, 96 : 288) : 288;
-				int ci_y = (aniCounter > 287) ? ((((int)(aniCounter / 32)) % 2 == 1) ? armsLifted = true, 288 : 448) : 448;
+
+				int ci_x = (animationCounter > 287) ? ((((int)(animationCounter / 32)) % 2 == 1) ? armsLifted = true, 96 : 288) : 288;
+				int ci_y = (animationCounter > 287) ? ((((int)(animationCounter / 32)) % 2 == 1) ? armsLifted = true, 288 : 448) : 448;
 				int i_x = (game.chip.x > 4 && game.chip.x < 29) ? 4 : ((game.chip.x <= 4) ? game.chip.x : game.chip.x - 24);
 				int i_y = (game.chip.y > 4 && game.chip.y < 29) ? 4 : ((game.chip.y <= 4) ? game.chip.y : game.chip.y - 24);
-				i_x = i_x * 32 - ((aniCounter / 2) - 16) + 32; // x for drawn image
-				i_x = (aniCounter > 287) ? 32 : ((i_x < 32) ? 32 : (((i_x + aniCounter) > 320) ? (320 - aniCounter) : i_x));
-				i_y = i_y * 32 - ((aniCounter / 2) - 16) + 32; // y for drawn image
-				i_y = (aniCounter > 287) ? 32 : ((i_y < 32) ? 32 : (((i_y + aniCounter) > 320) ? (320 - aniCounter) : i_y));
-				int s_x = (tracker % 3 == 0 && aniCounter < 288) ? 32 : 96;
-				int s_y = (aniCounter > 287) ? 320 : ((tracker % 3 == 0) ? 160 : 320 + ((tracker % 3) - 1) * 32);
-				StretchBlt(hdcmem, i_x, i_y, ((aniCounter > 288) ? 288 : aniCounter), ((aniCounter > 288) ? 288 : aniCounter), 
-																					hbcmem, s_x, s_y, 32, 32, SRCCOPY);
-				StretchBlt(hdcmem, i_x, i_y, ((aniCounter > 288) ? 288 : aniCounter), ((aniCounter > 288) ? 288 : aniCounter), 
-														hbcmem, ci_x + ((armsLifted) ? 0 : 96), ci_y, 32, 32, SRCPAINT);
-				StretchBlt(hdcmem, i_x, i_y, ((aniCounter > 288) ? 288 : aniCounter), ((aniCounter > 288) ? 288 : aniCounter), 
-																					hbcmem, ci_x, ci_y, 32, 32, SRCAND);
-			} else {
+
+				i_x = i_x * 32 - ((animationCounter / 2) - 16) + 32; // x for drawn image
+				i_x = (animationCounter > 287) ? 32 : ((i_x < 32) ? 32 : (((i_x + animationCounter) > 320) ? (320 - animationCounter) : i_x));
+				i_y = i_y * 32 - ((animationCounter / 2) - 16) + 32; // y for drawn image
+				i_y = (animationCounter > 287) ? 32 : ((i_y < 32) ? 32 : (((i_y + animationCounter) > 320) ? (320 - animationCounter) : i_y));
+
+				int s_x = (animationFrame % 3 == 0 && animationCounter < 288) ? 32 : 96;
+				int s_y = (animationCounter > 287) ? 320 : ((animationFrame % 3 == 0) ? 160 : 320 + ((animationFrame % 3) - 1) * 32);
+
+				StretchBlt(hdcmem, i_x, i_y, ((animationCounter > 288) ? 288 : animationCounter), ((animationCounter > 288) ? 288 : animationCounter), hbcmem, s_x, s_y, 32, 32, SRCCOPY);
+				StretchBlt(hdcmem, i_x, i_y, ((animationCounter > 288) ? 288 : animationCounter), ((animationCounter > 288) ? 288 : animationCounter), hbcmem, ci_x + ((armsLifted) ? 0 : 96), ci_y, 32, 32, SRCPAINT);
+				StretchBlt(hdcmem, i_x, i_y, ((animationCounter > 288) ? 288 : animationCounter), ((animationCounter > 288) ? 288 : animationCounter), hbcmem, ci_x, ci_y, 32, 32, SRCAND);
+			}
+			else
+			{
 				SelectObject(hbcmem, win_bm);
 				BitBlt(hdcmem, 32, 32, 288, 288, hbcmem, 0, 0, SRCCOPY);
 				game.isBeaten = false;
 			}
 		}
 
-		// If it isn't started, show title
+		// Show level title
 		if (!game.isStarted)
 		{
 			tmphdc = CreateCompatibleDC(hdcmem);
@@ -840,7 +807,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			tch = NULL;
 		}
 
-		// If paused
 		if (game.isPaused)
 		{
 			rc.top = 32;
@@ -858,34 +824,43 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			DeleteObject(font);
 		}
 
-		SelectObject(hbcmem, nums);
+		SelectObject(hbcmem, numbers);
 
 		for (int i = 100; i > 0; i /= 10) // Chips and time left
 		{
 			int tmp;
 			if (i == 100)
 				tmp = game.chipsLeft / 100;
+
 			if (i == 10)
 				tmp = ((game.chipsLeft % 100) - (game.chipsLeft % 10)) / 10;
+
 			if (i == 1)
 				tmp = game.chipsLeft % 10;
+
 			if (game.chipsLeft < i && i > 1)
 				tmp = 10;
-			int ypos = game.getNumberPosition(tmp, (game.chipsLeft == 0));
-			BitBlt(hdcmem, 417 + ((3 - (int)floor(log10((double)i)) * 17)), 215, 17, 23, hbcmem, 0, ypos, SRCCOPY);
+
+			int currentY = game.getNumberPosition(tmp, (game.chipsLeft == 0));
+			BitBlt(hdcmem, 417 + ((3 - (int)floor(log10((double)i)) * 17)), 215, 17, 23, hbcmem, 0, currentY, SRCCOPY);
 
 			if (i == 100)
 				tmp = game.timeLeft / 100;
+
 			if (i == 10)
 				tmp = ((game.timeLeft % 100) - (game.timeLeft % 10)) / 10;
+
 			if (i == 1)
 				tmp = game.timeLeft % 10;
+
 			if (game.timeLeft < i && i > 1)
 				tmp = 10;
+
 			if (game.map.timeLimit == 0)
 				tmp = 11;
-			ypos = game.getNumberPosition(tmp, (game.timeLeft < 16 || game.map.timeLimit == 0));
-			BitBlt(hdcmem, 369 + ((3 - (int)floor(log10((double)i))) * 17), 125, 17, 23, hbcmem, 0, ypos, SRCCOPY);
+
+			currentY = game.getNumberPosition(tmp, (game.timeLeft < 16 || game.map.timeLimit == 0));
+			BitBlt(hdcmem, 369 + ((3 - (int)floor(log10((double)i))) * 17), 125, 17, 23, hbcmem, 0, currentY, SRCCOPY);
 		}
 
 		if (game.chip.isOnHintTile)
@@ -908,39 +883,59 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			tch = NULL;
 
 			DeleteObject(font);
-		} else {																	// LOWER SIDE INFO
-			(color) ? (HBITMAP)SelectObject(hbcmem, colorsprites) : (HBITMAP)SelectObject(hbcmem, blackwhitesprites);
+		}
+		else // LOWER SIDE INFO
+		{
+			if (color)
+				SelectObject(hbcmem, colorSprites);
+			else
+				SelectObject(hbcmem, blackWhiteSprites);
 
 			if (game.chip.redKeys > 0)
 				BitBlt(hdcmem, 352, 247, 32, 32, hbcmem, 192, 160, SRCCOPY);
-			else BitBlt(hdcmem, 352, 247, 32, 32, hbcmem, 0, 0, SRCCOPY);
+			else
+				BitBlt(hdcmem, 352, 247, 32, 32, hbcmem, 0, 0, SRCCOPY);
+
 			if (game.chip.blueKeys > 0)
 				BitBlt(hdcmem, 384, 247, 32, 32, hbcmem, 192, 128, SRCCOPY);
-			else BitBlt(hdcmem, 384, 247, 32, 32, hbcmem, 0, 0, SRCCOPY);
+			else
+				BitBlt(hdcmem, 384, 247, 32, 32, hbcmem, 0, 0, SRCCOPY);
+
 			if (game.chip.yellowKeys > 0)
 				BitBlt(hdcmem, 416, 247, 32, 32, hbcmem, 192, 224, SRCCOPY);
-			else BitBlt(hdcmem, 416, 247, 32, 32, hbcmem, 0, 0, SRCCOPY);
+			else
+				BitBlt(hdcmem, 416, 247, 32, 32, hbcmem, 0, 0, SRCCOPY);
+
 			if (game.chip.hasGreenKey)
 				BitBlt(hdcmem, 448, 247, 32, 32, hbcmem, 192, 192, SRCCOPY);
-			else BitBlt(hdcmem, 448, 247, 32, 32, hbcmem, 0, 0, SRCCOPY);
+			else
+				BitBlt(hdcmem, 448, 247, 32, 32, hbcmem, 0, 0, SRCCOPY);
+
 			if (game.chip.hasFlippers)
 				BitBlt(hdcmem, 352, 279, 32, 32, hbcmem, 192, 256, SRCCOPY);
-			else BitBlt(hdcmem, 352, 279, 32, 32, hbcmem, 0, 0, SRCCOPY);
+			else
+				BitBlt(hdcmem, 352, 279, 32, 32, hbcmem, 0, 0, SRCCOPY);
+
 			if (game.chip.hasFireBoots)
 				BitBlt(hdcmem, 384, 279, 32, 32, hbcmem, 192, 288, SRCCOPY);
-			else BitBlt(hdcmem, 384, 279, 32, 32, hbcmem, 0, 0, SRCCOPY);
+			else
+				BitBlt(hdcmem, 384, 279, 32, 32, hbcmem, 0, 0, SRCCOPY);
+
 			if (game.chip.hasSkates)
 				BitBlt(hdcmem, 416, 279, 32, 32, hbcmem, 192, 320, SRCCOPY);
-			else BitBlt(hdcmem, 416, 279, 32, 32, hbcmem, 0, 0, SRCCOPY);
+			else
+				BitBlt(hdcmem, 416, 279, 32, 32, hbcmem, 0, 0, SRCCOPY);
+
 			if (game.chip.hasSuctionBoots)
 				BitBlt(hdcmem, 448, 279, 32, 32, hbcmem, 192, 352, SRCCOPY);
-			else BitBlt(hdcmem, 448, 279, 32, 32, hbcmem, 0, 0, SRCCOPY);
+			else
+				BitBlt(hdcmem, 448, 279, 32, 32, hbcmem, 0, 0, SRCCOPY);
 		}
 		BitBlt(hdc, 0, 0, 518, 401, hdcmem, 0, 0, SRCCOPY);
 
 		SelectObject(hbcmem, hbcold);
 
-        EndPaint(hWnd, &ps);
+		EndPaint(hWnd, &ps);
 	}
 		break;
 	case WM_DESTROY:
@@ -980,11 +975,11 @@ INT_PTR CALLBACK GoTo(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 	case WM_INITDIALOG:
 		{
-		HWND hwndList = GetDlgItem(hDlg, TXT_GOTO_LEVEL);
-		SendMessage(hwndList, EM_LIMITTEXT, 3, 0);
-		hwndList = GetDlgItem(hDlg, TXT_GOTO_PASS);
-		SendMessage(hwndList, EM_LIMITTEXT, 4, 0);
-		return (INT_PTR)TRUE;
+			HWND hwndList = GetDlgItem(hDlg, TXT_GOTO_LEVEL);
+			SendMessage(hwndList, EM_LIMITTEXT, 3, 0);
+			hwndList = GetDlgItem(hDlg, TXT_GOTO_PASS);
+			SendMessage(hwndList, EM_LIMITTEXT, 4, 0);
+			return (INT_PTR)TRUE;
 		}
 
 	case WM_COMMAND:
@@ -1023,25 +1018,30 @@ INT_PTR CALLBACK GoTo(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 					game.map.Load(game, level);
 					EndDialog(hDlg, LOWORD(wParam));
 					return (INT_PTR)TRUE;
-				} else if (game.saveData["Level" + itos(level)] != "" || ignorePass)
+				}
+				else if (game.saveData["Level" + itos(level)] != "" || ignorePassword)
 				{
 					game.map.Load(game, level);
 					EndDialog(hDlg, LOWORD(wParam));
 					return (INT_PTR)TRUE;
-				} else 
+				}
+				else
 				{
 					EndDialog(hDlg, LOWORD(wParam));
 					ReportError("You must enter a valid password.");
 					return (INT_PTR)TRUE;
 				}
-			} else {
+			}
+			else
+			{
 				if (lvl = game.map.TryLoad(game, pass))
 				{
 					EndDialog(hDlg, LOWORD(wParam));
 					game.map.Load(game, lvl);
 					EndDialog(hDlg, LOWORD(wParam));
 					return (INT_PTR)TRUE;
-				} else
+				}
+				else
 				{
 					EndDialog(hDlg, LOWORD(wParam));
 					ReportError("You must enter a valid password.");
@@ -1051,7 +1051,7 @@ INT_PTR CALLBACK GoTo(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 		}
 		if (LOWORD(wParam) == IDCANCEL)
 		{
-			timer_fire();
+			processGameFrame();
 			EndDialog(hDlg, LOWORD(wParam));
 			return (INT_PTR)TRUE;
 		}
@@ -1061,21 +1061,20 @@ INT_PTR CALLBACK GoTo(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 }
 
 // Message handler for password entry dialog
-int modifier;
 INT_PTR CALLBACK PassEntry(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
 	case WM_INITDIALOG:
 		{ 
-		HWND hwndList = GetDlgItem(hDlg, ID_PE_TEXT_ENTER);
-		SendMessage(hwndList, EM_LIMITTEXT, 4, 0);
-		hwndList = GetDlgItem(hDlg, TXT_PASS_ENTRY);
-		WCHAR szW[1024];
-		modifier = (int)lParam;
-		string part = "Please enter the password for level " + itos(game.map.levelNumber + modifier) + ":";
-		MultiByteToWideChar(CP_UTF8, 0, part.c_str(), -1, szW, 1024);
-		SendMessage(hwndList,WM_SETTEXT,0,(LPARAM)szW);
+			HWND hwndList = GetDlgItem(hDlg, ID_PE_TEXT_ENTER);
+			SendMessage(hwndList, EM_LIMITTEXT, 4, 0);
+			hwndList = GetDlgItem(hDlg, TXT_PASS_ENTRY);
+			WCHAR szW[1024];
+			modifier = (int)lParam;
+			string part = "Please enter the password for level " + itos(game.map.levelNumber + modifier) + ":";
+			MultiByteToWideChar(CP_UTF8, 0, part.c_str(), -1, szW, 1024);
+			SendMessage(hwndList,WM_SETTEXT,0,(LPARAM)szW);
 		}
 		return (INT_PTR)TRUE;
 
@@ -1095,7 +1094,7 @@ INT_PTR CALLBACK PassEntry(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam
 				game.map.Load(game, game.map.levelNumber + modifier);
 				return (INT_PTR)TRUE;
 			}
-			else 
+			else
 			{
 				EndDialog(hDlg, LOWORD(wParam));
 				ReportError("Sorry, \"" + str + "\" is not the correct password.");
@@ -1127,7 +1126,8 @@ INT_PTR CALLBACK BestTimes(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam
 				string seconds, line = game.saveData["Level" + itos(i)];
 				if (line.find(",") == -1)
 					line = "Level " + itos(i) + ": not completed";
-				else {
+				else
+				{
 					complete++;
 					seconds = line.substr((a = line.find(",")) + 1, line.find(",", a + 1) - a - 1);
 					totalScore += score = atoi(line.substr(line.find(",", a + 1) + 1).c_str());
@@ -1205,25 +1205,36 @@ INT_PTR CALLBACK Victory(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 	case WM_INITDIALOG:
 		{
-			int time_bonus  = game.timeLeft * 10;
-			int level_bonus = (int)floor((game.map.levelNumber * 500) * (pow(0.8, game.actualTries - 1)));
-			int level_score, level_time, total_score, new_level_score;
+			int timeBonus  = game.timeLeft * 10;
+			int levelBonus = (int)floor((game.map.levelNumber * 500) * (pow(0.8, game.actualTries - 1)));
+			int levelScore, levelTime, totalScore, newLevelScore;
 
-			if (level_bonus < 500) level_bonus = 500;
+			if (levelBonus < 500)
+				levelBonus = 500;
+
 			string temp = game.saveData["Level"+itos(game.map.levelNumber)];
 			int i;
-			if (temp.find(',') != -1 && temp.find(',', temp.find(',') + 1) != -1)
-				level_time = stoi(temp.substr(i = temp.find(',') + 1, temp.find(',', i + 1) - i));
-			else level_time = 0;
-			if (temp.find(',') != -1 && temp.find(',', temp.find(',') + 1) != -1)
-				level_score = stoi(temp.substr(temp.find(',', temp.find(',') + 1) + 1));
-			else level_score = 0;
-			temp = game.saveData["Current Score"];
-			if (temp == "") total_score = 0;
-			else total_score = stoi(temp);
 
-			new_level_score = level_bonus + time_bonus;
-			if (new_level_score > level_score) total_score += new_level_score - level_score;
+			if (temp.find(',') != -1 && temp.find(',', temp.find(',') + 1) != -1)
+				levelTime = stoi(temp.substr(i = temp.find(',') + 1, temp.find(',', i + 1) - i));
+			else
+				levelTime = 0;
+
+			if (temp.find(',') != -1 && temp.find(',', temp.find(',') + 1) != -1)
+				levelScore = stoi(temp.substr(temp.find(',', temp.find(',') + 1) + 1));
+			else
+				levelScore = 0;
+
+			temp = game.saveData["Current Score"];
+
+			if (temp == "")
+				totalScore = 0;
+			else
+				totalScore = stoi(temp);
+
+			newLevelScore = levelBonus + timeBonus;
+			if (newLevelScore > levelScore)
+				totalScore += newLevelScore - levelScore;
 
 			HWND msg_txt		= GetDlgItem(hDlg, IDC_MSG);
 			HWND timebonus_txt	= GetDlgItem(hDlg, IDC_TIMEBONUS);
@@ -1242,45 +1253,50 @@ INT_PTR CALLBACK Victory(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 				msg_str = "Go Bit Buster!";
 			else if (game.actualTries < 6)
 				msg_str = "Finished! Good Work!";
-			else msg_str = "At last! You did it!";
+			else
+				msg_str = "At last! You did it!";
+
 			MultiByteToWideChar(CP_UTF8, 0, msg_str.c_str(), -1, tmp, 1024);
 			SendMessage(msg_txt,WM_SETTEXT,0,(LPARAM)tmp);
 
 			// Time bonus
-			string timebonus_str = "Time Bonus: " + itos(time_bonus);
+			string timebonus_str = "Time Bonus: " + itos(timeBonus);
 			MultiByteToWideChar(CP_UTF8, 0, timebonus_str.c_str(), -1, tmp, 1024);
 			SendMessage(timebonus_txt,WM_SETTEXT,0,(LPARAM)tmp);
 
 			// Level bonus
-			string lvlbonus_str = "Level Bonus: " + itos(level_bonus);
+			string lvlbonus_str = "Level Bonus: " + itos(levelBonus);
 			MultiByteToWideChar(CP_UTF8, 0, lvlbonus_str.c_str(), -1, tmp, 1024);
 			SendMessage(lvlbonus_txt,WM_SETTEXT,0,(LPARAM)tmp);
 
 			// Level score
-			string lvlscore_str = "Level Score: " + itos(level_bonus + time_bonus);
+			string lvlscore_str = "Level Score: " + itos(levelBonus + timeBonus);
 			MultiByteToWideChar(CP_UTF8, 0, lvlscore_str.c_str(), -1, tmp, 1024);
 			SendMessage(lvlscore_txt,WM_SETTEXT,0,(LPARAM)tmp);
 
 			// Level score
-			string totalscore_str = "Total Score: " + itos(total_score);
+			string totalscore_str = "Total Score: " + itos(totalScore);
 			MultiByteToWideChar(CP_UTF8, 0, totalscore_str.c_str(), -1, tmp, 1024);
 			SendMessage(totalscore_txt,WM_SETTEXT,0,(LPARAM)tmp);
 
 			// Bottom message
 			string msg2_str;
-			if (level_time == 0) msg2_str = "You have established a time record for this level!";
-			else if (game.timeLeft > level_time) 
-				msg2_str = "You beat the previous time record by " + itos(game.timeLeft - level_time) + " seconds!";
-			else if (new_level_score > level_score)
-				msg2_str = "You increased your score on this level by " + itos(new_level_score - level_score) + " points!";
-			else msg2_str = "";
+			if (levelTime == 0)
+				msg2_str = "You have established a time record for this level!";
+			else if (game.timeLeft > levelTime) 
+				msg2_str = "You beat the previous time record by " + itos(game.timeLeft - levelTime) + " seconds!";
+			else if (newLevelScore > levelScore)
+				msg2_str = "You increased your score on this level by " + itos(newLevelScore - levelScore) + " points!";
+			else
+				msg2_str = "";
+
 			MultiByteToWideChar(CP_UTF8, 0, msg2_str.c_str(), -1, tmp, 1024);
 			SendMessage(msg2_txt,WM_SETTEXT,0,(LPARAM)tmp);
 
 			// Update INI
-			game.saveData.replace("Current Score", itos(total_score));
-			new_level_score = (new_level_score > level_score) ? new_level_score : level_score;
-			string update = game.map.password + "," + itos(game.timeLeft) + "," + itos(new_level_score);
+			game.saveData.replace("Current Score", itos(totalScore));
+			newLevelScore = (newLevelScore > levelScore) ? newLevelScore : levelScore;
+			string update = game.map.password + "," + itos(game.timeLeft) + "," + itos(newLevelScore);
 			if (msg2_str != "") 
 				game.saveData.replace("Level" + itos(game.map.levelNumber), update);
 		}
@@ -1300,19 +1316,23 @@ INT_PTR CALLBACK Victory(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 // Level number drawing function
 void DrawLevelNumber(int num)
 {
-	HBITMAP bitold = (HBITMAP)SelectObject(hbcmem, nums);
+	HBITMAP bitold = (HBITMAP)SelectObject(hbcmem, numbers);
 	// Draw side info
 	for (int i = 100; i > 0; i /= 10)
 	{
 		int tmp;
 		if (i == 100)
 			tmp = game.map.levelNumber / 100;
+
 		if (i == 10)
 			tmp = ((game.map.levelNumber % 100) - (game.map.levelNumber % 10)) / 10;
+
 		if (i == 1)
 			tmp = game.map.levelNumber % 10;
+
 		if (game.map.levelNumber < i)
 			tmp = 10;
+
 		int ypos = game.getNumberPosition(tmp);
 		BitBlt(hdcmem, 369 + ((3 - (int)floor(log10((double)i))) * 17), 63, 17, 23, hbcmem, 0, ypos, SRCCOPY);
 	}
