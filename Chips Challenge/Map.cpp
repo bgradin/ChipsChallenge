@@ -316,7 +316,7 @@ bool Map::Load(Game& game, int levelID)
 				int trapX = htoi(ReadWord(inputStream));
 				int trapY = htoi(ReadWord(inputStream));
 				bool isOpen = bool(htoi(ReadWord(inputStream)) != 0);
-				game.traps.push_back(Trap(buttonX, buttonY, trapX, trapY, isOpen));
+				game.traps.push_back(Trap(NewPoint(buttonX, buttonY), NewPoint(trapX, trapY), isOpen));
 			}
 		}
 
@@ -364,11 +364,12 @@ bool Map::Load(Game& game, int levelID)
 				
 				int x = ReadByte(inputStream);
 				int y = ReadByte(inputStream);
+				POINT location = NewPoint(x, y);
 				
 				if(layers[0][x][y] >= BUG_NORTH_TILE && layers[0][x][y] <= PARAMECIUM_EAST_TILE && layers[1][x][y] != CLONING_MACHINE_TILE)
-					game.monsters.push_back(Monster(x, y, layers[0][x][y].get()));
+					game.monsters.push_back(Monster(location, layers[0][x][y].get()));
 				else if (layers[1][x][y] >= 64 && layers[1][x][y] < 100)
-					game.monsters.push_back(Monster(x, y, layers[1][x][y].get()));
+					game.monsters.push_back(Monster(location, layers[1][x][y].get()));
 			}
 		}
 		
@@ -420,7 +421,7 @@ bool Map::Load(Game& game, int levelID)
 
 	delete [] tch;
 
-	if (game.isSlippery(game.chip.x, game.chip.y, game.chip))
+	if (game.isSlippery(NewPoint(game.chip.x, game.chip.y), game.chip))
 		game.chip.lastMoveWasForced = game.chip.notForward = true;
 
 	game.isLoaded = true;

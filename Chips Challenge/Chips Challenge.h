@@ -40,6 +40,14 @@ bool DisableMenuItem(HWND, UINT);
 
 bool EnableMenuItem(HWND, UINT);
 
+static POINT NewPoint(int x, int y)
+{
+	POINT newPoint;
+	newPoint.x = x;
+	newPoint.y = y;
+	return newPoint;
+}
+
 // playMusic - set when background music should be playing
 extern bool playMusic;
 

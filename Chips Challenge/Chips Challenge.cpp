@@ -3,8 +3,7 @@
 #include "stdafx.h"
 
 #define MAX_LOADSTRING 100
-const int FRAMES_PER_SECOND = 11; // Should be odd, so that there are never consecutive, even frames
-								  // (some things rely the on modulus operations based off the current frame number)
+const int FRAMES_PER_SECOND = 10;
 
 // Global Variables:
 HINSTANCE hInst;								// current instance
