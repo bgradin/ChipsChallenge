@@ -125,7 +125,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	// Make sure the title is correct the first time this runs
 	_tcscat_s(szTitle, MAX_LOADSTRING, stows(" - ").c_str());
-	_tcscat_s(szTitle, MAX_LOADSTRING, stows(game.map.leveltitle).c_str());
+	_tcscat_s(szTitle, MAX_LOADSTRING, stows(game.map.levelTitle).c_str());
 
 	hInst = hInstance; // Store instance handle in our global variable
 
@@ -227,14 +227,14 @@ void timer_fire()
 		{
 			game.currentFrame = FRAMES_PER_SECOND;
 			game.timeLeft--;
-			if (game.timeLeft < 16 && game.currentFrame % FRAMES_PER_SECOND == 0 && game.map.timelimit != 0)
+			if (game.timeLeft < 16 && game.currentFrame % FRAMES_PER_SECOND == 0 && game.map.timeLimit != 0)
 				game.soundEffects["TickSound"].play();
 			DrawMap();
 			if (game.timeLeft == 0)
 			{
 				game.isActive = false;
 				MessageBox(hWnd, L"Oops! Out of time!", L"Chip's Challenge", MB_OK);
-				game.map.Load(game, game.map.levelnumber);
+				game.map.Load(game, game.map.levelNumber);
 			}
 		}
 		else
@@ -258,11 +258,11 @@ void timer_fire()
 			MessageBox(hWnd, buff, L"Chip's Challenge", MB_OK);
 
 			int time_bonus  = game.timeLeft * 10;
-			int level_bonus = (int)floor((game.map.levelnumber * 500) * (pow(0.8, game.actualTries - 1)));
+			int level_bonus = (int)floor((game.map.levelNumber * 500) * (pow(0.8, game.actualTries - 1)));
 			int level_score, total_score, level_time, new_level_score;
 
 			if (level_bonus < 500) level_bonus = 500;
-			string temp = game.saveData["Level"+itos(game.map.levelnumber)];
+			string temp = game.saveData["Level"+itos(game.map.levelNumber)];
 			int i;
 			if (temp.find(',') != -1 && temp.find(',', temp.find(',') + 1) != -1)
 				level_time = stoi(temp.substr(i = temp.find(',') + 1, temp.find(',', i + 1) - i));
@@ -281,8 +281,8 @@ void timer_fire()
 			game.saveData.replace("Current Score", itos(total_score));
 			new_level_score = (new_level_score > level_score) ? new_level_score : level_score;
 			string update = game.map.password + "," + itos(game.timeLeft) + "," + itos(new_level_score);
-			if (game.saveData["Level" + itos(game.map.levelnumber)] == update) 
-				game.saveData.replace("Level" + itos(game.map.levelnumber), update);
+			if (game.saveData["Level" + itos(game.map.levelNumber)] == update) 
+				game.saveData.replace("Level" + itos(game.map.levelNumber), update);
 
 			int complete = 0, highest = atoi(game.saveData["Highest Level"].c_str());
 			for (int i = 1; i <= highest; i++) if (game.saveData["Level" + itos(i)].find(",") != -1) complete++;
@@ -581,7 +581,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 				if (!game.isStarted)
 				{
-					string str = "Chip's Challenge - " + game.map.leveltitle;
+					string str = "Chip's Challenge - " + game.map.levelTitle;
 					str[str.length() - 1] = ' ';
 					str += (game.currentFrame % 2) == 0 ? "(odd)" : "(even)";
 					TCHAR* tch = new TCHAR[str.length() + 1];
@@ -595,13 +595,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 			if (!game.oddEvenLabel)
 			{
-				string str = "Chip's Challenge - " + game.map.leveltitle;
+				string str = "Chip's Challenge - " + game.map.levelTitle;
 				TCHAR* tch = new TCHAR[str.length() + 1];
 				mbstowcs_s(NULL, tch, str.length() + 1, str.c_str(), str.length());
 				SetWindowText(hWnd, tch);
 			} else if (!game.isStarted)
 			{
-				string str = "Chip's Challenge - " + game.map.leveltitle;
+				string str = "Chip's Challenge - " + game.map.levelTitle;
 				str[str.length() - 1] = ' ';
 				str += (game.currentFrame % 2) == 0 ? "(odd)" : "(even)";
 				TCHAR* tch = new TCHAR[str.length() + 1];
@@ -637,7 +637,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case ID_OPTIONS_BACKGROUNDMUSIC:
 		{
 			if (playMusic = check(ID_OPTIONS_BACKGROUNDMUSIC))
-				game.backgroundMusic.start(game.map.levelnumber);
+				game.backgroundMusic.start(game.map.levelNumber);
 			else game.backgroundMusic.stop();
 			game.saveData.replace("Midi", itos(playMusic));
 		}
@@ -672,14 +672,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			game.incrementTriesAndReloadMap();
 			break;
 		case ID_LEVEL_NEXT:
-			if (game.saveData["Level" + itos(game.map.levelnumber + 1)] == "" && !ignorePass)
+			if (game.saveData["Level" + itos(game.map.levelNumber + 1)] == "" && !ignorePass)
 				DialogBoxParam(hInst, MAKEINTRESOURCE(IDD_PASSENTRY), hWnd, PassEntry, 1);
-			else if (game.map.levelnumber + 1 <= game.totalLevels) game.map.Load(game, game.map.levelnumber + 1);
+			else if (game.map.levelNumber + 1 <= game.totalLevels) game.map.Load(game, game.map.levelNumber + 1);
 			break;
 		case ID_LEVEL_PREVIOUS:
-			if (game.saveData["Level" + itos(game.map.levelnumber - 1)] == "" && !ignorePass)
+			if (game.saveData["Level" + itos(game.map.levelNumber - 1)] == "" && !ignorePass)
 				DialogBoxParam(hInst, MAKEINTRESOURCE(IDD_PASSENTRY), hWnd, PassEntry, -1);
-			else game.map.Load(game, game.map.levelnumber - 1);
+			else game.map.Load(game, game.map.levelNumber - 1);
 			break;
 		case ID_LEVEL_GOTO:
 			DrawMap();
@@ -715,7 +715,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		SelectObject(hbcmem, side);
 
 		BitBlt(hdcmem, 339, 26, 154, 300, hbcmem, 0, 0, SRCCOPY);
-		DrawLevelNumber(game.map.levelnumber);
+		DrawLevelNumber(game.map.levelNumber);
 
 		(color) ? (HBITMAP)SelectObject(hbcmem, colorsprites) : (HBITMAP)SelectObject(hbcmem, blackwhitesprites);
 
@@ -789,7 +789,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			tmphdc = CreateCompatibleDC(hdcmem);
 			tmp = CreateCompatibleDC(tmphdc);
 			GetClientRect(hWnd, &rc);
-			string str = game.map.leveltitle.substr(0, game.map.leveltitle.length() - 1) + "\nPassword: " + game.map.password;
+			string str = game.map.levelTitle.substr(0, game.map.levelTitle.length() - 1) + "\nPassword: " + game.map.password;
 			TCHAR* tch = new TCHAR[str.length() + 1];
 			mbstowcs_s(NULL, tch, str.length() + 1, str.c_str(), str.length());
 			font = CreateFont(25, 0, 0, 0, FW_BOLD, false, false, false, ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_DONTCARE, NULL);
@@ -882,9 +882,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				tmp = game.timeLeft % 10;
 			if (game.timeLeft < i && i > 1)
 				tmp = 10;
-			if (game.map.timelimit == 0)
+			if (game.map.timeLimit == 0)
 				tmp = 11;
-			ypos = game.getNumberPosition(tmp, (game.timeLeft < 16 || game.map.timelimit == 0));
+			ypos = game.getNumberPosition(tmp, (game.timeLeft < 16 || game.map.timeLimit == 0));
 			BitBlt(hdcmem, 369 + ((3 - (int)floor(log10((double)i))) * 17), 125, 17, 23, hbcmem, 0, ypos, SRCCOPY);
 		}
 
@@ -1017,7 +1017,7 @@ INT_PTR CALLBACK GoTo(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 			int lvl;
 			if (level != 0)
 			{
-				if (game.map.TryLoad(pass, level))
+				if (game.map.TryLoad(game, pass, level))
 				{
 					EndDialog(hDlg, LOWORD(wParam));
 					game.map.Load(game, level);
@@ -1035,7 +1035,7 @@ INT_PTR CALLBACK GoTo(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 					return (INT_PTR)TRUE;
 				}
 			} else {
-				if (lvl = game.map.TryLoad(pass))
+				if (lvl = game.map.TryLoad(game, pass))
 				{
 					EndDialog(hDlg, LOWORD(wParam));
 					game.map.Load(game, lvl);
@@ -1073,7 +1073,7 @@ INT_PTR CALLBACK PassEntry(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam
 		hwndList = GetDlgItem(hDlg, TXT_PASS_ENTRY);
 		WCHAR szW[1024];
 		modifier = (int)lParam;
-		string part = "Please enter the password for level " + itos(game.map.levelnumber + modifier) + ":";
+		string part = "Please enter the password for level " + itos(game.map.levelNumber + modifier) + ":";
 		MultiByteToWideChar(CP_UTF8, 0, part.c_str(), -1, szW, 1024);
 		SendMessage(hwndList,WM_SETTEXT,0,(LPARAM)szW);
 		}
@@ -1089,10 +1089,10 @@ INT_PTR CALLBACK PassEntry(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam
 			GetDlgItemText(hDlg, ID_PE_TEXT_ENTER, tmp, 5);
 			wcstombs_s(NULL, entered, 5, tmp, 5);
 			string str = entered;
-			if (game.map.TryLoad(str, game.map.levelnumber + modifier))
+			if (game.map.TryLoad(game, str, game.map.levelNumber + modifier))
 			{
 				EndDialog(hDlg, LOWORD(wParam));
-				game.map.Load(game, game.map.levelnumber + modifier);
+				game.map.Load(game, game.map.levelNumber + modifier);
 				return (INT_PTR)TRUE;
 			}
 			else 
@@ -1206,11 +1206,11 @@ INT_PTR CALLBACK Victory(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_INITDIALOG:
 		{
 			int time_bonus  = game.timeLeft * 10;
-			int level_bonus = (int)floor((game.map.levelnumber * 500) * (pow(0.8, game.actualTries - 1)));
+			int level_bonus = (int)floor((game.map.levelNumber * 500) * (pow(0.8, game.actualTries - 1)));
 			int level_score, level_time, total_score, new_level_score;
 
 			if (level_bonus < 500) level_bonus = 500;
-			string temp = game.saveData["Level"+itos(game.map.levelnumber)];
+			string temp = game.saveData["Level"+itos(game.map.levelNumber)];
 			int i;
 			if (temp.find(',') != -1 && temp.find(',', temp.find(',') + 1) != -1)
 				level_time = stoi(temp.substr(i = temp.find(',') + 1, temp.find(',', i + 1) - i));
@@ -1282,7 +1282,7 @@ INT_PTR CALLBACK Victory(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 			new_level_score = (new_level_score > level_score) ? new_level_score : level_score;
 			string update = game.map.password + "," + itos(game.timeLeft) + "," + itos(new_level_score);
 			if (msg2_str != "") 
-				game.saveData.replace("Level" + itos(game.map.levelnumber), update);
+				game.saveData.replace("Level" + itos(game.map.levelNumber), update);
 		}
 		return (INT_PTR)TRUE;
 
@@ -1306,12 +1306,12 @@ void DrawLevelNumber(int num)
 	{
 		int tmp;
 		if (i == 100)
-			tmp = game.map.levelnumber / 100;
+			tmp = game.map.levelNumber / 100;
 		if (i == 10)
-			tmp = ((game.map.levelnumber % 100) - (game.map.levelnumber % 10)) / 10;
+			tmp = ((game.map.levelNumber % 100) - (game.map.levelNumber % 10)) / 10;
 		if (i == 1)
-			tmp = game.map.levelnumber % 10;
-		if (game.map.levelnumber < i)
+			tmp = game.map.levelNumber % 10;
+		if (game.map.levelNumber < i)
 			tmp = 10;
 		int ypos = game.getNumberPosition(tmp);
 		BitBlt(hdcmem, 369 + ((3 - (int)floor(log10((double)i))) * 17), 63, 17, 23, hbcmem, 0, ypos, SRCCOPY);

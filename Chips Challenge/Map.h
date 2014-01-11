@@ -1,69 +1,56 @@
 #include "stdafx.h"
 using namespace std;
 
-// Forward declaration
 class Game;
 
-// Tile class
-//  - The basis for all blocks
 class Tile
 {
-	// Member variables
-	int type;
+	int m_type;
 
 public:
-	// Constructors
-	Tile() : type(0) {}
-	Tile(int newType) : type(newType) {}
+	Tile() : m_type(0) {}
+	Tile(int newType) : m_type(newType) {}
 
-	// Methods
-	int get() const {return type;}
+	int get() const {return m_type;}
 
-	// Operators
-	int operator=(const int rhs){return (type = rhs);}
-	int operator+=(const int rhs){return (type += rhs);}
-	int operator-=(const int rhs){return (type -= rhs);}
-	bool operator==(const int rhs){return bool(type == rhs);}
-	bool operator!=(const int rhs){return bool(type != rhs);}
-	bool operator>(const int rhs){return bool(type > rhs);}
-	bool operator<(const int rhs){return bool(type < rhs);}
-	bool operator>=(const int rhs){return bool(type >= rhs);}
-	bool operator<=(const int rhs){return bool(type <= rhs);}
+	int operator=(const int rhs){return (m_type = rhs);}
+	int operator+=(const int rhs){return (m_type += rhs);}
+	int operator-=(const int rhs){return (m_type -= rhs);}
+	bool operator==(const int rhs){return bool(m_type == rhs);}
+	bool operator!=(const int rhs){return bool(m_type != rhs);}
+	bool operator>(const int rhs){return bool(m_type > rhs);}
+	bool operator<(const int rhs){return bool(m_type < rhs);}
+	bool operator>=(const int rhs){return bool(m_type >= rhs);}
+	bool operator<=(const int rhs){return bool(m_type <= rhs);}
 };
 
-// MapLayer Class
-//  - Contains the actual tiles for a layer in the map
 class MapLayer
 {
-	Tile tiles[32][32];
+	Tile m_tiles[32][32];
 public:
 	MapLayer();
 
-	(Tile*) operator[](int row) {return tiles[row];}
+	(Tile*) operator[](int row) {return m_tiles[row];}
 
 	bool isEmpty();
 };
 
-// Map class
-//  - Contains map methods and data
 class Map
 {
 public:
-	Map(){levelnumber = 1;}
+	Map(){ levelNumber = 1; }
 
-	// Tiles
 	vector<MapLayer> layers;
 
-	// Attributes
-	int levelnumber;
-	int totalchips;
-	int timelimit;
-	int oldmap;
-	bool ingame;
-	string leveltitle;
+	int levelNumber;
+	int totalChips;
+	int timeLimit;
+	int oldMap;
+	bool inGame;
+	string levelTitle;
 	string hint;
 	string password;
 
-	bool Load(Game& g, int levelID = 1);
-	int TryLoad(string pass, int level = 0);
+	bool Load(Game&, int levelID = 1);
+	int TryLoad(Game&, string, int level = 0);
 };
