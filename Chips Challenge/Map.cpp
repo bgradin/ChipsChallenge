@@ -386,12 +386,12 @@ bool Map::Load(Game& game, int levelID)
 	}
 
 	if (levelNumber == 1)
-		DisableMenuItem(ID_LEVEL_PREVIOUS);
-	else EnableMenuItem(ID_LEVEL_PREVIOUS);
+		DisableMenuItem(hWnd, ID_LEVEL_PREVIOUS);
+	else EnableMenuItem(hWnd, ID_LEVEL_PREVIOUS);
 
 	if (levelNumber == game.totalLevels)
-		DisableMenuItem(ID_LEVEL_NEXT);
-	else EnableMenuItem(ID_LEVEL_NEXT);
+		DisableMenuItem(hWnd, ID_LEVEL_NEXT);
+	else EnableMenuItem(hWnd, ID_LEVEL_NEXT);
 
 	if (game.saveData["Level" + itos(levelNumber)] == "")
 		game.saveData["Level" + itos(levelNumber)] = password;

@@ -36,9 +36,9 @@ void DrawLevelNumber(int);
 //
 void CallVictory();
 
-bool DisableMenuItem(UINT);
+bool DisableMenuItem(HWND, UINT);
 
-bool EnableMenuItem(UINT);
+bool EnableMenuItem(HWND, UINT);
 
 // playMusic - set when background music should be playing
 extern bool playMusic;
