@@ -61,19 +61,19 @@ void Game::eraseBlock(blockIterator& cur)
 
 void Game::handleMovingBlocks()
 {
-	int deltaX = 0, deltaY = 0;
+	POINT_CHANGE change;
 
-	function<void (blockIterator&, int, int)> callMoveBlock = [&](blockIterator& cur, int newDeltaX, int newDeltaY)
+	function<void (blockIterator&, POINT_CHANGE)> callMoveBlock = [&](blockIterator& cur, POINT_CHANGE newChange)
 	{
-		cur->second.set(newDeltaX, newDeltaY);
-		moveBlock(newDeltaX, newDeltaY, cur);
+		cur->second.set(newChange);
+		moveBlock(newChange, cur);
 		DrawMap();
 	};
 
 	function<void (blockIterator&, direction&)> moveOrEraseBlockOnForceBlock = [&](blockIterator& cur, direction& newDirection)
 	{
-		if (!isSolid(newDirection.deltaX(), newDirection.deltaY(), NewPoint(cur->first.x, cur->first.y), true))
-			callMoveBlock(cur, newDirection.deltaX(), newDirection.deltaY());
+		if (!isSolid(POINT_CHANGE(newDirection.deltaX(), newDirection.deltaY()), NewPoint(cur->first.x, cur->first.y), true))
+			callMoveBlock(cur, POINT_CHANGE(newDirection.deltaX(), newDirection.deltaY()));
 		else
 			eraseBlock(cur);
 	};
@@ -84,20 +84,20 @@ void Game::handleMovingBlocks()
 		int blockX = cur->first.x, blockY = cur->first.y;
 		int deltaDeltaX = newDirection.deltaX(), deltaDeltaY = newDirection.deltaY();
 
-		if (isSolid(deltaX = deltaDeltaX, deltaY = deltaDeltaY, NewPoint(blockX, blockY), true) && !isSolid(deltaDeltaY * multiplier, deltaDeltaX * multiplier, NewPoint(blockX, blockY), true))
+		if (isSolid(POINT_CHANGE(change.DeltaX = deltaDeltaX, change.DeltaY = deltaDeltaY), NewPoint(blockX, blockY), true) && !isSolid(POINT_CHANGE(deltaDeltaY * multiplier, deltaDeltaX * multiplier), NewPoint(blockX, blockY), true))
 		{
-			deltaX = (isCurvedIceBlock ? deltaDeltaY : deltaDeltaX) * multiplier;
-			deltaY = (isCurvedIceBlock ? deltaDeltaX : deltaDeltaY) * multiplier;
+			change.DeltaX = (isCurvedIceBlock ? deltaDeltaY : deltaDeltaX) * multiplier;
+			change.DeltaY = (isCurvedIceBlock ? deltaDeltaX : deltaDeltaY) * multiplier;
 
-			if (deltaX != 0 || deltaY != 0)
-				callMoveBlock(cur, deltaX, deltaY);
+			if (change != 0)
+				callMoveBlock(cur, change);
 		}
-		else if (isSolid(deltaX, deltaY, NewPoint(blockX, blockY), true))
+		else if (isSolid(change, NewPoint(blockX, blockY), true))
 			eraseBlock(cur);
 		else
 		{
-			if (deltaX != 0 || deltaY != 0)
-				callMoveBlock(cur, deltaX, deltaY);
+			if (change != 0)
+				callMoveBlock(cur, change);
 		}
 	};
 
@@ -182,10 +182,10 @@ void Game::handleMovingBlocks()
 		death(5);
 }
 
-void Game::redraw(int tile, POINT location, int deltaX, int deltaY)
+void Game::redraw(int tile, POINT location, POINT_CHANGE change)
 {
 	redrawOldTile(tile, location);
-	redrawNewTile(tile, NewPoint(location.x + deltaX, location.y + deltaY));
+	redrawNewTile(tile, NewPoint(location.x + change.DeltaX, location.y + change.DeltaY));
 }
 
 void Game::redrawOldTile(int tile, POINT location)
@@ -245,24 +245,24 @@ void Game::redrawNewTile(int tile, POINT location)
 	map.layers[0][location.x][location.y] = tile;
 }
 
-void Game::moveBlock(int deltaX, int deltaY, blockIterator& cur)
+void Game::moveBlock(POINT_CHANGE change, blockIterator& cur)
 {
 	POINT blockLocation = NewPoint(cur->first.x, cur->first.y);
 
 	// Common movement of all moveable objects
-	commonMovement(blockLocation, deltaX, deltaY, deltaX, deltaY, 0, true);
+	commonMovement(blockLocation, change, change, 0, true);
 
 	// Redraw necessary tiles
-	redraw(MUD_BLOCK_TILE, blockLocation, deltaX, deltaY);
+	redraw(MUD_BLOCK_TILE, blockLocation, change);
 
 	int savedIndex = cur - movingBlocks.begin(); // save index
 
 	// If the block landed on a clone block, make sure we still have a valid iterator
-	if (handleClonerButton(blockLocation, deltaX, deltaY))
+	if (handleClonerButton(blockLocation, change))
 		cur = movingBlocks.begin() + savedIndex + 1;
 
 	bool blockToErase = false;
-	POINT newPosition = NewPoint(blockLocation.x + deltaX, blockLocation.y + deltaY);
+	POINT newPosition = NewPoint(blockLocation.x + change.DeltaX, blockLocation.y + change.DeltaY);
 	int bottom = bottomMostTile(newPosition);
 
 	if (bottom == WATER_TILE)
@@ -294,8 +294,8 @@ void Game::moveBlock(int deltaX, int deltaY, blockIterator& cur)
 		eraseBlock(cur);
 	else
 	{
-		cur->first.x += deltaX;
-		cur->first.y += deltaY;
+		cur->first.x += change.DeltaX;
+		cur->first.y += change.DeltaY;
 		cur++; // Keep the loop to handle blocks moving forward
 	}
 }
@@ -310,17 +310,17 @@ void Game::handleMonsters()
 
 	if (!monsters.empty())
 	{
-		int deltaX, deltaY;
+		POINT_CHANGE change;
 
 		// Use starting index of the end to keep us from moving monsters we create
 		int index = monsters.end() - monsters.begin();
 
 		function<void (deque<Monster>::iterator&, direction&)> handleForceBlock = [&](deque<Monster>::iterator& cur, direction& forceDirection)
 		{
-			if (!isSolid(deltaX = forceDirection.deltaX(), deltaY = forceDirection.deltaY(), NewPoint(cur->x, cur->y), cur->type))
+			if (!isSolid(POINT_CHANGE(change.DeltaX = forceDirection.deltaX(), change.DeltaY = forceDirection.deltaY()), NewPoint(cur->x, cur->y), cur->type))
 				cur->currentDirection = forceDirection;
 			else
-				deltaX = deltaY = 0;
+				change = POINT_CHANGE();
 		};
 
 		function<void (deque<Monster>::iterator&, direction&, bool, bool)> handleIceBlock = [&](deque<Monster>::iterator& cur, direction& newDirection, bool isCurvedIceBlock, bool alternate)
@@ -330,23 +330,23 @@ void Game::handleMonsters()
 			int multiplierY = (isCurvedIceBlock ? newDirection.deltaX() : newDirection.deltaY()) * multiplier;
 			POINT currentLocation = NewPoint(cur->x, cur->y);
 
-			if (isSolid(deltaX = newDirection.deltaX(), deltaY = newDirection.deltaY(), currentLocation, cur->type) && !isSolid(multiplierX, multiplierY, currentLocation, cur->type))
+			if (isSolid(POINT_CHANGE(change.DeltaX = newDirection.deltaX(), change.DeltaY = newDirection.deltaY()), currentLocation, cur->type) && !isSolid(POINT_CHANGE(multiplierX, multiplierY), currentLocation, cur->type))
 			{
-				deltaX = multiplierX;
-				deltaY = multiplierY;
+				change.DeltaX = multiplierX;
+				change.DeltaY = multiplierY;
 			}
-			else if (isSolid(deltaX, deltaY, currentLocation, cur->type))
-				deltaX = deltaY = 0;
+			else if (isSolid(change, currentLocation, cur->type))
+				change = POINT_CHANGE();
 			
-			if (deltaX != 0 || deltaY != 0)
-				cur->currentDirection.set(deltaX, deltaY);
+			if (change != 0)
+				cur->currentDirection.set(change);
 		};
 
 		// Iterate through monster list
 		for (deque<Monster>::iterator cur = monsters.begin(); isActive && cur != monsters.begin() + index && cur != monsters.end(); (monsters.size() != 0 && cur != monsters.end()) ? cur++ : cur)
 		{
 			bool found = false;
-			deltaX = deltaY = 0;
+			change = POINT_CHANGE();
 			POINT currentLocation = NewPoint(cur->x, cur->y);
 
 			int bottomTile = bottomMostTile(currentLocation);
@@ -393,7 +393,7 @@ void Game::handleMonsters()
 				case FORCE_ALL_DIRECTIONS_TILE:
 					{
 						direction newDirection(rand() % 4);
-						if (!isSolid(newDirection.deltaX(), newDirection.deltaY(), currentLocation, cur->type))
+						if (!isSolid(POINT_CHANGE(newDirection.deltaX(), newDirection.deltaY()), currentLocation, cur->type))
 							handleForceBlock(cur, newDirection);
 						else
 							continue;
@@ -428,9 +428,9 @@ void Game::handleMonsters()
 					break;
 				}
 
-				if (deltaX != 0 || deltaY != 0)
+				if (change != 0)
 				{
-					moveMonster(deltaX, deltaY, cur, index);
+					moveMonster(change, cur, index);
 					DrawMap();
 				}
 				continue;
@@ -444,18 +444,18 @@ void Game::handleMonsters()
 					// Calculate x and y offset
 					int newDirectionCode = cur->currentDirection.toInt() + 1;
 					direction newDirection = direction(newDirectionCode > 3 ? 0 : newDirectionCode);
-					deltaX = newDirection.deltaX();
-					deltaY = newDirection.deltaY();
+					change.DeltaX = newDirection.deltaX();
+					change.DeltaY = newDirection.deltaY();
 
 					if (cur->type == PARAMECIUM)
 					{
-						deltaX *= -1;
-						deltaY *= -1;
+						change.DeltaX *= -1;
+						change.DeltaY *= -1;
 					}
 
 					// Bug
 					// If it can turn left, do so.  Otherwise, turn right until there's an opening.
-					if (cur->type == BUG && isSolid(deltaX, deltaY, currentLocation, cur->type))
+					if (cur->type == BUG && isSolid(change, currentLocation, cur->type))
 					{
 						if (bottomTile != CLONING_MACHINE_TILE)
 						{
@@ -476,7 +476,7 @@ void Game::handleMonsters()
 						}
 						found = true;
 					}
-					else if (cur->type == PARAMECIUM && isSolid(deltaX, deltaY, currentLocation, cur->type))
+					else if (cur->type == PARAMECIUM && isSolid(change, currentLocation, cur->type))
 					{	
 						if (bottomTile != CLONING_MACHINE_TILE)
 						{
@@ -509,36 +509,36 @@ void Game::handleMonsters()
 				for (int i = 0; !found && ((i < 2 && cur->type == PINK_BALL) || (i < 1)) && !canContinue; i++)
 				{
 					// Get x and y offset
-					deltaX = cur->currentDirection.deltaX();
-					deltaY = cur->currentDirection.deltaY();
+					change.DeltaX = cur->currentDirection.deltaX();
+					change.DeltaY = cur->currentDirection.deltaY();
 
 					// Concussion rule
-					if (bottomTile == TRAP_TILE && isSolid(deltaX, deltaY, currentLocation, cur->type) && cur->type != TANK)
+					if (bottomTile == TRAP_TILE && isSolid(change, currentLocation, cur->type) && cur->type != TANK)
 					{
 						canContinue = true;
 						continue;
 					}
 
-					if (isSolid(deltaX, deltaY, currentLocation, cur->type))
+					if (isSolid(change, currentLocation, cur->type))
 					{
 						if (cur->type == TANK)
 							cur->canMove = false;
 						else if (cur->type == FIRE_BUG)
 						{
-							swap(deltaX, deltaY);
-							deltaX *= -1;
+							swap(change.DeltaX, change.DeltaY);
+							change.DeltaX *= -1;
 
-							if (isSolid(deltaX, deltaY, currentLocation, cur->type))
+							if (isSolid(change, currentLocation, cur->type))
 							{
-								deltaX *= -1;
-								deltaY *= -1;
+								change.DeltaX *= -1;
+								change.DeltaY *= -1;
 
-								if (isSolid(deltaX, deltaY, currentLocation, cur->type))
+								if (isSolid(change, currentLocation, cur->type))
 								{
-									swap(deltaX, deltaY);
-									deltaY *= -1;
+									swap(change.DeltaX, change.DeltaY);
+									change.DeltaY *= -1;
 
-									if (!isSolid(deltaX, deltaY, currentLocation, cur->type))
+									if (!isSolid(change, currentLocation, cur->type))
 										found = true;
 								}
 								else
@@ -548,40 +548,40 @@ void Game::handleMonsters()
 								found = true;
 
 							if (bottomTile != CLONING_MACHINE_TILE)
-								cur->currentDirection.set(deltaX, deltaY);
+								cur->currentDirection.set(change);
 						}
 						else if (cur->type == PINK_BALL)
 						{
 							if (bottomTile != CLONING_MACHINE_TILE)
-								cur->currentDirection.set(deltaX * -1, deltaY * -1);
+								cur->currentDirection.set(change.DeltaX * -1, change.DeltaY * -1);
 						}
 						else if (cur->type == WALKER)
 						{
 							if (bottomTile != CLONING_MACHINE_TILE)
 								cur->currentDirection = rand() % 4;
 							
-							deltaX = cur->currentDirection.deltaX();
-							deltaY = cur->currentDirection.deltaY();
+							change.DeltaX = cur->currentDirection.deltaX();
+							change.DeltaY = cur->currentDirection.deltaY();
 							
-							if (!isSolid(deltaX, deltaY, currentLocation, cur->type))
+							if (!isSolid(change, currentLocation, cur->type))
 								found = true;
 						}
 						else // Ghost
 						{
-							swap(deltaX, deltaY);
-							deltaY *= -1;
+							swap(change.DeltaX, change.DeltaY);
+							change.DeltaY *= -1;
 
-							if (isSolid(deltaX, deltaY, currentLocation, cur->type))
+							if (isSolid(change, currentLocation, cur->type))
 							{
-								deltaX *= -1;
-								deltaY *= -1;
+								change.DeltaX *= -1;
+								change.DeltaY *= -1;
 
-								if (isSolid(deltaX, deltaY, currentLocation, cur->type))
+								if (isSolid(change, currentLocation, cur->type))
 								{
-									swap(deltaX, deltaY);
-									deltaX *= -1;
+									swap(change.DeltaX, change.DeltaY);
+									change.DeltaX *= -1;
 
-									if (!isSolid(deltaX, deltaY, currentLocation, cur->type))
+									if (!isSolid(change, currentLocation, cur->type))
 										found = true;
 								}
 								else
@@ -591,7 +591,7 @@ void Game::handleMonsters()
 								found = true;
 
 							if (bottomTile != CLONING_MACHINE_TILE)
-								cur->currentDirection.set(deltaX, deltaY);
+								cur->currentDirection.set(change);
 						}
 					}
 					else
@@ -608,68 +608,68 @@ void Game::handleMonsters()
 				// Set up distance measurement variables
 				int tempDeltaX = chip.x - cur->x;
 				int tempDeltaY = chip.y - cur->y;
-				deltaX   = (tempDeltaX == 0) ? 0 : tempDeltaX / abs(tempDeltaX);
-				deltaY   = (tempDeltaY == 0) ? 0 : tempDeltaY / abs(tempDeltaY);
-				bool xClear = !isSolid(deltaX, 0, currentLocation, cur->type);
-				bool yClear = !isSolid(0, deltaY, currentLocation, cur->type);
+				change.DeltaX = (tempDeltaX == 0) ? 0 : tempDeltaX / abs(tempDeltaX);
+				change.DeltaY = (tempDeltaY == 0) ? 0 : tempDeltaY / abs(tempDeltaY);
+				bool xClear = !isSolid(POINT_CHANGE(change.DeltaX, 0), currentLocation, cur->type);
+				bool yClear = !isSolid(POINT_CHANGE(0, change.DeltaY), currentLocation, cur->type);
 
 				direction tmp = cur->currentDirection;
 
 				// Get as close to chip as possible
 				if ((abs(tempDeltaX) > abs(tempDeltaY) && xClear) || (!yClear && xClear))
-					found = (deltaY = 0) != 1;
+					found = (change.DeltaY = 0) != 1;
 				else if (yClear)
-					found = (deltaX = 0) != 1;
+					found = (change.DeltaX = 0) != 1;
 
 				// Change monster orientation
 				if (bottomTile != CLONING_MACHINE_TILE)
 				{
 					if (!found && abs(tempDeltaX) > abs(tempDeltaY))
-						deltaY = 0;
+						change.DeltaY = 0;
 					else if (!found)
-						deltaX = 0;
+						change.DeltaX = 0;
 
-					cur->currentDirection.set(deltaX, deltaY);
+					cur->currentDirection.set(change);
 				}
 
 				if (!found && tmp != cur->currentDirection)
-					moveMonster(0, 0, cur, index);
+					moveMonster(POINT_CHANGE(), cur, index);
 			}
 
 			// Blob
 			if (cur->type == BLOB)
 			{
 				direction newDirection(rand() % 4);
-				found = !isSolid(deltaX = newDirection.deltaX(), deltaY = newDirection.deltaY(), currentLocation, cur->type);
+				found = !isSolid(POINT_CHANGE(change.DeltaX = newDirection.deltaX(), change.DeltaY = newDirection.deltaY()), currentLocation, cur->type);
 			}
 
 			if (found)
-				moveMonster(deltaX, deltaY, cur, index);
+				moveMonster(change, cur, index);
 		}
 
 		DrawMap();
 	}
 }
 
-void Game::moveMonster(int deltaX, int deltaY, deque<Monster>::iterator& cur, int& lastPosition)
+void Game::moveMonster(POINT_CHANGE change, deque<Monster>::iterator& cur, int& lastPosition)
 {
 	POINT currentLocation = NewPoint(cur->x, cur->y);
 
 	// Common movement of all moveable objects
-	commonMovement(currentLocation, deltaX, deltaY, deltaX, deltaY, true);
+	commonMovement(currentLocation, change, change, true);
 
 	// Redraw the necessary tiles
-	redraw((cur->type * 4) + cur->currentDirection.toInt(), currentLocation, deltaX, deltaY);
+	redraw((cur->type * 4) + cur->currentDirection.toInt(), currentLocation, change);
 
 	int index = cur - monsters.begin();
 
 	// If the monster landed on a clone block, make sure we still have a valid iterator
-	if (handleClonerButton(currentLocation, deltaX, deltaY))
+	if (handleClonerButton(currentLocation, change))
 		cur = monsters.begin() + index;
 
 	// Set up new coordinates
-	cur->x += deltaX;
-	cur->y += deltaY;
+	cur->x += change.DeltaX;
+	cur->y += change.DeltaY;
 
 	// currentLocation might have changed
 	currentLocation = NewPoint(cur->x, cur->y);
@@ -742,7 +742,7 @@ void Game::death(int code)
 	switch (code)
 	{
 	case 1:
-		msg = "Oops! Chip can't swim without hasFlippers!";
+		msg = "Oops! Chip can't swim without flippers!";
 		break;
 	case 2:
 		msg = "Oops! Don't step in the fire without fire boots!";
@@ -764,31 +764,31 @@ void Game::death(int code)
 	incrementTriesAndReloadMap();
 }
 
-void Game::moveChip(int deltaX, int deltaY)
+void Game::moveChip(POINT_CHANGE change)
 {
-	int newX = chip.x + deltaX, newY = chip.y + deltaY;
+	int newX = chip.x + change.DeltaX, newY = chip.y + change.DeltaY;
 	POINT chipLocation = NewPoint(chip.x, chip.y);
 	POINT newChipLocation = NewPoint(newX, newY);
 
 	// Conditions where Chip shouldn't move
-	if (isSolid(deltaX, deltaY, chipLocation))
+	if (isSolid(change, chipLocation))
 	{
-		if (deltaX != 0 || deltaY != 0)
+		if (change != 0)
 			soundEffects["BlockedMoveSound"].play();
 
 		// In case he hit a wall which should be revealed
 		revealBlueWall(newChipLocation);
 
-		deltaX = deltaY = 0;
+		change = POINT_CHANGE();
 	}
 
 	// Handle common movement elements of all moveable objects
-	if (deltaX != 0 || deltaY != 0)
-		commonMovement(chipLocation, deltaX, deltaY, deltaX, deltaY);
+	if (change != 0)
+		commonMovement(chipLocation, change, change);
 
 	// The following calculations must be redone, in case deltaX or deltaY changed
-	newX = chip.x + deltaX;
-	newY = chip.y + deltaY;
+	newX = chip.x + change.DeltaX;
+	newY = chip.y + change.DeltaY;
 	chipLocation = NewPoint(chip.x, chip.y);
 	newChipLocation = NewPoint(newX, newY);
 
@@ -797,7 +797,7 @@ void Game::moveChip(int deltaX, int deltaY)
 	int bottomIndex, blockToErase = -1;
 	bool select = false;
 
-	if (deltaX != 0 || deltaY != 0)
+	if (change != 0)
 	{
 		// Conditions where chip lands on something or gets an item
 		for (unsigned int i = 0; i < map.layers.size(); i++)
@@ -911,8 +911,8 @@ void Game::moveChip(int deltaX, int deltaY)
 
 		bool movedblock = false;
 
-		int storedDeltaX = deltaX;
-		int storedDeltaY = deltaY;
+		int storedDeltaX = change.DeltaX;
+		int storedDeltaY = change.DeltaY;
 		if (newID == MUD_BLOCK_TILE)
 		{
 			int newBottomIndex = bottomMostIndex(NewPoint(newX + storedDeltaX, newY + storedDeltaY));
@@ -939,7 +939,7 @@ void Game::moveChip(int deltaX, int deltaY)
 				else
 				{
 					// Common movement of all moveable objects determines if the block moves or not
-					if (commonMovement(newChipLocation, deltaX, deltaY, storedDeltaX, storedDeltaY))
+					if (commonMovement(newChipLocation, change, POINT_CHANGE(storedDeltaX, storedDeltaY)))
 					{
 						// Redraw necessary tiles
 						redrawNewTile(MUD_BLOCK_TILE, newBlockLocation);
@@ -947,12 +947,12 @@ void Game::moveChip(int deltaX, int deltaY)
 						movedblock = true;
 
 						if (isSlippery(newBlockLocation))
-							movingBlocks.push_front(make_pair(newBlockLocation, direction().set(deltaX, deltaY)));
+							movingBlocks.push_front(make_pair(newBlockLocation, direction().set(change)));
 
-						handleClonerButton(newChipLocation, storedDeltaX, storedDeltaY);
+						handleClonerButton(newChipLocation, POINT_CHANGE(storedDeltaX, storedDeltaY));
 					}
 					else if (storedDeltaX == 0 && storedDeltaY == 0)
-						deltaX = deltaY = 0;
+						change = POINT_CHANGE();
 				}
 			}
 			else
@@ -969,20 +969,20 @@ void Game::moveChip(int deltaX, int deltaY)
 			redrawOldTile(blockToErase, newChipLocation);
 
 		// Check to see if he landed on a cloner
-		handleClonerButton(chipLocation, deltaX, deltaY);
+		handleClonerButton(chipLocation, change);
 
 		// Check to see if a block hit a cloner
 		if (movedblock)
-			handleClonerButton(newChipLocation, storedDeltaX, storedDeltaY);
+			handleClonerButton(newChipLocation, POINT_CHANGE(storedDeltaX, storedDeltaY));
 	}
 
 	bottomIndex = bottomMostIndex(newChipLocation);
 
 	// Redraw the necessary tiles.  Put 0 at the top for now
 	if (map.layers[bottomIndex][newX][newY] != WATER_TILE)
-		redraw(CHIP_NORTH_TILE + chip.currentDirection.toInt(), chipLocation, deltaX, deltaY);
+		redraw(CHIP_NORTH_TILE + chip.currentDirection.toInt(), chipLocation, change);
 	else
-		redraw(CHIP_SWIMMING_NORTH_TILE + chip.currentDirection.toInt(), chipLocation, deltaX, deltaY);
+		redraw(CHIP_SWIMMING_NORTH_TILE + chip.currentDirection.toInt(), chipLocation, change);
 
 	bottomIndex = bottomMostIndex(newChipLocation);
 
@@ -1109,11 +1109,11 @@ bool Game::chipHasHitMonster()
 	return false;
 }
 
-bool Game::isSolid(int deltaX, int deltaY, POINT oldLocation, int t) // Used for monsters
+bool Game::isSolid(POINT_CHANGE change, POINT oldLocation, int t) // Used for monsters
 {
 	int bottomTile = bottomMostTile(oldLocation);
 	int x = oldLocation.x, y = oldLocation.y;
-	int newBottomTile = bottomMostTile(NewPoint(x + deltaX, y + deltaY));
+	int newBottomTile = bottomMostTile(NewPoint(x + change.DeltaX, y + change.DeltaY));
 
 	if (x < 0 || y < 0 || x > 31 || y > 31 // Out of bounds
 	 || newBottomTile == WALL_TILE
@@ -1134,21 +1134,21 @@ bool Game::isSolid(int deltaX, int deltaY, POINT oldLocation, int t) // Used for
 	 || newBottomTile == GRAVEL_TILE
 	 || newBottomTile == PASS_ONCE_TILE
 	 || newBottomTile == CLONING_MACHINE_TILE
-	 || (((deltaX < 0 || deltaY < 0) && bottomTile == SOUTH_EAST_ICE_TILE) || ((deltaX > 0 || deltaY > 0) && newBottomTile == SOUTH_EAST_ICE_TILE))
-	 || (((deltaX > 0 || deltaY < 0) && bottomTile == SOUTH_WEST_ICE_TILE) || ((deltaX < 0 || deltaY > 0) && newBottomTile == SOUTH_WEST_ICE_TILE))
-	 || (((deltaX > 0 || deltaY > 0) && bottomTile == NORTH_WEST_ICE_TILE) || ((deltaX < 0 || deltaY < 0) && newBottomTile == NORTH_WEST_ICE_TILE))
-	 || (((deltaX < 0 || deltaY > 0) && bottomTile == NORTH_EAST_ICE_TILE) || ((deltaX > 0 || deltaY < 0) && newBottomTile == NORTH_EAST_ICE_TILE))
-	 || ((deltaY  >  0  && newBottomTile == BLOCKED_NORTH_TILE) || (deltaY < 0 && bottomTile == BLOCKED_NORTH_TILE))
-     || ((deltaX  >  0  && newBottomTile == BLOCKED_WEST_TILE) || (deltaX < 0 && bottomTile == BLOCKED_WEST_TILE))
-     || ((deltaY  <  0  && newBottomTile == BLOCKED_SOUTH_TILE) || (deltaY > 0 && bottomTile == BLOCKED_SOUTH_TILE))
-     || ((deltaX  <  0  && newBottomTile == BLOCKED_EAST_TILE) || (deltaX > 0 && bottomTile == BLOCKED_EAST_TILE))
-     || (((deltaY < 0 || deltaX < 0) && newBottomTile == BLOCKED_SOUTH_EAST_TILE) 
-	 || ((deltaY > 0 || deltaX > 0) && bottomTile == BLOCKED_SOUTH_EAST_TILE)))
+	 || (((change.DeltaX < 0 || change.DeltaY < 0) && bottomTile == SOUTH_EAST_ICE_TILE) || ((change.DeltaX > 0 || change.DeltaY > 0) && newBottomTile == SOUTH_EAST_ICE_TILE))
+	 || (((change.DeltaX > 0 || change.DeltaY < 0) && bottomTile == SOUTH_WEST_ICE_TILE) || ((change.DeltaX < 0 || change.DeltaY > 0) && newBottomTile == SOUTH_WEST_ICE_TILE))
+	 || (((change.DeltaX > 0 || change.DeltaY > 0) && bottomTile == NORTH_WEST_ICE_TILE) || ((change.DeltaX < 0 || change.DeltaY < 0) && newBottomTile == NORTH_WEST_ICE_TILE))
+	 || (((change.DeltaX < 0 || change.DeltaY > 0) && bottomTile == NORTH_EAST_ICE_TILE) || ((change.DeltaX > 0 || change.DeltaY < 0) && newBottomTile == NORTH_EAST_ICE_TILE))
+	 || ((change.DeltaY  >  0  && newBottomTile == BLOCKED_NORTH_TILE) || (change.DeltaY < 0 && bottomTile == BLOCKED_NORTH_TILE))
+     || ((change.DeltaX  >  0  && newBottomTile == BLOCKED_WEST_TILE) || (change.DeltaX < 0 && bottomTile == BLOCKED_WEST_TILE))
+     || ((change.DeltaY  <  0  && newBottomTile == BLOCKED_SOUTH_TILE) || (change.DeltaY > 0 && bottomTile == BLOCKED_SOUTH_TILE))
+     || ((change.DeltaX  <  0  && newBottomTile == BLOCKED_EAST_TILE) || (change.DeltaX > 0 && bottomTile == BLOCKED_EAST_TILE))
+     || (((change.DeltaY < 0 || change.DeltaX < 0) && newBottomTile == BLOCKED_SOUTH_EAST_TILE) 
+	 || ((change.DeltaY > 0 || change.DeltaX > 0) && bottomTile == BLOCKED_SOUTH_EAST_TILE)))
 		return true;
 
 	for (unsigned int i = 0; i < map.layers.size(); i++)
 	{
-		int newtile = map.layers[i][x + deltaX][y + deltaY].get();
+		int newtile = map.layers[i][x + change.DeltaX][y + change.DeltaY].get();
 
 		if (newtile == MUD_BLOCK_TILE
 		|| (newtile == FIRE_TILE && (t == BUG || t == WALKER))
@@ -1160,9 +1160,9 @@ bool Game::isSolid(int deltaX, int deltaY, POINT oldLocation, int t) // Used for
 	return false;
 }
 
-bool Game::isSolid(int deltaX, int deltaY, POINT oldLocation, bool isBlock) // Used for Chip and blocks
+bool Game::isSolid(POINT_CHANGE change, POINT oldLocation, bool isBlock) // Used for Chip and blocks
 {
-	int x = oldLocation.x + deltaX, y = oldLocation.y + deltaY;
+	int x = oldLocation.x + change.DeltaX, y = oldLocation.y + change.DeltaY;
 	POINT newLocation = NewPoint(x, y);
 
 	int bottomTile = bottomMostTile(oldLocation);
@@ -1190,23 +1190,23 @@ bool Game::isSolid(int deltaX, int deltaY, POINT oldLocation, bool isBlock) // U
    || (newBottomTile == GREEN_DOOR_TILE && (!chip.hasGreenKey || isBlock))
    || (newBottomTile == YELLOW_DOOR_TILE && (!chip.yellowKeys || isBlock))
    || (newBottomTile == SOCKET_TILE &&  (chipsLeft != 0 || isBlock))
-   || ((deltaY  >  0  && newBottomTile == BLOCKED_NORTH_TILE) || (deltaY < 0 && bottomTile == BLOCKED_NORTH_TILE))
-   || ((deltaX  >  0  && newBottomTile == BLOCKED_WEST_TILE) || (deltaX < 0 && bottomTile == BLOCKED_WEST_TILE))
-   || ((deltaY  <  0  && newBottomTile == BLOCKED_SOUTH_TILE) || (deltaY > 0 && bottomTile == BLOCKED_SOUTH_TILE))
-   || ((deltaX  <  0  && newBottomTile == BLOCKED_EAST_TILE) || (deltaX > 0 && bottomTile == BLOCKED_EAST_TILE))
-   || (((deltaX > 0 || deltaY > 0) && bottomTile == BLOCKED_SOUTH_EAST_TILE) || ((deltaX < 0 || deltaY < 0) && newBottomTile == BLOCKED_SOUTH_EAST_TILE))
+   || ((change.DeltaY  >  0  && newBottomTile == BLOCKED_NORTH_TILE) || (change.DeltaY < 0 && bottomTile == BLOCKED_NORTH_TILE))
+   || ((change.DeltaX  >  0  && newBottomTile == BLOCKED_WEST_TILE) || (change.DeltaX < 0 && bottomTile == BLOCKED_WEST_TILE))
+   || ((change.DeltaY  <  0  && newBottomTile == BLOCKED_SOUTH_TILE) || (change.DeltaY > 0 && bottomTile == BLOCKED_SOUTH_TILE))
+   || ((change.DeltaX  <  0  && newBottomTile == BLOCKED_EAST_TILE) || (change.DeltaX > 0 && bottomTile == BLOCKED_EAST_TILE))
+   || (((change.DeltaX > 0 || change.DeltaY > 0) && bottomTile == BLOCKED_SOUTH_EAST_TILE) || ((change.DeltaX < 0 || change.DeltaY < 0) && newBottomTile == BLOCKED_SOUTH_EAST_TILE))
 
-	|| (((deltaX < 0 || deltaY < 0) && bottomTile == SOUTH_EAST_ICE_TILE) || ((deltaX > 0 || deltaY > 0) && newBottomTile == SOUTH_EAST_ICE_TILE))
-	|| (((deltaX > 0 || deltaY < 0) && bottomTile == SOUTH_WEST_ICE_TILE) || ((deltaX < 0 || deltaY > 0) && newBottomTile == SOUTH_WEST_ICE_TILE))
-	|| (((deltaX > 0 || deltaY > 0) && bottomTile == NORTH_WEST_ICE_TILE) || ((deltaX < 0 || deltaY < 0) && newBottomTile == NORTH_WEST_ICE_TILE))
-	|| (((deltaX < 0 || deltaY > 0) && bottomTile == NORTH_EAST_ICE_TILE) || ((deltaX > 0 || deltaY < 0) && newBottomTile == NORTH_EAST_ICE_TILE))))
+	|| (((change.DeltaX < 0 || change.DeltaY < 0) && bottomTile == SOUTH_EAST_ICE_TILE) || ((change.DeltaX > 0 || change.DeltaY > 0) && newBottomTile == SOUTH_EAST_ICE_TILE))
+	|| (((change.DeltaX > 0 || change.DeltaY < 0) && bottomTile == SOUTH_WEST_ICE_TILE) || ((change.DeltaX < 0 || change.DeltaY > 0) && newBottomTile == SOUTH_WEST_ICE_TILE))
+	|| (((change.DeltaX > 0 || change.DeltaY > 0) && bottomTile == NORTH_WEST_ICE_TILE) || ((change.DeltaX < 0 || change.DeltaY < 0) && newBottomTile == NORTH_WEST_ICE_TILE))
+	|| (((change.DeltaX < 0 || change.DeltaY > 0) && bottomTile == NORTH_EAST_ICE_TILE) || ((change.DeltaX > 0 || change.DeltaY < 0) && newBottomTile == NORTH_EAST_ICE_TILE))))
 		return true;
 
 	for (unsigned int i = 0; i < map.layers.size(); i++)
 	{
 		int newtile = map.layers[i][x][y].get();
-		if (newtile == MUD_BLOCK_TILE && (map.layers[0][oldLocation.x + (2 * deltaX)][oldLocation.y + (2 * deltaY)] == MUD_BLOCK_TILE
-		|| isSolid(deltaX, deltaY, newLocation, true))
+		if (newtile == MUD_BLOCK_TILE && (map.layers[0][oldLocation.x + (2 * change.DeltaX)][oldLocation.y + (2 * change.DeltaY)] == MUD_BLOCK_TILE
+		|| isSolid(change, newLocation, true))
 		|| (newtile == MUD_BLOCK_TILE && isBlock)
 		|| (isBlock && (newtile >= BUG_NORTH_TILE && newtile <= PARAMECIUM_EAST_TILE)))
 			return true;
@@ -1238,7 +1238,7 @@ void Game::toggleOpen(POINT location, bool status)
 			cur->isOpen = status;
 }
 
-bool Game::commonMovement(POINT location, int deltaX, int deltaY, int& deltaX_v, int& deltaY_v, bool m, bool b)
+bool Game::commonMovement(POINT location, POINT_CHANGE change, POINT_CHANGE& changeRef, bool m, bool b)
 {
 	int bottomTile = bottomMostTile(location);
 
@@ -1247,7 +1247,7 @@ bool Game::commonMovement(POINT location, int deltaX, int deltaY, int& deltaX_v,
 	{
 		if (m == false && b == false)
 			soundEffects["BlockedMoveSound"].play();
-		deltaX_v = deltaY_v = 0;
+		changeRef = POINT_CHANGE();
 		return false;
 	}
 
@@ -1256,7 +1256,7 @@ bool Game::commonMovement(POINT location, int deltaX, int deltaY, int& deltaX_v,
 		toggleOpen(location, false);
 
 	// Switch to looking at the tile being stepped onto
-	int newX = location.x + deltaX, newY = location.y + deltaY;
+	int newX = location.x + change.DeltaX, newY = location.y + change.DeltaY;
 	POINT newLocation = NewPoint(newX, newY);
 	bottomTile = bottomMostTile(newLocation);
 
@@ -1268,12 +1268,12 @@ bool Game::commonMovement(POINT location, int deltaX, int deltaY, int& deltaX_v,
 		{
 			POINT currentLocation = NewPoint(i, j);
 			int newBottom = bottomMostTile(currentLocation);
-			if (newBottom == TELEPORT_TILE && !((m == 0) ? isSolid(deltaX, deltaY, currentLocation, b) : isSolid(deltaX, deltaY, currentLocation, m)))
+			if (newBottom == TELEPORT_TILE && !((m == 0) ? isSolid(change, currentLocation, b) : isSolid(change, currentLocation, m)))
 			{
 				// Go ahead and send the object through the teleport
 				if (m == false && b == false) soundEffects["TeleportSound"].play();
-				deltaX_v = i + deltaX - location.x;
-				deltaY_v = j + deltaY - location.y;
+				changeRef.DeltaX = i + change.DeltaX - location.x;
+				changeRef.DeltaY = j + change.DeltaY - location.y;
 				found = true;
 				break;
 			}
@@ -1282,7 +1282,7 @@ bool Game::commonMovement(POINT location, int deltaX, int deltaY, int& deltaX_v,
 		if (!found) // Something solid is on the other side
 		{
 			if (m == false && b == false) soundEffects["BlockedMoveSound"].play();
-			deltaX_v = deltaY_v = 0;
+			changeRef = POINT_CHANGE();
 			return false;
 		}
 	}
@@ -1327,9 +1327,9 @@ bool Game::commonMovement(POINT location, int deltaX, int deltaY, int& deltaX_v,
 	return true;
 }
 
-bool Game::handleClonerButton(POINT location, int deltaX, int deltaY)
+bool Game::handleClonerButton(POINT location, POINT_CHANGE change)
 {
-	int newX = location.x + deltaX, newY = location.y + deltaY;
+	int newX = location.x + change.DeltaX, newY = location.y + change.DeltaY;
 	int newBottomTile = bottomMostTile(NewPoint(newX, newY));
 
 	if (monsters.size() >= 128)
@@ -1360,7 +1360,7 @@ bool Game::handleClonerButton(POINT location, int deltaX, int deltaY)
 		ndeltaY = base.currentDirection.deltaY();
 		
 		// If possible, create a new object there
-		if ((m.type == BLOCK && !isSolid(ndeltaX, ndeltaY, monsterLocation, true)) || !isSolid(ndeltaX, ndeltaY, monsterLocation, m.type))
+		if ((m.type == BLOCK && !isSolid(POINT_CHANGE(ndeltaX, ndeltaY), monsterLocation, true)) || !isSolid(POINT_CHANGE(ndeltaX, ndeltaY), monsterLocation, m.type))
 		{
 			int newID;
 			POINT newMonsterLocation = NewPoint(m.x + ndeltaX, m.y + ndeltaY);
@@ -1395,7 +1395,8 @@ void Game::handleChip()
 		isStarted = true;
 
 	bool blockToErase = false;
-	int deltaX = 0, deltaY = 0, chipLayer = 0, bottomLayer = bottomMostIndex(chipLocation);
+	int chipLayer = 0, bottomLayer = bottomMostIndex(chipLocation);
+	POINT_CHANGE change;
 	direction forceDirection;
 
 	// Find out which layer chip is on
@@ -1416,7 +1417,7 @@ void Game::handleChip()
 			if (chip.lastMove == 0 && chip.notForward)
 			{
 				chip.notForward = false;
-				moveChip(0, 0);
+				moveChip(POINT_CHANGE());
 				DrawMap();
 				return;
 			}
@@ -1459,46 +1460,39 @@ void Game::handleChip()
 				// Set up distance measurement variables
 				int tempDeltaX = clickedPoint.x - chip.x;
 				int tempDeltaY = clickedPoint.y - chip.y;
-				deltaX = (tempDeltaX == 0) ? 0 : tempDeltaX / abs(tempDeltaX);
-				deltaY = (tempDeltaY == 0) ? 0 : tempDeltaY / abs(tempDeltaY);
+				change.DeltaX = (tempDeltaX == 0) ? 0 : tempDeltaX / abs(tempDeltaX);
+				change.DeltaY = (tempDeltaY == 0) ? 0 : tempDeltaY / abs(tempDeltaY);
 
-				bool xDirectionClear = !isSolid(deltaX, 0, chipLocation);
-				bool yDirectionClear = !isSolid(0, deltaY, chipLocation);
+				bool xDirectionClear = !isSolid(POINT_CHANGE(change.DeltaX, 0), chipLocation);
+				bool yDirectionClear = !isSolid(POINT_CHANGE(0, change.DeltaY), chipLocation);
 
-				if (deltaY == 0 || (deltaY != 0 && deltaX != 0 && xDirectionClear && (!yDirectionClear || yDirectionClear && abs(tempDeltaY) < abs(tempDeltaX))))
-					deltaY = 0;
+				if (change.DeltaY == 0 || (change != 0 && xDirectionClear && (!yDirectionClear || yDirectionClear && abs(tempDeltaY) < abs(tempDeltaX))))
+					change.DeltaY = 0;
 				else
-					deltaX = 0;
+					change.DeltaX = 0;
 
-				if (isSolid(deltaX, deltaY, chipLocation))
+				if (isSolid(change, chipLocation))
 					clickedPoint.x = clickedPoint.y = 50;
 
-				if (deltaY == -1)
-					chip.currentDirection = UP;
-				if (deltaY == 1)
-					chip.currentDirection = DOWN;
-				if (deltaX == 1)
-					chip.currentDirection = RIGHT;
-				if (deltaX == -1)
-					chip.currentDirection = LEFT;
+				chip.currentDirection.set(change);
 			}
 		}
 
-		if (deltaX == 0 && deltaY == 0)
+		if (change == 0)
 		{
 			if (chip.currentDirection == UP)
-				deltaY = -1;
+				change.DeltaY = -1;
 			if (chip.currentDirection == DOWN)
-				deltaY = 1;
+				change.DeltaY = 1;
 			if (chip.currentDirection == RIGHT)
-				deltaX = 1;
+				change.DeltaX = 1;
 			if (chip.currentDirection == LEFT)
-				deltaX = -1;
+				change.DeltaX = -1;
 		}
 
 		chip.notForward = true;
 
-		moveChip(deltaX, deltaY);
+		moveChip(change);
 		DrawMap();
 
 	}
@@ -1509,26 +1503,26 @@ void Game::handleChip()
 		function<void (direction&)> handleForceBlock = [&](direction& newDirection)
 		{
 			forceDirection = chip.currentDirection = newDirection;
-			if (isSolid(deltaX = newDirection.deltaX(), deltaY = newDirection.deltaY(), chipLocation))
+			if (isSolid(POINT_CHANGE(change.DeltaX = newDirection.deltaX(), change.DeltaY = newDirection.deltaY()), chipLocation))
 				soundEffects["BlockedMoveSound"].play();
 			if (chip.lastMoveWasForced)
-				force = !allowOverride(deltaX, deltaY);
+				force = !allowOverride(change);
 		};
 
 		function<void (direction&, bool, bool)> handleIceBlock = [&](direction& newDirection, bool isCurvedIceBlock, bool alternate)
 		{
 			int multiplier = (isCurvedIceBlock && alternate) || !isCurvedIceBlock ? -1 : 1;
 
-			if (isSolid(deltaX = newDirection.deltaX(), deltaY = newDirection.deltaY(), chipLocation))
+			if (isSolid(POINT_CHANGE(change.DeltaX = newDirection.deltaX(), change.DeltaY = newDirection.deltaY()), chipLocation))
 			{
-				revealBlueWall(NewPoint(chip.x + deltaX, chip.y + deltaY));
-				deltaX = (isCurvedIceBlock ? newDirection.deltaY() : newDirection.deltaX()) * multiplier;
-				deltaY = (isCurvedIceBlock ? newDirection.deltaX() : newDirection.deltaY()) * multiplier;
-				chip.lastDirection = chip.currentDirection = forceDirection.set(deltaX, deltaY);
+				revealBlueWall(NewPoint(chip.x + change.DeltaX, chip.y + change.DeltaY));
+				change.DeltaX = (isCurvedIceBlock ? newDirection.deltaY() : newDirection.deltaX()) * multiplier;
+				change.DeltaY = (isCurvedIceBlock ? newDirection.deltaX() : newDirection.deltaY()) * multiplier;
+				chip.lastDirection = chip.currentDirection = forceDirection.set(change);
 				soundEffects["BlockedMoveSound"].play();
 			}
 			else
-				chip.currentDirection.set(deltaX, deltaY);
+				chip.currentDirection.set(change);
 		};
 
 		switch(map.layers[bottomLayer][chip.x][chip.y].get())
@@ -1593,14 +1587,14 @@ void Game::handleChip()
 		else if (!force && chip.lastMoveWasForced)
 			chip.lastMoveWasForced = false;
 
-		moveChip(deltaX, deltaY);
+		moveChip(change);
 		DrawMap();
 	}
 
-	chip.lastDirection.set(deltaX, deltaY);
+	chip.lastDirection.set(change);
 }
 
-bool Game::allowOverride(int& deltaX, int& deltaY)
+bool Game::allowOverride(POINT_CHANGE& change)
 {
 	int bottomTile = map.layers[bottomMostIndex(NewPoint(chip.x, chip.y))][chip.x][chip.y].get();
 
@@ -1629,30 +1623,30 @@ bool Game::allowOverride(int& deltaX, int& deltaY)
 
 		if (upKeyIsPressed && bottomTile == FORCE_SOUTH_TILE)
 		{
-			deltaX = deltaY = 0;
+			change = POINT_CHANGE();
 			return false;
 		}
 
 		if (downKeyIsPressed && bottomTile == FORCE_NORTH_TILE)
 		{
-			deltaX = deltaY = 0;
+			change = POINT_CHANGE();
 			return false;
 		}
 
 		if (rightKeyIsPressed && bottomTile == FORCE_WEST_TILE)
 		{
-			deltaX = deltaY = 0;
+			change = POINT_CHANGE();
 			return false;
 		}
 
 		if (leftKeyIsPressed && bottomTile == FORCE_EAST_TILE)
 		{
-			deltaX = deltaY = 0;
+			change = POINT_CHANGE();
 			return false;
 		}
 
-		deltaX = chip.currentDirection.deltaX();
-		deltaY = chip.currentDirection.deltaY();
+		change.DeltaX = chip.currentDirection.deltaX();
+		change.DeltaY = chip.currentDirection.deltaY();
 		return true;
 	}
 

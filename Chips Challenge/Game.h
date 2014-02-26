@@ -16,6 +16,17 @@ using namespace std;
 #define DOWN 2
 #define RIGHT 3
 
+struct POINT_CHANGE
+{
+	int DeltaX, DeltaY;
+
+	POINT_CHANGE() : DeltaX(0), DeltaY(0) {}
+	POINT_CHANGE(int x, int y) : DeltaX(x), DeltaY(y) {}
+
+	bool operator==(int rhs) { return DeltaX + DeltaY == rhs; }
+	bool operator!=(int rhs) { return !(*this == rhs); }
+};
+
 class direction
 {
 	int m_direction;
@@ -28,15 +39,19 @@ public:
 	// Methods
 	direction& get() { return *this; }
 	//void get(int& d) {d = dir;}
-	int set(int x, int y) // Allows a direction to be set via the x and y change
+	int set(POINT_CHANGE change) // Allows a direction to be set via the x and y change
 	{
-		if (!((x == 0 && abs(y) < 2) || (y == 0 && abs(x) < 2)))
+		if (!((change.DeltaX == 0 && abs(change.DeltaY) < 2) || (change.DeltaY == 0 && abs(change.DeltaX) < 2)))
 			return m_direction;
 
-		if (x == 0)
-			return m_direction = y + 1;
+		if (change.DeltaX == 0)
+			return m_direction = change.DeltaY + 1;
 
-		return m_direction = x + 2;
+		return m_direction = change.DeltaX + 2;
+	}
+	int set(int deltaX, int deltaY) // Allows a direction to be set via the x and y change
+	{
+		return set(POINT_CHANGE(deltaX, deltaY));
 	}
 	int deltaX() { return (m_direction % 2 == 1) ? m_direction - 2 : 0 ; }
 	int deltaY() { return (m_direction % 2 == 1) ? 0 : m_direction - 1; }
@@ -197,14 +212,14 @@ public:
 	//
 	// PURPOSE:  Returns whether or not a specified tile appears solid to chip or a moving block
 	//
-	bool isSolid(int, int, POINT, bool b = false);
+	bool isSolid(POINT_CHANGE, POINT, bool b = false);
 
 	//
 	// FUNCTION: isSolid(int, int, int, int, int)
 	//
 	// PURPOSE:  Returns whether or not a specified tile appears solid to a monster
 	//
-	bool isSolid(int, int, POINT, int);
+	bool isSolid(POINT_CHANGE, POINT, int);
 
 	//
 	// FUNCTION: isSlippery(int, int, Chip)
@@ -262,7 +277,7 @@ public:
 	//				- Always called from handle_chip()
 	//				- Takes x and y change parameters
 	//
-	void moveChip(int, int);
+	void moveChip(POINT_CHANGE);
 
 	//
 	// FUNCTION: moveMonster(int, int, deque<Monster>::iterator&
@@ -271,7 +286,7 @@ public:
 	//				- Always called from handle_monsters()
 	//				- Takes x and y change parameters, and a reference to the current monster
 	//
-	void moveMonster(int, int, deque<Monster>::iterator&, int&);
+	void moveMonster(POINT_CHANGE, deque<Monster>::iterator&, int&);
 
 	//
 	// FUNCTION: moveBlock(int, int, deque<pair<pair<int, int>, direction>>::iterator&)
@@ -280,7 +295,7 @@ public:
 	//				- Always called from handle_moving_blocks()
 	//				- Takes x and y change parameters, and a reference to the current moving block
 	//
-	void moveBlock(int, int, blockIterator&);
+	void moveBlock(POINT_CHANGE, blockIterator&);
 
 	//
 	// FUNCTION: commonMovement(int, int, int, int, int&, int&, bool, bool)
@@ -293,7 +308,7 @@ public:
 	//					- Whether or not the object is a monster
 	//					- Whether or not the object is a block
 	//
-	bool commonMovement(POINT, int, int, int&, int&, bool m = false, bool b = false);
+	bool commonMovement(POINT, POINT_CHANGE, POINT_CHANGE&, bool m = false, bool b = false);
 
 	//
 	// FUNCTION: load_sounds()
@@ -310,7 +325,7 @@ public:
 	//				- Always called from handleChip()
 	//				- Takes x and y change as parameters
 	//
-	bool allowOverride(int&, int&);
+	bool allowOverride(POINT_CHANGE&);
 
 	//
 	// FUNCTION: handleClonerButton(int, int, int, int)
@@ -318,7 +333,7 @@ public:
 	// PURPOSE:  Handles cloner button pressing
 	//				- Takes the current object position and x and y change as parameters
 	//
-	bool handleClonerButton(POINT, int, int);
+	bool handleClonerButton(POINT, POINT_CHANGE);
 
 	//
 	// FUNCTION: redraw(int, int, int, int, int)
@@ -326,7 +341,7 @@ public:
 	// PURPOSE:  Redraws the tiles a moving object comes from and moves to
 	//				- Takes the tile id, position and x and y change as parameters
 	//
-	void redraw(int, POINT, int, int);
+	void redraw(int, POINT, POINT_CHANGE);
 
 	//
 	// FUNCTION: redrawOldTile(int, int, int)
