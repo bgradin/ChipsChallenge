@@ -15,6 +15,15 @@
 #define DOWN 2
 #define RIGHT 3
 
+struct COMPARABLE_POINT : public POINT
+{
+	COMPARABLE_POINT() {}
+	COMPARABLE_POINT(POINT point) { x = point.x; y = point.y; }
+	bool operator==(POINT& rhs) { return x == rhs.x && y == rhs.y;}
+	bool operator!=(POINT& rhs) { return !(*this == rhs); }
+	bool operator<(const COMPARABLE_POINT& rhs) const { return x + y < rhs.x + rhs.y; }
+};
+
 struct POINT_CHANGE
 {
 	int DeltaX, DeltaY;
@@ -135,22 +144,18 @@ public:
 class Trap
 {
 public:
-	Trap(POINT buttonLocation, POINT trapLocation, bool open) : m_buttonX(buttonLocation.x), m_buttonY(buttonLocation.y), m_trapX(trapLocation.x), m_trapY(trapLocation.y), isOpen(open) {}
+	Trap(POINT buttonLocation, POINT trapLocation, bool open) : m_buttonLocation(buttonLocation), m_trapLocation(trapLocation), isOpen(open) {}
 
-	int getButtonX() { return m_buttonX; }
-	int getButtonY() { return m_buttonY; }
-	int getTrapX() { return m_trapX; }
-	int getTrapY() { return m_trapY; }
+	COMPARABLE_POINT getButtonLocation() { return m_buttonLocation; }
+	COMPARABLE_POINT getTrapLocation() { return m_trapLocation; }
 	bool isOpen;
 
 	void openTrap() { isOpen = true; }
 	void closeTrap() { isOpen = false; }
 
 private:
-	int m_buttonX;
-	int m_buttonY;
-	int m_trapX;
-	int m_trapY;
+	COMPARABLE_POINT m_buttonLocation;
+	COMPARABLE_POINT m_trapLocation;
 };
 
 typedef deque<pair<POINT, direction>>::iterator blockIterator;
@@ -388,7 +393,7 @@ public:
 	Chip chip;
 	deque<Monster> monsters;
 	MIDI backgroundMusic;
-	map<POINT, POINT> cloners;
+	map<COMPARABLE_POINT, COMPARABLE_POINT> cloners;
 	map<string, wav> soundEffects;
 	Map map;
 	list<Trap> traps;

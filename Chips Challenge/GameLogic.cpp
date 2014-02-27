@@ -1221,10 +1221,10 @@ bool Game::isOpen(POINT location)
 {
 	list<Trap>::iterator cur;
 
-	for(cur = traps.begin(); cur != traps.end() && (cur->getTrapX() != location.x || cur->getTrapY() != location.y); cur++);
+	for(cur = traps.begin(); cur != traps.end() && (cur->getTrapLocation() != location); cur++);
 
 	if (cur != traps.end())
-		return cur->getTrapX() == location.x && cur->getTrapY() == location.y && cur->isOpen;
+		return cur->getTrapLocation() == location && cur->isOpen;
 
 	return false;
 }
@@ -1233,11 +1233,13 @@ void Game::toggleOpen(POINT location, bool status)
 {
 	list<Trap>::iterator cur;
 
-	for(cur = traps.begin(); cur != traps.end() && (cur->getButtonX() != location.x || cur->getButtonY() != location.y); cur++);
+	for(cur = traps.begin(); cur != traps.end() && (cur->getButtonLocation() == location); cur++);
 
 	if (cur != traps.end())
-		if (cur->getButtonX() == location.x && cur->getButtonY() == location.y)
+	{
+		if (cur->getButtonLocation() == location)
 			cur->isOpen = status;
+	}
 }
 
 bool Game::commonMovement(POINT location, POINT_CHANGE change, POINT_CHANGE& changeRef, bool m, bool b)
@@ -1344,18 +1346,20 @@ bool Game::handleClonerButton(POINT location, POINT_CHANGE change)
 		soundEffects["SwitchSound"].play();
 
 		int ndeltaX = 0, ndeltaY = 0;
-		POINT cloner = cloners[NewPoint(newX, newY)]; // Find cloner location
 		Monster m;
-		POINT clonerLocation = NewPoint(cloner.x, cloner.y);
-		POINT monsterLocation = NewPoint(m.location.x, m.location.y);
+		POINT clonerLocation = cloners[NewPoint(newX, newY)]; // Find cloner location
+
+		Tile tile = map.layers[0][clonerLocation.x][clonerLocation.y];
 
 		// Find monster/block at that location
-		if (map.layers[0][cloner.x][cloner.y] > 13 && map.layers[0][cloner.x][cloner.y] < 18)
-			m = Monster(clonerLocation, map.layers[0][cloner.x][cloner.y].get() - 2);
-		else if (map.layers[0][cloner.x][cloner.y] > 67 && map.layers[0][cloner.x][cloner.y] < 100)
-			m = Monster(clonerLocation, map.layers[0][cloner.x][cloner.y].get());
+		if (tile >= CLONE_BLOCK_NORTH_TILE && tile <= CLONE_BLOCK_EAST_TILE)
+			m = Monster(clonerLocation, tile.get() - 2);
+		else if (tile >= BUG_NORTH_TILE && tile <= PARAMECIUM_EAST_TILE)
+			m = Monster(clonerLocation, tile.get());
 		else
 			return false;
+
+		POINT monsterLocation = NewPoint(m.location.x, m.location.y);
 
 		Monster base = (m.type == TEETH || m.type == BUG || m.type == PARAMECIUM) ? monsters.back() : m;
 
