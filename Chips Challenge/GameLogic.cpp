@@ -1415,10 +1415,9 @@ void Game::handleChip()
 			chipLayer = i;
 	}
 
-	// If chip is not on an ice or teleport block, only allow him to move selectively.
+	// If chip is not on an ice or teleport block, only allow him to move on specific frames
 	if (!isSlippery(chipLocation, chip))
 	{
-
 		if (!(upKeyIsPressed || downKeyIsPressed || leftKeyIsPressed || rightKeyIsPressed) && recentKeyPresses.size() == 0 && chip.notForward)
 		{
 			chip.lastMove--;
@@ -1444,7 +1443,7 @@ void Game::handleChip()
 
 		chip.lastMoveWasForced = false;
 
-		if (recentKeyPresses.size() > 0 )
+		if (recentKeyPresses.size() > 0)
 		{
 			chip.currentDirection = recentKeyPresses.front();
 			recentKeyPresses.pop();
@@ -1487,16 +1486,7 @@ void Game::handleChip()
 		}
 
 		if (change == 0)
-		{
-			if (chip.currentDirection == UP)
-				change.DeltaY = -1;
-			if (chip.currentDirection == DOWN)
-				change.DeltaY = 1;
-			if (chip.currentDirection == RIGHT)
-				change.DeltaX = 1;
-			if (chip.currentDirection == LEFT)
-				change.DeltaX = -1;
-		}
+			change = POINT_CHANGE(chip.currentDirection.deltaX(), chip.currentDirection.deltaY());
 
 		chip.notForward = true;
 
@@ -1506,6 +1496,9 @@ void Game::handleChip()
 	}
 	else
 	{
+		if (currentFrame % 3 == 0 && recentKeyPresses.size() > 0)
+			recentKeyPresses.pop();
+
 		bool force = true;
 
 		function<void (direction&)> handleForceBlock = [&](direction& newDirection)
