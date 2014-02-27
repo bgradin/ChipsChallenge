@@ -782,6 +782,8 @@ void Game::moveChip(POINT_CHANGE change)
 		change = POINT_CHANGE();
 	}
 
+	POINT_CHANGE storedChange = change;
+
 	// Handle common movement elements of all moveable objects
 	if (change != 0)
 		commonMovement(chipLocation, change, change);
@@ -911,11 +913,9 @@ void Game::moveChip(POINT_CHANGE change)
 
 		bool movedblock = false;
 
-		int storedDeltaX = change.DeltaX;
-		int storedDeltaY = change.DeltaY;
 		if (newID == MUD_BLOCK_TILE)
 		{
-			int newBottomIndex = bottomMostIndex(NewPoint(newX + storedDeltaX, newY + storedDeltaY));
+			int newBottomIndex = bottomMostIndex(NewPoint(newX + storedChange.DeltaX, newY + storedChange.DeltaY));
 
 			// First things first - find out if the block is in the moving blocks list
 			for (deque<pair<POINT, direction>>::iterator cur = movingBlocks.begin(); cur != movingBlocks.end(); cur++)
@@ -927,20 +927,22 @@ void Game::moveChip(POINT_CHANGE change)
 				}
 			}
 
-			POINT newBlockLocation = NewPoint(newX + storedDeltaX, newY + storedDeltaY);
-			if (map.layers[newBottomIndex][newX + storedDeltaX][newY + storedDeltaY] != WATER_TILE)
+			POINT newBlockLocation = NewPoint(newX + storedChange.DeltaX, newY + storedChange.DeltaY);
+			if (map.layers[newBottomIndex][newX + storedChange.DeltaX][newY + storedChange.DeltaY] != WATER_TILE)
 			{
-				if (map.layers[newBottomIndex][newX + storedDeltaX][newY + storedDeltaY] == BOMB_TILE)
+				if (map.layers[newBottomIndex][newX + storedChange.DeltaX][newY + storedChange.DeltaY] == BOMB_TILE)
 				{
 					redrawOldTile(MUD_BLOCK_TILE, newChipLocation);
 					soundEffects["BombSound"].play();
-					map.layers[newBottomIndex][newX + storedDeltaX][newY + storedDeltaY] = EMPTY_TILE;
+					map.layers[newBottomIndex][newX + storedChange.DeltaX][newY + storedChange.DeltaY] = EMPTY_TILE;
 				}
 				else
 				{
 					// Common movement of all moveable objects determines if the block moves or not
-					if (commonMovement(newChipLocation, change, POINT_CHANGE(storedDeltaX, storedDeltaY)))
+					if (commonMovement(newChipLocation, change, storedChange))
 					{
+						newBlockLocation = NewPoint(newX + storedChange.DeltaX, newY + storedChange.DeltaY);
+
 						// Redraw necessary tiles
 						redrawNewTile(MUD_BLOCK_TILE, newBlockLocation);
 
@@ -949,9 +951,9 @@ void Game::moveChip(POINT_CHANGE change)
 						if (isSlippery(newBlockLocation))
 							movingBlocks.push_front(make_pair(newBlockLocation, direction().set(change)));
 
-						handleClonerButton(newChipLocation, POINT_CHANGE(storedDeltaX, storedDeltaY));
+						handleClonerButton(newChipLocation, storedChange);
 					}
-					else if (storedDeltaX == 0 && storedDeltaY == 0)
+					else if (storedChange != 0)
 						change = POINT_CHANGE();
 				}
 			}
@@ -959,7 +961,7 @@ void Game::moveChip(POINT_CHANGE change)
 			{
 				soundEffects["SplashSound"].play();
 				int newBottomIndex = bottomMostIndex(newBlockLocation);
-				map.layers[newBottomIndex][newX + storedDeltaX][newY + storedDeltaY] = DIRT_TILE;
+				map.layers[newBottomIndex][newX + storedChange.DeltaX][newY + storedChange.DeltaY] = DIRT_TILE;
 			}
 
 			blockToErase = MUD_BLOCK_TILE;
@@ -973,7 +975,7 @@ void Game::moveChip(POINT_CHANGE change)
 
 		// Check to see if a block hit a cloner
 		if (movedblock)
-			handleClonerButton(newChipLocation, POINT_CHANGE(storedDeltaX, storedDeltaY));
+			handleClonerButton(newChipLocation, storedChange);
 	}
 
 	bottomIndex = bottomMostIndex(newChipLocation);
@@ -1268,10 +1270,11 @@ bool Game::commonMovement(POINT location, POINT_CHANGE change, POINT_CHANGE& cha
 		{
 			POINT currentLocation = NewPoint(i, j);
 			int newBottom = bottomMostTile(currentLocation);
-			if (newBottom == TELEPORT_TILE && !((m == 0) ? isSolid(change, currentLocation, b) : isSolid(change, currentLocation, m)))
+			if (newBottom == TELEPORT_TILE && !(!m ? isSolid(change, currentLocation, b) : isSolid(change, currentLocation, m)))
 			{
 				// Go ahead and send the object through the teleport
-				if (m == false && b == false) soundEffects["TeleportSound"].play();
+				if (!m && !b)
+					soundEffects["TeleportSound"].play();
 				changeRef.DeltaX = i + change.DeltaX - location.x;
 				changeRef.DeltaY = j + change.DeltaY - location.y;
 				found = true;
@@ -1281,7 +1284,8 @@ bool Game::commonMovement(POINT location, POINT_CHANGE change, POINT_CHANGE& cha
 
 		if (!found) // Something solid is on the other side
 		{
-			if (m == false && b == false) soundEffects["BlockedMoveSound"].play();
+			if (!m && !b)
+				soundEffects["BlockedMoveSound"].play();
 			changeRef = POINT_CHANGE();
 			return false;
 		}
