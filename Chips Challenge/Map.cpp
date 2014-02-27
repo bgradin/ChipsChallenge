@@ -198,8 +198,8 @@ bool Map::Load(Game& game, int levelID)
 	game.cloners.clear();
 
 	// Reset Chip
-	game.chip.x = 0;
-	game.chip.y = 0;
+	game.chip.location.x = 0;
+	game.chip.location.y = 0;
 
 	// Load the first layer:
 	while (firstLayerBytes > 0)
@@ -217,8 +217,8 @@ bool Map::Load(Game& game, int levelID)
 
 				if (tileID >= CHIP_NORTH_TILE && tileID <= CHIP_EAST_TILE)
 				{
-					game.chip.x = currentX;
-					game.chip.y = currentY;
+					game.chip.location.x = currentX;
+					game.chip.location.y = currentY;
 				}
 
 				currentX++;
@@ -235,8 +235,8 @@ bool Map::Load(Game& game, int levelID)
 
 			if (tileID >= CHIP_NORTH_TILE && tileID <= CHIP_EAST_TILE)
 			{
-				game.chip.x = currentX;
-				game.chip.y = currentY;
+				game.chip.location.x = currentX;
+				game.chip.location.y = currentY;
 			}
 
 			currentX++;
@@ -421,7 +421,7 @@ bool Map::Load(Game& game, int levelID)
 
 	delete [] tch;
 
-	if (game.isSlippery(NewPoint(game.chip.x, game.chip.y), game.chip))
+	if (game.isSlippery(NewPoint(game.chip.location.x, game.chip.location.y), game.chip))
 		game.chip.lastMoveWasForced = game.chip.notForward = true;
 
 	game.isLoaded = true;

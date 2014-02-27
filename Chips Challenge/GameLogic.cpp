@@ -178,7 +178,7 @@ void Game::handleMovingBlocks()
 		}
 	}
 
-	if (map.layers[0][chip.x][chip.y] == MUD_BLOCK_TILE)
+	if (map.layers[0][chip.location.x][chip.location.y] == MUD_BLOCK_TILE)
 		death(5);
 }
 
@@ -317,7 +317,7 @@ void Game::handleMonsters()
 
 		function<void (deque<Monster>::iterator&, direction&)> handleForceBlock = [&](deque<Monster>::iterator& cur, direction& forceDirection)
 		{
-			if (!isSolid(POINT_CHANGE(change.DeltaX = forceDirection.deltaX(), change.DeltaY = forceDirection.deltaY()), NewPoint(cur->x, cur->y), cur->type))
+			if (!isSolid(POINT_CHANGE(change.DeltaX = forceDirection.deltaX(), change.DeltaY = forceDirection.deltaY()), NewPoint(cur->location.x, cur->location.y), cur->type))
 				cur->currentDirection = forceDirection;
 			else
 				change = POINT_CHANGE();
@@ -328,7 +328,7 @@ void Game::handleMonsters()
 			int multiplier = !isCurvedIceBlock || alternate ? -1 : 1;
 			int multiplierX = (isCurvedIceBlock ? newDirection.deltaY() : newDirection.deltaX()) * multiplier;
 			int multiplierY = (isCurvedIceBlock ? newDirection.deltaX() : newDirection.deltaY()) * multiplier;
-			POINT currentLocation = NewPoint(cur->x, cur->y);
+			POINT currentLocation = NewPoint(cur->location.x, cur->location.y);
 
 			if (isSolid(POINT_CHANGE(change.DeltaX = newDirection.deltaX(), change.DeltaY = newDirection.deltaY()), currentLocation, cur->type) && !isSolid(POINT_CHANGE(multiplierX, multiplierY), currentLocation, cur->type))
 			{
@@ -347,7 +347,7 @@ void Game::handleMonsters()
 		{
 			bool found = false;
 			change = POINT_CHANGE();
-			POINT currentLocation = NewPoint(cur->x, cur->y);
+			POINT currentLocation = NewPoint(cur->location.x, cur->location.y);
 
 			int bottomTile = bottomMostTile(currentLocation);
 
@@ -606,8 +606,8 @@ void Game::handleMonsters()
 			if (cur->type == TEETH)
 			{
 				// Set up distance measurement variables
-				int tempDeltaX = chip.x - cur->x;
-				int tempDeltaY = chip.y - cur->y;
+				int tempDeltaX = chip.location.x - cur->location.x;
+				int tempDeltaY = chip.location.y - cur->location.y;
 				change.DeltaX = (tempDeltaX == 0) ? 0 : tempDeltaX / abs(tempDeltaX);
 				change.DeltaY = (tempDeltaY == 0) ? 0 : tempDeltaY / abs(tempDeltaY);
 				bool xClear = !isSolid(POINT_CHANGE(change.DeltaX, 0), currentLocation, cur->type);
@@ -653,7 +653,7 @@ void Game::handleMonsters()
 
 void Game::moveMonster(POINT_CHANGE change, deque<Monster>::iterator& cur, int& lastPosition)
 {
-	POINT currentLocation = NewPoint(cur->x, cur->y);
+	POINT currentLocation = NewPoint(cur->location.x, cur->location.y);
 
 	// Common movement of all moveable objects
 	commonMovement(currentLocation, change, change, true);
@@ -668,11 +668,11 @@ void Game::moveMonster(POINT_CHANGE change, deque<Monster>::iterator& cur, int& 
 		cur = monsters.begin() + index;
 
 	// Set up new coordinates
-	cur->x += change.DeltaX;
-	cur->y += change.DeltaY;
+	cur->location.x += change.DeltaX;
+	cur->location.y += change.DeltaY;
 
 	// currentLocation might have changed
-	currentLocation = NewPoint(cur->x, cur->y);
+	currentLocation = NewPoint(cur->location.x, cur->location.y);
 
 	// If the monster steps in water, fire or on a bomb
 	// Ghosts cannot be killed by water
@@ -689,7 +689,7 @@ void Game::moveMonster(POINT_CHANGE change, deque<Monster>::iterator& cur, int& 
 			int bottom = bottomMostIndex(currentLocation);
 
 			// Redraw bottom tile
-			map.layers[bottom][cur->x][cur->y] = EMPTY_TILE;
+			map.layers[bottom][cur->location.x][cur->location.y] = EMPTY_TILE;
 
 			// Get rid of the bottom layer if it's empty
 			if (map.layers[bottom].isEmpty() && map.layers.size() > 2)
@@ -766,8 +766,8 @@ void Game::death(int code)
 
 void Game::moveChip(POINT_CHANGE change)
 {
-	int newX = chip.x + change.DeltaX, newY = chip.y + change.DeltaY;
-	POINT chipLocation = NewPoint(chip.x, chip.y);
+	int newX = chip.location.x + change.DeltaX, newY = chip.location.y + change.DeltaY;
+	POINT chipLocation = NewPoint(chip.location.x, chip.location.y);
 	POINT newChipLocation = NewPoint(newX, newY);
 
 	// Conditions where Chip shouldn't move
@@ -789,9 +789,9 @@ void Game::moveChip(POINT_CHANGE change)
 		commonMovement(chipLocation, change, change);
 
 	// The following calculations must be redone, in case deltaX or deltaY changed
-	newX = chip.x + change.DeltaX;
-	newY = chip.y + change.DeltaY;
-	chipLocation = NewPoint(chip.x, chip.y);
+	newX = chip.location.x + change.DeltaX;
+	newY = chip.location.y + change.DeltaY;
+	chipLocation = NewPoint(chip.location.x, chip.location.y);
 	newChipLocation = NewPoint(newX, newY);
 
 	// Declare some variables which will come in handy later in this function
@@ -1026,8 +1026,8 @@ void Game::moveChip(POINT_CHANGE change)
 	chip.lastMove = (FRAMES_PER_SECOND / 2);
 
 	// Set up new coordinates
-	chip.x = newX;
-	chip.y = newY;
+	chip.location.x = newX;
+	chip.location.y = newY;
 
 	if (map.layers[bottomIndex][newX][newY] == WATER_TILE)
 	{
@@ -1048,21 +1048,21 @@ void Game::moveChip(POINT_CHANGE change)
 		return death(4);
 	}
 
-	if (chip.x == clickedPoint.x && chip.y == clickedPoint.y)
+	if (chip.location.x == clickedPoint.x && chip.location.y == clickedPoint.y)
 		clickedPoint.x = clickedPoint.y = 50;
 
 	if (chipHasHitMonster())
 	{
 		int monsterType = -1;
 		for (unsigned int i = 0; i < map.layers.size(); i++)
-			if (map.layers[i][chip.x][chip.y] > 63 && map.layers[i][chip.x][chip.y] < 100)
-				monsterType = map.layers[i][chip.x][chip.y].get();
+			if (map.layers[i][chip.location.x][chip.location.y] > 63 && map.layers[i][chip.location.x][chip.location.y] < 100)
+				monsterType = map.layers[i][chip.location.x][chip.location.y].get();
 
-		if (monsterType != -1 && map.layers[0][chip.x][chip.y].get() % 4 == (monsterType + 2) % 4)
+		if (monsterType != -1 && map.layers[0][chip.location.x][chip.location.y].get() % 4 == (monsterType + 2) % 4)
 			return death(3);
 	}
 
-	if (map.layers[bottomIndex][chip.x][chip.y] == EXIT_TILE)
+	if (map.layers[bottomIndex][chip.location.x][chip.location.y] == EXIT_TILE)
 	{
 		soundEffects["LevelCompleteSound"].play();
 
@@ -1104,7 +1104,7 @@ bool Game::chipHasHitMonster()
 {
 	for (unsigned int i = 0; i < map.layers.size(); i++)
 	{
-		int newID = map.layers[i][chip.x][chip.y].get();
+		int newID = map.layers[i][chip.location.x][chip.location.y].get();
 		if (newID >= BUG_NORTH_TILE && newID <= PARAMECIUM_EAST_TILE)
 			return true;
 	}
@@ -1319,7 +1319,7 @@ bool Game::commonMovement(POINT location, POINT_CHANGE change, POINT_CHANGE& cha
 		soundEffects["SwitchSound"].play();
 		for (deque<Monster>::iterator cur = monsters.begin(); cur != monsters.end(); cur++)
 		{
-			if (cur->type == TANK && map.layers[bottomMostIndex(NewPoint(cur->x, cur->y))][cur->x][cur->y] != CLONING_MACHINE_TILE)
+			if (cur->type == TANK && map.layers[bottomMostIndex(NewPoint(cur->location.x, cur->location.y))][cur->location.x][cur->location.y] != CLONING_MACHINE_TILE)
 			{
 				cur->currentDirection = (cur->currentDirection.toInt() < 3) ? cur->currentDirection.toInt() + 2 : cur->currentDirection.toInt() - 2;
 
@@ -1344,16 +1344,16 @@ bool Game::handleClonerButton(POINT location, POINT_CHANGE change)
 		soundEffects["SwitchSound"].play();
 
 		int ndeltaX = 0, ndeltaY = 0;
-		pair<int, int> cloner = cloners[make_pair(newX, newY)]; // Find cloner location
+		POINT cloner = cloners[NewPoint(newX, newY)]; // Find cloner location
 		Monster m;
-		POINT clonerLocation = NewPoint(cloner.first, cloner.second);
-		POINT monsterLocation = NewPoint(m.x, m.y);
+		POINT clonerLocation = NewPoint(cloner.x, cloner.y);
+		POINT monsterLocation = NewPoint(m.location.x, m.location.y);
 
 		// Find monster/block at that location
-		if (map.layers[0][cloner.first][cloner.second] > 13 && map.layers[0][cloner.first][cloner.second] < 18)
-			m = Monster(clonerLocation, map.layers[0][cloner.first][cloner.second].get() - 2);
-		else if (map.layers[0][cloner.first][cloner.second] > 67 && map.layers[0][cloner.first][cloner.second] < 100)
-			m = Monster(clonerLocation, map.layers[0][cloner.first][cloner.second].get());
+		if (map.layers[0][cloner.x][cloner.y] > 13 && map.layers[0][cloner.x][cloner.y] < 18)
+			m = Monster(clonerLocation, map.layers[0][cloner.x][cloner.y].get() - 2);
+		else if (map.layers[0][cloner.x][cloner.y] > 67 && map.layers[0][cloner.x][cloner.y] < 100)
+			m = Monster(clonerLocation, map.layers[0][cloner.x][cloner.y].get());
 		else
 			return false;
 
@@ -1367,7 +1367,7 @@ bool Game::handleClonerButton(POINT location, POINT_CHANGE change)
 		if ((m.type == BLOCK && !isSolid(POINT_CHANGE(ndeltaX, ndeltaY), monsterLocation, true)) || !isSolid(POINT_CHANGE(ndeltaX, ndeltaY), monsterLocation, m.type))
 		{
 			int newID;
-			POINT newMonsterLocation = NewPoint(m.x + ndeltaX, m.y + ndeltaY);
+			POINT newMonsterLocation = NewPoint(m.location.x + ndeltaX, m.location.y + ndeltaY);
 
 			if (m.type != BLOCK)
 			{
@@ -1379,10 +1379,10 @@ bool Game::handleClonerButton(POINT location, POINT_CHANGE change)
 
 			// Redraw tile
 			redrawOldTile(newID, newMonsterLocation);
-			map.layers[0][m.x + ndeltaX][m.y + ndeltaY] = newID;
+			map.layers[0][m.location.x + ndeltaX][m.location.y + ndeltaY] = newID;
 
 			if (newID == MUD_BLOCK_TILE && isSlippery(newMonsterLocation))
-				movingBlocks.push_back(make_pair(NewPoint(m.x + ndeltaX, m.y + ndeltaY), direction().set(ndeltaX, ndeltaY)));
+				movingBlocks.push_back(make_pair(NewPoint(m.location.x + ndeltaX, m.location.y + ndeltaY), direction().set(ndeltaX, ndeltaY)));
 		}
 
 		return true;
@@ -1393,7 +1393,7 @@ bool Game::handleClonerButton(POINT location, POINT_CHANGE change)
 
 void Game::handleChip()
 {
-	POINT chipLocation = NewPoint(chip.x, chip.y);
+	POINT chipLocation = NewPoint(chip.location.x, chip.location.y);
 
 	if (!isStarted && isActive)
 		isStarted = true;
@@ -1406,7 +1406,7 @@ void Game::handleChip()
 	// Find out which layer chip is on
 	for (unsigned int i = 1; i < map.layers.size(); i++)
 	{
-		int tmp = map.layers[i][chip.x][chip.y].get();
+		int tmp = map.layers[i][chip.location.x][chip.location.y].get();
 		if ((tmp > 59 && tmp < 64) || tmp > 107)
 			chipLayer = i;
 	}
@@ -1462,8 +1462,8 @@ void Game::handleChip()
 				chip.currentDirection = direction();
 
 				// Set up distance measurement variables
-				int tempDeltaX = clickedPoint.x - chip.x;
-				int tempDeltaY = clickedPoint.y - chip.y;
+				int tempDeltaX = clickedPoint.x - chip.location.x;
+				int tempDeltaY = clickedPoint.y - chip.location.y;
 				change.DeltaX = (tempDeltaX == 0) ? 0 : tempDeltaX / abs(tempDeltaX);
 				change.DeltaY = (tempDeltaY == 0) ? 0 : tempDeltaY / abs(tempDeltaY);
 
@@ -1519,7 +1519,7 @@ void Game::handleChip()
 
 			if (isSolid(POINT_CHANGE(change.DeltaX = newDirection.deltaX(), change.DeltaY = newDirection.deltaY()), chipLocation))
 			{
-				revealBlueWall(NewPoint(chip.x + change.DeltaX, chip.y + change.DeltaY));
+				revealBlueWall(NewPoint(chip.location.x + change.DeltaX, chip.location.y + change.DeltaY));
 				change.DeltaX = (isCurvedIceBlock ? newDirection.deltaY() : newDirection.deltaX()) * multiplier;
 				change.DeltaY = (isCurvedIceBlock ? newDirection.deltaX() : newDirection.deltaY()) * multiplier;
 				chip.lastDirection = chip.currentDirection = forceDirection.set(change);
@@ -1529,7 +1529,7 @@ void Game::handleChip()
 				chip.currentDirection.set(change);
 		};
 
-		switch(map.layers[bottomLayer][chip.x][chip.y].get())
+		switch(map.layers[bottomLayer][chip.location.x][chip.location.y].get())
 		{
 		case FORCE_SOUTH_TILE:
 			handleForceBlock(direction(DOWN));
@@ -1600,7 +1600,7 @@ void Game::handleChip()
 
 bool Game::allowOverride(POINT_CHANGE& change)
 {
-	int bottomTile = map.layers[bottomMostIndex(NewPoint(chip.x, chip.y))][chip.x][chip.y].get();
+	int bottomTile = map.layers[bottomMostIndex(NewPoint(chip.location.x, chip.location.y))][chip.location.x][chip.location.y].get();
 
 	// Chip isn't always supposed to be forced in the force block.
 	if ((bottomTile >= FORCE_NORTH_TILE && bottomTile <= FORCE_WEST_TILE) || bottomTile == FORCE_SOUTH_TILE)

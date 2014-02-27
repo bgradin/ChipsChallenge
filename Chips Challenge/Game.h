@@ -8,7 +8,6 @@
 //		- GameLogic.cpp
 
 #include "stdafx.h"
-using namespace std;
 
 // Directions are defined numerically with the following convention:
 #define UP 0
@@ -39,7 +38,7 @@ public:
 	// Methods
 	direction& get() { return *this; }
 	//void get(int& d) {d = dir;}
-	int set(POINT_CHANGE change) // Allows a direction to be set via the x and y change
+	int set(POINT_CHANGE change)
 	{
 		if (!((change.DeltaX == 0 && abs(change.DeltaY) < 2) || (change.DeltaY == 0 && abs(change.DeltaX) < 2)))
 			return m_direction;
@@ -73,13 +72,13 @@ public:
 class Player
 {
 public:
-	int x, y;
+	POINT location;
 	int lastMove;
 	bool canMove, notForward, movedRecently;
 	direction lastDirection;
 	direction currentDirection;
 
-	bool operator==(const Player& p) { return x == p.x && y == p.y; }
+	bool operator==(const Player& p) { return location.x == p.location.x && location.y == p.location.y; }
 };
 
 // Monster types
@@ -97,11 +96,11 @@ public:
 class Monster : public Player
 {
 public:
-	Monster() { x = y = type = canMove = notForward = 0; }
+	Monster() { location.x = location.y = type = canMove = notForward = 0; }
 	Monster(POINT newLocation, int newType) : type(newType / 4)
 	{
-		x = newLocation.x;
-		y = newLocation.y;
+		location.x = newLocation.x;
+		location.y = newLocation.y;
 		canMove = true;
 		notForward = false;
 		skipFrame = false;
@@ -116,7 +115,7 @@ public:
 class Chip: public Player
 {
 public:
-	Chip() { x = y = -1; } // Chip's location must be specified by each level
+	Chip() {} // Chip's location must be specified by each level
 
 	bool lastMoveWasForced;
 	bool isDead;
@@ -389,7 +388,7 @@ public:
 	Chip chip;
 	deque<Monster> monsters;
 	MIDI backgroundMusic;
-	map<pair<int, int>, pair<int, int>> cloners;
+	map<POINT, POINT> cloners;
 	map<string, wav> soundEffects;
 	Map map;
 	list<Trap> traps;
