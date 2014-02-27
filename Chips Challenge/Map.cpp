@@ -330,7 +330,7 @@ bool Map::Load(Game& game, int levelID)
 				int buttonY = htoi(ReadWord(inputStream));
 				int clonerX = htoi(ReadWord(inputStream));
 				int clonerY = htoi(ReadWord(inputStream));
-				game.cloners.insert(make_pair(make_pair(buttonX, buttonY), make_pair(clonerX, clonerY)));
+				game.cloners.insert(make_pair(NewPoint(buttonX, buttonY), NewPoint(clonerX, clonerY)));
 			}
 		}
 
