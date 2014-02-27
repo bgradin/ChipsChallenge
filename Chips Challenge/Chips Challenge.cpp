@@ -681,8 +681,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			SelectObject(hbcmem, blackWhiteSprites);
 
 		// Find x and y coordinate for the top left of the visible screen
-		game.centerTileLocation.x = game.chip.x;
-		game.centerTileLocation.y = game.chip.y;
+		game.centerTileLocation.x = game.chip.location.x;
+		game.centerTileLocation.y = game.chip.location.y;
 
 		int currentX = 0, currentY = 0;
 		if (game.centerTileLocation.x < 4)  game.centerTileLocation.x = 4;
@@ -726,8 +726,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 				int ci_x = (animationCounter > 287) ? ((((int)(animationCounter / 32)) % 2 == 1) ? armsLifted = true, 96 : 288) : 288;
 				int ci_y = (animationCounter > 287) ? ((((int)(animationCounter / 32)) % 2 == 1) ? armsLifted = true, 288 : 448) : 448;
-				int i_x = (game.chip.x > 4 && game.chip.x < 29) ? 4 : ((game.chip.x <= 4) ? game.chip.x : game.chip.x - 24);
-				int i_y = (game.chip.y > 4 && game.chip.y < 29) ? 4 : ((game.chip.y <= 4) ? game.chip.y : game.chip.y - 24);
+				int i_x = (game.chip.location.x > 4 && game.chip.location.x < 29) ? 4 : ((game.chip.location.x <= 4) ? game.chip.location.x : game.chip.location.x - 24);
+				int i_y = (game.chip.location.y > 4 && game.chip.location.y < 29) ? 4 : ((game.chip.location.y <= 4) ? game.chip.location.y : game.chip.location.y - 24);
 
 				i_x = i_x * 32 - ((animationCounter / 2) - 16) + 32; // x for drawn image
 				i_x = (animationCounter > 287) ? 32 : ((i_x < 32) ? 32 : (((i_x + animationCounter) > 320) ? (320 - animationCounter) : i_x));
