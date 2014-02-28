@@ -1375,7 +1375,7 @@ bool Game::handleClonerButton(POINT location, POINT_CHANGE change)
 
 			if (m.type != BLOCK)
 			{
-				Monster m_new(newMonsterLocation, (base.type * 4) + base.currentDirection.toInt()); // new monster
+				Monster m_new(newMonsterLocation, (m.type * 4) + m.currentDirection.toInt()); // new monster
 				monsters.push_back(m_new); // add to list
 				newID = (m_new.type * 4) + m_new.currentDirection.toInt();
 			} else
