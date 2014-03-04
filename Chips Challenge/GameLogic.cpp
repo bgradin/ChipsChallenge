@@ -922,7 +922,7 @@ void Game::moveChip(POINT_CHANGE change)
 			int newBottomIndex = bottomMostIndex(NewPoint(newX + storedChange.DeltaX, newY + storedChange.DeltaY));
 
 			// First things first - find out if the block is in the moving blocks list
-			for (deque<pair<POINT, direction>>::iterator cur = movingBlocks.begin(); cur != movingBlocks.end(); cur++)
+			for (blockIterator cur = movingBlocks.begin(); cur != movingBlocks.end(); cur++)
 			{
 				if (newX == cur->first.x && newY == cur->first.x)
 				{
@@ -1354,9 +1354,6 @@ bool Game::handleClonerButton(POINT location, POINT_CHANGE change)
 		POINT clonerLocation;
 		clonerLocation.x = bla.x;
 		clonerLocation.y = bla.y;
-
-		if (clonerLocation.x == 24)
-			int i =0;
 
 		Tile tile = map.layers[0][clonerLocation.x][clonerLocation.y];
 

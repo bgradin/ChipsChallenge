@@ -15,13 +15,15 @@
 #define DOWN 2
 #define RIGHT 3
 
-struct COMPARABLE_POINT : public POINT
+struct COMPARABLE_POINT
 {
 	COMPARABLE_POINT() {}
 	COMPARABLE_POINT(POINT point) { x = point.x; y = point.y; }
 	bool operator==(POINT& rhs) { return x == rhs.x && y == rhs.y;}
 	bool operator!=(POINT& rhs) { return !(*this == rhs); }
-	bool operator<(const COMPARABLE_POINT& rhs) const { return x + y < rhs.x + rhs.y; }
+	bool operator<(const COMPARABLE_POINT& rhs) const { return x < rhs.x || (x == rhs.x && y < rhs.y); }
+
+	int x, y;
 };
 
 struct POINT_CHANGE
