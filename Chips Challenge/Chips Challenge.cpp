@@ -1205,7 +1205,7 @@ INT_PTR CALLBACK Victory(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_INITDIALOG:
 		{
 			int timeBonus  = game.timeLeft * 10;
-			int levelBonus = (int)floor((game.map.levelNumber * 500) * (pow(0.8, game.actualTries - 1)));
+			int levelBonus = (int)floor((game.map.levelNumber * 500) * (pow(0.8, game.totalTries)));
 			int levelScore, levelTime, totalScore, newLevelScore;
 
 			if (levelBonus < 500)
