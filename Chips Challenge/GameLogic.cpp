@@ -1531,6 +1531,8 @@ void Game::handleChip()
 			}
 			else
 				chip.currentDirection.set(change);
+
+			force = true;
 		};
 
 		switch(map.layers[bottomLayer][chip.location.x][chip.location.y].get())
@@ -1629,28 +1631,31 @@ bool Game::allowOverride(POINT_CHANGE& change)
 				chip.currentDirection = LEFT;
 		}
 
-		if (upKeyIsPressed && bottomTile == FORCE_SOUTH_TILE)
+		if (!chip.lastMoveWasForced)
 		{
-			change = POINT_CHANGE();
-			return false;
-		}
+			if (upKeyIsPressed && bottomTile == FORCE_SOUTH_TILE)
+			{
+				change = POINT_CHANGE();
+				return false;
+			}
 
-		if (downKeyIsPressed && bottomTile == FORCE_NORTH_TILE)
-		{
-			change = POINT_CHANGE();
-			return false;
-		}
+			if (downKeyIsPressed && bottomTile == FORCE_NORTH_TILE)
+			{
+				change = POINT_CHANGE();
+				return false;
+			}
 
-		if (rightKeyIsPressed && bottomTile == FORCE_WEST_TILE)
-		{
-			change = POINT_CHANGE();
-			return false;
-		}
+			if (rightKeyIsPressed && bottomTile == FORCE_WEST_TILE)
+			{
+				change = POINT_CHANGE();
+				return false;
+			}
 
-		if (leftKeyIsPressed && bottomTile == FORCE_EAST_TILE)
-		{
-			change = POINT_CHANGE();
-			return false;
+			if (leftKeyIsPressed && bottomTile == FORCE_EAST_TILE)
+			{
+				change = POINT_CHANGE();
+				return false;
+			}
 		}
 
 		change.DeltaX = chip.currentDirection.deltaX();
