@@ -513,7 +513,7 @@ void Game::handleMonsters()
 					change.DeltaY = cur->currentDirection.deltaY();
 
 					// Concussion rule
-					if (bottomTile == TRAP_TILE && isSolid(change, currentLocation, cur->type) && cur->type != TANK)
+					if (bottomTile == TRAP_TILE && (isSolid(change, currentLocation, cur->type) || cur->type != TANK))
 					{
 						canContinue = true;
 						continue;
@@ -521,7 +521,13 @@ void Game::handleMonsters()
 
 					if (isSolid(change, currentLocation, cur->type))
 					{
-						if (cur->type == FIRE_BUG)
+						if (cur->type == TANK)
+						{
+							cur->canMove = false;
+							canContinue = true;
+							continue;
+						}
+						else if (cur->type == FIRE_BUG)
 						{
 							swap(change.DeltaX, change.DeltaY);
 							change.DeltaX *= -1;
@@ -1320,7 +1326,10 @@ bool Game::commonMovement(POINT location, POINT_CHANGE change, POINT_CHANGE& cha
 		for (deque<Monster>::iterator cur = monsters.begin(); cur != monsters.end(); cur++)
 		{
 			if (cur->type == TANK && map.layers[bottomMostIndex(NewPoint(cur->location.x, cur->location.y))][cur->location.x][cur->location.y] != CLONING_MACHINE_TILE)
+			{
 				cur->currentDirection = (cur->currentDirection.toInt() < 3) ? cur->currentDirection.toInt() + 2 : cur->currentDirection.toInt() - 2;
+				cur->canMove = true;
+			}
 		}
 	}
 
@@ -1345,6 +1354,9 @@ bool Game::handleClonerButton(POINT location, POINT_CHANGE change)
 		POINT clonerLocation;
 		clonerLocation.x = bla.x;
 		clonerLocation.y = bla.y;
+
+		if (clonerLocation.x == 24)
+			int i =0;
 
 		Tile tile = map.layers[0][clonerLocation.x][clonerLocation.y];
 
