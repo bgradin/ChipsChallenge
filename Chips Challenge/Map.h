@@ -1,6 +1,8 @@
 #include "stdafx.h"
 using namespace std;
 
+#define MAX_LAYERS 20
+
 class Game;
 
 class Tile

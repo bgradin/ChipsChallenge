@@ -229,7 +229,7 @@ void Game::redrawNewTile(int tile, POINT location)
 		map.layers[i][location.x][location.y] = tmp;
 	}
 
-	if (holder != 0)
+	if (holder != EMPTY_TILE && map.layers.size() < MAX_LAYERS) // You're SOL if we already have 20 layers
 	{
 		// If there was something in the bottom layer, add a new layer and put the remainder in it
 		map.layers.push_back(MapLayer());
@@ -521,9 +521,7 @@ void Game::handleMonsters()
 
 					if (isSolid(change, currentLocation, cur->type))
 					{
-						if (cur->type == TANK)
-							cur->canMove = false;
-						else if (cur->type == FIRE_BUG)
+						if (cur->type == FIRE_BUG)
 						{
 							swap(change.DeltaX, change.DeltaY);
 							change.DeltaX *= -1;
@@ -566,7 +564,7 @@ void Game::handleMonsters()
 							if (!isSolid(change, currentLocation, cur->type))
 								found = true;
 						}
-						else // Ghost
+						else if (cur->type == GLIDER)
 						{
 							swap(change.DeltaX, change.DeltaY);
 							change.DeltaY *= -1;
@@ -1233,7 +1231,7 @@ void Game::toggleOpen(POINT location, bool status)
 {
 	list<Trap>::iterator cur;
 
-	for(cur = traps.begin(); cur != traps.end() && (cur->getButtonLocation() == location); cur++);
+	for(cur = traps.begin(); cur != traps.end() && (cur->getButtonLocation() != location); cur++);
 
 	if (cur != traps.end())
 	{
@@ -1322,11 +1320,7 @@ bool Game::commonMovement(POINT location, POINT_CHANGE change, POINT_CHANGE& cha
 		for (deque<Monster>::iterator cur = monsters.begin(); cur != monsters.end(); cur++)
 		{
 			if (cur->type == TANK && map.layers[bottomMostIndex(NewPoint(cur->location.x, cur->location.y))][cur->location.x][cur->location.y] != CLONING_MACHINE_TILE)
-			{
 				cur->currentDirection = (cur->currentDirection.toInt() < 3) ? cur->currentDirection.toInt() + 2 : cur->currentDirection.toInt() - 2;
-
-				cur->canMove = true;
-			}
 		}
 	}
 
@@ -1347,7 +1341,10 @@ bool Game::handleClonerButton(POINT location, POINT_CHANGE change)
 
 		int ndeltaX = 0, ndeltaY = 0;
 		Monster m;
-		POINT clonerLocation = cloners[NewPoint(newX, newY)]; // Find cloner location
+		COMPARABLE_POINT bla = cloners[NewPoint(newX, newY)]; // Find cloner location
+		POINT clonerLocation;
+		clonerLocation.x = bla.x;
+		clonerLocation.y = bla.y;
 
 		Tile tile = map.layers[0][clonerLocation.x][clonerLocation.y];
 
@@ -1382,8 +1379,9 @@ bool Game::handleClonerButton(POINT location, POINT_CHANGE change)
 				newID = MUD_BLOCK_TILE;
 
 			// Redraw tile
-			redrawOldTile(newID, newMonsterLocation);
-			map.layers[0][m.location.x + ndeltaX][m.location.y + ndeltaY] = newID;
+			redrawNewTile(newID, newMonsterLocation);
+			//redrawOldTile(newID, newMonsterLocation);
+			//map.layers[0][m.location.x + ndeltaX][m.location.y + ndeltaY] = newID;
 
 			if (newID == MUD_BLOCK_TILE && isSlippery(newMonsterLocation))
 				movingBlocks.push_back(make_pair(NewPoint(m.location.x + ndeltaX, m.location.y + ndeltaY), direction().set(ndeltaX, ndeltaY)));

@@ -90,7 +90,7 @@ MapLayer::MapLayer()
 	for (int i = 0; i < 32; i++)
 	{
 		for (int j = 0; j < 32; j++)
-			m_tiles[i][j] = 0;
+			m_tiles[i][j] = EMPTY_TILE;
 	}
 }
 
@@ -101,25 +101,17 @@ MapLayer::MapLayer()
 //
 bool MapLayer::isEmpty()
 {
-	bool result = false; // Default
-
 	// Iterate through the layer to check emptiness
 	for (int i = 0; i < 32; i++)
 	{
 		for (int j = 0; j < 32; j++)
 		{
-			if (m_tiles[i][j] != 0) // 0 = empty tile
-			{
-				result = false;
-				break; // We don't have to keep checking
-			}
+			if (m_tiles[i][j] != EMPTY_TILE)
+				return false;
 		}
-
-		if (!result)
-			break; // We don't have to keep checking
 	}
 
-	return result;
+	return true;
 }
 
 //
@@ -185,6 +177,7 @@ bool Map::Load(Game& game, int levelID)
 
 	// Reset the layers:
 	layers.clear();
+	layers.reserve(MAX_LAYERS);
 	layers.push_back(MapLayer());
 	layers.push_back(MapLayer());
 
@@ -316,7 +309,7 @@ bool Map::Load(Game& game, int levelID)
 				int trapX = htoi(ReadWord(inputStream));
 				int trapY = htoi(ReadWord(inputStream));
 				bool isOpen = bool(htoi(ReadWord(inputStream)) != 0);
-				game.traps.push_back(Trap(NewPoint(buttonX, buttonY), NewPoint(trapX, trapY), isOpen));
+				game.traps.push_back(Trap(COMPARABLE_POINT(NewPoint(buttonX, buttonY)), COMPARABLE_POINT(NewPoint(trapX, trapY)), isOpen));
 			}
 		}
 
