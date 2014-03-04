@@ -127,7 +127,7 @@ bool Map::Load(Game& game, int levelID)
 	game.clickedPoint.x = game.clickedPoint.y = 50;
 
 	if (game.map.levelNumber != levelID)
-		game.actualTries = game.totalLevels = 0;
+		game.actualTries = game.totalTries = game.totalLevels = 0;
 
 	ifstream inputStream;
 
