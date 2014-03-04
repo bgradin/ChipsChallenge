@@ -144,7 +144,7 @@ public:
 class Trap
 {
 public:
-	Trap(POINT buttonLocation, POINT trapLocation, bool open) : m_buttonLocation(buttonLocation), m_trapLocation(trapLocation), isOpen(open) {}
+	Trap(COMPARABLE_POINT buttonLocation, COMPARABLE_POINT trapLocation, bool open) : m_buttonLocation(buttonLocation), m_trapLocation(trapLocation), isOpen(open) {}
 
 	COMPARABLE_POINT getButtonLocation() { return m_buttonLocation; }
 	COMPARABLE_POINT getTrapLocation() { return m_trapLocation; }
