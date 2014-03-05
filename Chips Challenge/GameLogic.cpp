@@ -108,7 +108,9 @@ void Game::handleMovingBlocks()
 		}
 	};
 
-	for (blockIterator cur = movingBlocks.begin(); cur != movingBlocks.end();)
+	blockIterator cur = movingBlocks.begin();
+	int size = movingBlocks.size();
+	for (int i = 0; i < size; i++)
 	{
 		switch(map.layers[bottomMostIndex(NewPoint(cur->first.x, cur->first.y))][cur->first.x][cur->first.y].get())
 		{
@@ -931,7 +933,7 @@ void Game::moveChip(POINT_CHANGE change)
 			// First things first - find out if the block is in the moving blocks list
 			for (blockIterator cur = movingBlocks.begin(); cur != movingBlocks.end(); cur++)
 			{
-				if (newX == cur->first.x && newY == cur->first.x)
+				if (newX == cur->first.x && newY == cur->first.y)
 				{
 					movingBlocks.erase(cur);
 					break;
@@ -943,7 +945,7 @@ void Game::moveChip(POINT_CHANGE change)
 			{
 				if (map.layers[newBottomIndex][newX + storedChange.DeltaX][newY + storedChange.DeltaY] == BOMB_TILE)
 				{
-					redrawNewTile(MUD_BLOCK_TILE, newChipLocation);
+					redrawOldTile(MUD_BLOCK_TILE, newChipLocation);
 					soundEffects["BombSound"].play();
 					map.layers[newBottomIndex][newX + storedChange.DeltaX][newY + storedChange.DeltaY] = EMPTY_TILE;
 				}
