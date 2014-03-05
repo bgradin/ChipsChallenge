@@ -1246,11 +1246,11 @@ INT_PTR CALLBACK Victory(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 
 			// Top message
 			string msg_str;
-			if (game.totalTries == 1)
+			if (game.totalTries + 1 == 1)
 				msg_str = "Yowser! First Try!";
-			else if (game.totalTries < 4)
+			else if (game.totalTries + 1 < 4)
 				msg_str = "Go Bit Buster!";
-			else if (game.totalTries < 6)
+			else if (game.totalTries + 1 < 6)
 				msg_str = "Finished! Good Work!";
 			else
 				msg_str = "At last! You did it!";
