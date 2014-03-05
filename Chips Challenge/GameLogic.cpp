@@ -83,17 +83,24 @@ void Game::handleMovingBlocks()
 		int multiplier = (isCurvedIceBlock && alternate) || !isCurvedIceBlock ? -1 : 1;
 		int blockX = cur->first.x, blockY = cur->first.y;
 		int deltaDeltaX = newDirection.deltaX(), deltaDeltaY = newDirection.deltaY();
+		int selectedFirst = isCurvedIceBlock ? deltaDeltaY : deltaDeltaX;
+		int selectedSecond = isCurvedIceBlock ? deltaDeltaX : deltaDeltaY;
 
-		if (isSolid(POINT_CHANGE(change.DeltaX = deltaDeltaX, change.DeltaY = deltaDeltaY), NewPoint(blockX, blockY), true) && !isSolid(POINT_CHANGE(deltaDeltaY * multiplier, deltaDeltaX * multiplier), NewPoint(blockX, blockY), true))
+		if (isSolid(POINT_CHANGE(change.DeltaX = deltaDeltaX, change.DeltaY = deltaDeltaY), NewPoint(blockX, blockY), true) &&
+			!isSolid(POINT_CHANGE(selectedFirst * multiplier, selectedSecond * multiplier), NewPoint(blockX, blockY), true))
 		{
-			change.DeltaX = (isCurvedIceBlock ? deltaDeltaY : deltaDeltaX) * multiplier;
-			change.DeltaY = (isCurvedIceBlock ? deltaDeltaX : deltaDeltaY) * multiplier;
+			change.DeltaX = selectedFirst * multiplier;
+			change.DeltaY = selectedSecond * multiplier;
 
 			if (change != 0)
 				callMoveBlock(cur, change);
 		}
 		else if (isSolid(change, NewPoint(blockX, blockY), true))
-			eraseBlock(cur);
+		{
+			change.DeltaX = 0;
+			change.DeltaY = 0;
+			cur++;
+		}
 		else
 		{
 			if (change != 0)
@@ -259,7 +266,7 @@ void Game::moveBlock(POINT_CHANGE change, blockIterator& cur)
 
 	// If the block landed on a clone block, make sure we still have a valid iterator
 	if (handleClonerButton(blockLocation, change))
-		cur = movingBlocks.begin() + savedIndex + 1;
+		cur = movingBlocks.begin() + savedIndex;
 
 	bool blockToErase = false;
 	POINT newPosition = NewPoint(blockLocation.x + change.DeltaX, blockLocation.y + change.DeltaY);
@@ -936,7 +943,7 @@ void Game::moveChip(POINT_CHANGE change)
 			{
 				if (map.layers[newBottomIndex][newX + storedChange.DeltaX][newY + storedChange.DeltaY] == BOMB_TILE)
 				{
-					redrawOldTile(MUD_BLOCK_TILE, newChipLocation);
+					redrawNewTile(MUD_BLOCK_TILE, newChipLocation);
 					soundEffects["BombSound"].play();
 					map.layers[newBottomIndex][newX + storedChange.DeltaX][newY + storedChange.DeltaY] = EMPTY_TILE;
 				}
