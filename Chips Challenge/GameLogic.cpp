@@ -324,7 +324,7 @@ void Game::handleMonsters()
 		// Use starting index of the end to keep us from moving monsters we create
 		int index = monsters.end() - monsters.begin();
 
-		function<void (deque<Monster>::iterator&, direction&)> handleForceBlock = [&](deque<Monster>::iterator& cur, direction& forceDirection)
+		function<void (vector<Monster>::iterator&, direction&)> handleForceBlock = [&](vector<Monster>::iterator& cur, direction& forceDirection)
 		{
 			if (!isSolid(POINT_CHANGE(change.DeltaX = forceDirection.deltaX(), change.DeltaY = forceDirection.deltaY()), NewPoint(cur->location.x, cur->location.y), cur->type))
 				cur->currentDirection = forceDirection;
@@ -332,7 +332,7 @@ void Game::handleMonsters()
 				change = POINT_CHANGE();
 		};
 
-		function<void (deque<Monster>::iterator&, direction&, bool, bool)> handleIceBlock = [&](deque<Monster>::iterator& cur, direction& newDirection, bool isCurvedIceBlock, bool alternate)
+		function<void (vector<Monster>::iterator&, direction&, bool, bool)> handleIceBlock = [&](vector<Monster>::iterator& cur, direction& newDirection, bool isCurvedIceBlock, bool alternate)
 		{
 			int multiplier = !isCurvedIceBlock || alternate ? -1 : 1;
 			int multiplierX = (isCurvedIceBlock ? newDirection.deltaY() : newDirection.deltaX()) * multiplier;
@@ -352,7 +352,7 @@ void Game::handleMonsters()
 		};
 
 		// Iterate through monster list
-		for (deque<Monster>::iterator cur = monsters.begin(); isActive && cur != monsters.begin() + index && cur != monsters.end(); (monsters.size() != 0 && cur != monsters.end()) ? cur++ : cur)
+		for (vector<Monster>::iterator cur = monsters.begin(); isActive && cur != monsters.begin() + index && cur != monsters.end(); (monsters.size() != 0 && cur != monsters.end()) ? cur++ : cur)
 		{
 			bool found = false;
 			change = POINT_CHANGE();
@@ -445,66 +445,97 @@ void Game::handleMonsters()
 				continue;
 			}
 
+			if ((cur->type == BUG || cur->type == PARAMECIUM || cur->type == TEETH) && bottomTile == TRAP_TILE)
+			{
+				int index = cur - monsters.begin();
+				if (!isSolid(change, currentLocation, cur->type))
+					continue;
+			}
+
 			// Bug and centipede
 			if (cur->type == BUG || cur->type == PARAMECIUM)
 			{
-				for (int i = 0; i < 4 && !found; i++)
+				// Controller glitch
+				if (bottomMostTile(cur->location) == TRAP_TILE)
 				{
-					// Calculate x and y offset
-					int newDirectionCode = cur->currentDirection.toInt() + 1;
-					direction newDirection = direction(newDirectionCode > 3 ? 0 : newDirectionCode);
-					change.DeltaX = newDirection.deltaX();
-					change.DeltaY = newDirection.deltaY();
+					int index = cur - monsters.begin();
 
-					if (cur->type == PARAMECIUM)
-					{
-						change.DeltaX *= -1;
-						change.DeltaY *= -1;
-					}
+					if (index == 0)
+						continue;
 
-					// Bug
-					// If it can turn left, do so.  Otherwise, turn right until there's an opening.
-					if (cur->type == BUG && isSolid(change, currentLocation, cur->type))
+					direction d = monsters[index - 1].currentDirection;
+
+					change.DeltaX = d.deltaX();
+					change.DeltaY = d.deltaY();
+
+					if (!isSolid(change, currentLocation, cur->type) && trapOpen[cur->location] > 0)
 					{
-						if (bottomTile != CLONING_MACHINE_TILE)
-						{
-							if (cur->currentDirection == UP)
-								cur->currentDirection = RIGHT;
-							else
-								cur->currentDirection = cur->currentDirection.toInt() - 1;
-						}
-					}
-					else if (cur->type == BUG)
-					{
-						if (bottomTile != CLONING_MACHINE_TILE)
-						{
-							if (cur->currentDirection == RIGHT)
-								cur->currentDirection = UP;
-							else
-								cur->currentDirection = cur->currentDirection.toInt() + 1;
-						}
+						cur->currentDirection = d;
 						found = true;
-					}
-					else if (cur->type == PARAMECIUM && isSolid(change, currentLocation, cur->type))
-					{	
-						if (bottomTile != CLONING_MACHINE_TILE)
-						{
-							if (cur->currentDirection == RIGHT)
-								cur->currentDirection = UP;
-							else
-								cur->currentDirection = cur->currentDirection.toInt() + 1;
-						}
 					}
 					else
+						continue;
+				}
+				else
+				{
+					for (int i = 0; i < 4 && !found; i++)
 					{
-						if (bottomTile != CLONING_MACHINE_TILE)
+						// Calculate x and y offset
+						int newDirectionCode = cur->currentDirection.toInt() + 1;
+						direction newDirection = direction(newDirectionCode > 3 ? 0 : newDirectionCode);
+						change.DeltaX = newDirection.deltaX();
+						change.DeltaY = newDirection.deltaY();
+
+						if (cur->type == PARAMECIUM)
 						{
-							if (cur->currentDirection == UP)
-								cur->currentDirection = RIGHT;
-							else
-								cur->currentDirection = cur->currentDirection.toInt() - 1;
+							change.DeltaX *= -1;
+							change.DeltaY *= -1;
 						}
-						found = true;
+
+						// Bug
+						// If it can turn left, do so.  Otherwise, turn right until there's an opening.
+						if (cur->type == BUG && isSolid(change, currentLocation, cur->type))
+						{
+							if (bottomTile != CLONING_MACHINE_TILE)
+							{
+								if (cur->currentDirection == UP)
+									cur->currentDirection = RIGHT;
+								else
+									cur->currentDirection = cur->currentDirection.toInt() - 1;
+							}
+						}
+						else if (cur->type == BUG)
+						{
+							if (bottomTile != CLONING_MACHINE_TILE)
+							{
+								if (cur->currentDirection == RIGHT)
+									cur->currentDirection = UP;
+								else
+									cur->currentDirection = cur->currentDirection.toInt() + 1;
+							}
+							found = true;
+						}
+						else if (cur->type == PARAMECIUM && isSolid(change, currentLocation, cur->type))
+						{	
+							if (bottomTile != CLONING_MACHINE_TILE)
+							{
+								if (cur->currentDirection == RIGHT)
+									cur->currentDirection = UP;
+								else
+									cur->currentDirection = cur->currentDirection.toInt() + 1;
+							}
+						}
+						else
+						{
+							if (bottomTile != CLONING_MACHINE_TILE)
+							{
+								if (cur->currentDirection == UP)
+									cur->currentDirection = RIGHT;
+								else
+									cur->currentDirection = cur->currentDirection.toInt() - 1;
+							}
+							found = true;
+						}
 					}
 				}
 			}
@@ -522,7 +553,7 @@ void Game::handleMonsters()
 					change.DeltaY = cur->currentDirection.deltaY();
 
 					// Concussion rule
-					if (bottomTile == TRAP_TILE && (isSolid(change, currentLocation, cur->type) || cur->type != TANK))
+					if (bottomTile == TRAP_TILE && isSolid(change, currentLocation, cur->type))
 					{
 						canContinue = true;
 						continue;
@@ -618,35 +649,61 @@ void Game::handleMonsters()
 			// Frog
 			if (cur->type == TEETH)
 			{
-				// Set up distance measurement variables
-				int tempDeltaX = chip.location.x - cur->location.x;
-				int tempDeltaY = chip.location.y - cur->location.y;
-				change.DeltaX = (tempDeltaX == 0) ? 0 : tempDeltaX / abs(tempDeltaX);
-				change.DeltaY = (tempDeltaY == 0) ? 0 : tempDeltaY / abs(tempDeltaY);
-				bool xClear = !isSolid(POINT_CHANGE(change.DeltaX, 0), currentLocation, cur->type);
-				bool yClear = !isSolid(POINT_CHANGE(0, change.DeltaY), currentLocation, cur->type);
-
-				direction tmp = cur->currentDirection;
-
-				// Get as close to chip as possible
-				if ((abs(tempDeltaX) > abs(tempDeltaY) && xClear) || (!yClear && xClear))
-					found = (change.DeltaY = 0) != 1;
-				else if (yClear)
-					found = (change.DeltaX = 0) != 1;
-
-				// Change monster orientation
-				if (bottomTile != CLONING_MACHINE_TILE)
+				// Controller glitch
+				if (bottomMostTile(cur->location) == TRAP_TILE)
 				{
-					if (!found && abs(tempDeltaX) > abs(tempDeltaY))
-						change.DeltaY = 0;
-					else if (!found)
-						change.DeltaX = 0;
+					int index = cur - monsters.begin();
 
-					cur->currentDirection.set(change);
+					if (index == 0)
+						continue;
+
+					direction d = monsters[index - 1].currentDirection;
+
+					change.DeltaX = d.deltaX();
+					change.DeltaY = d.deltaY();
+
+					if (!isSolid(change, currentLocation, cur->type) && trapOpen[cur->location] > 0)
+					{
+						found = true;
+						cur->currentDirection = d;
+					}
 				}
+				
+				if (!found)
+				{
+					// Set up distance measurement variables
+					int tempDeltaX = chip.location.x - cur->location.x;
+					int tempDeltaY = chip.location.y - cur->location.y;
+					change.DeltaX = (tempDeltaX == 0) ? 0 : tempDeltaX / abs(tempDeltaX);
+					change.DeltaY = (tempDeltaY == 0) ? 0 : tempDeltaY / abs(tempDeltaY);
+					bool xClear = !isSolid(POINT_CHANGE(change.DeltaX, 0), currentLocation, cur->type);
+					bool yClear = !isSolid(POINT_CHANGE(0, change.DeltaY), currentLocation, cur->type);
 
-				if (!found && tmp != cur->currentDirection)
-					moveMonster(POINT_CHANGE(), cur, index);
+					direction tmp = cur->currentDirection;
+
+					// Get as close to chip as possible
+					if ((abs(tempDeltaX) > abs(tempDeltaY) && xClear) || (!yClear && xClear))
+						found = (change.DeltaY = 0) != 1;
+					else if (yClear)
+						found = (change.DeltaX = 0) != 1;
+
+					// Change monster orientation
+					if (bottomTile != CLONING_MACHINE_TILE)
+					{
+						if (!found && abs(tempDeltaX) > abs(tempDeltaY))
+							change.DeltaY = 0;
+						else if (!found)
+							change.DeltaX = 0;
+
+						cur->currentDirection.set(change);
+					}
+
+					if (bottomTile == TRAP_TILE)
+						continue;
+
+					if (!found && tmp != cur->currentDirection)
+						moveMonster(POINT_CHANGE(), cur, index);
+				}
 			}
 
 			// Blob
@@ -656,6 +713,9 @@ void Game::handleMonsters()
 				found = !isSolid(POINT_CHANGE(change.DeltaX = newDirection.deltaX(), change.DeltaY = newDirection.deltaY()), currentLocation, cur->type);
 			}
 
+			if (!cur->canMove)
+				change = POINT_CHANGE();
+
 			if (found)
 				moveMonster(change, cur, index);
 		}
@@ -664,7 +724,7 @@ void Game::handleMonsters()
 	}
 }
 
-void Game::moveMonster(POINT_CHANGE change, deque<Monster>::iterator& cur, int& lastPosition)
+void Game::moveMonster(POINT_CHANGE change, vector<Monster>::iterator& cur, int& lastPosition)
 {
 	POINT currentLocation = NewPoint(cur->location.x, cur->location.y);
 
@@ -687,9 +747,13 @@ void Game::moveMonster(POINT_CHANGE change, deque<Monster>::iterator& cur, int& 
 	// currentLocation might have changed
 	currentLocation = NewPoint(cur->location.x, cur->location.y);
 
+	int bottomTile = bottomMostTile(currentLocation);
+
+	if (bottomTile == TRAP_TILE && !trapOpen[currentLocation])
+		cur->canMove = false;
+
 	// If the monster steps in water, fire or on a bomb
 	// Ghosts cannot be killed by water
-	int bottomTile = bottomMostTile(currentLocation);
 	if ((bottomTile == WATER_TILE && cur->type != GLIDER) || (bottomTile == FIRE_TILE && cur->type != FIRE_BUG) || bottomTile == BOMB_TILE)
 	{
 		if (bottomTile == BOMB_TILE)
@@ -784,7 +848,7 @@ void Game::moveChip(POINT_CHANGE change)
 	POINT newChipLocation = NewPoint(newX, newY);
 
 	// Conditions where Chip shouldn't move
-	if (isSolid(change, chipLocation))
+	if (isSolid(change, chipLocation) || !chip.canMove)
 	{
 		if (change != 0)
 			soundEffects["BlockedMoveSound"].play();
@@ -1061,6 +1125,9 @@ void Game::moveChip(POINT_CHANGE change)
 		return death(4);
 	}
 
+	if (map.layers[bottomIndex][newX][newY] == TRAP_TILE && !trapOpen[chip.location])
+		chip.canMove = false;
+
 	if (chip.location.x == clickedPoint.x && chip.location.y == clickedPoint.y)
 		clickedPoint.x = clickedPoint.y = 50;
 
@@ -1230,47 +1297,25 @@ bool Game::isSolid(POINT_CHANGE change, POINT oldLocation, bool isBlock) // Used
 	return false;
 }
 
-bool Game::isOpen(POINT location)
-{
-	list<Trap>::iterator cur;
-
-	for(cur = traps.begin(); cur != traps.end() && (cur->getTrapLocation() != location); cur++);
-
-	if (cur != traps.end())
-		return cur->getTrapLocation() == location && cur->isOpen;
-
-	return false;
-}
-
-void Game::toggleOpen(POINT location, bool status)
-{
-	list<Trap>::iterator cur;
-
-	for(cur = traps.begin(); cur != traps.end() && (cur->getButtonLocation() != location); cur++);
-
-	if (cur != traps.end())
-	{
-		if (cur->getButtonLocation() == location)
-			cur->isOpen = status;
-	}
-}
-
 bool Game::commonMovement(POINT location, POINT_CHANGE change, POINT_CHANGE& changeRef, bool m, bool b)
 {
 	int bottomTile = bottomMostTile(location);
 
-	// If the object is stuck in a trap or is the seed for a cloner
-	if (bottomTile == CLONING_MACHINE_TILE || (bottomTile == TRAP_TILE && !isOpen(location)))
+	// If the object is the seed for a cloner
+	if (bottomTile == CLONING_MACHINE_TILE)
 	{
-		if (m == false && b == false)
-			soundEffects["BlockedMoveSound"].play();
 		changeRef = POINT_CHANGE();
 		return false;
 	}
 
 	// If the object is stepping off a trap button
 	if (bottomTile == BROWN_BUTTON_TILE)
-		toggleOpen(location, false);
+	{
+		COMPARABLE_POINT trapLocation = traps[location];
+
+		if (trapOpen[trapLocation] > 0)
+			trapOpen[trapLocation]--;
+	}
 
 	// Switch to looking at the tile being stepped onto
 	int newX = location.x + change.DeltaX, newY = location.y + change.DeltaY;
@@ -1309,8 +1354,22 @@ bool Game::commonMovement(POINT location, POINT_CHANGE change, POINT_CHANGE& cha
 	// If the object steps on a trap button
 	if (bottomTile == BROWN_BUTTON_TILE)
 	{
+		COMPARABLE_POINT trapLocation = traps[newLocation];
+
 		soundEffects["SwitchSound"].play();
-		toggleOpen(newLocation, true);
+		trapOpen[trapLocation]++;
+
+		for (unsigned int i = 0; i < monsters.size(); i++)
+		{
+			if (trapLocation == monsters[i].location)
+			{
+				monsters[i].canMove = true;
+				break;
+			}
+		}
+
+		if (trapLocation == chip.location)
+			chip.canMove = true;
 	}
 
 	if (bottomTile == GREEN_BUTTON_TILE)
@@ -1332,7 +1391,7 @@ bool Game::commonMovement(POINT location, POINT_CHANGE change, POINT_CHANGE& cha
 	if (bottomTile == BLUE_BUTTON_TILE)
 	{
 		soundEffects["SwitchSound"].play();
-		for (deque<Monster>::iterator cur = monsters.begin(); cur != monsters.end(); cur++)
+		for (vector<Monster>::iterator cur = monsters.begin(); cur != monsters.end(); cur++)
 		{
 			if (cur->type == TANK && map.layers[bottomMostIndex(NewPoint(cur->location.x, cur->location.y))][cur->location.x][cur->location.y] != CLONING_MACHINE_TILE)
 			{

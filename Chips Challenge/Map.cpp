@@ -189,6 +189,7 @@ bool Map::Load(Game& game, int levelID)
 	game.monsters.clear();
 	game.traps.clear();
 	game.cloners.clear();
+	game.trapOpen.clear();
 
 	// Reset Chip
 	game.chip.location.x = 0;
@@ -240,8 +241,6 @@ bool Map::Load(Game& game, int levelID)
 			}
 		}
 	}
-
-	game.chip.canMove = 0;
 
 	int secondLayerBytes = htoi(ReadWord(inputStream));
 
@@ -309,7 +308,18 @@ bool Map::Load(Game& game, int levelID)
 				int trapX = htoi(ReadWord(inputStream));
 				int trapY = htoi(ReadWord(inputStream));
 				bool isOpen = bool(htoi(ReadWord(inputStream)) != 0);
-				game.traps.push_back(Trap(COMPARABLE_POINT(NewPoint(buttonX, buttonY)), COMPARABLE_POINT(NewPoint(trapX, trapY)), isOpen));
+
+				POINT trapLocation = NewPoint(trapX, trapY);
+
+				game.traps[NewPoint(buttonX, buttonY)] = trapLocation;
+				
+				POINT buttonLocation = NewPoint(buttonX, buttonY);
+
+				if (game.trapOpen.count(buttonLocation) == 0)
+					game.trapOpen[buttonLocation] = 0;
+
+				if (isOpen)
+					game.trapOpen[buttonLocation]++;
 			}
 		}
 
@@ -370,6 +380,15 @@ bool Map::Load(Game& game, int levelID)
 		else
 			inputStream.ignore(fieldBytes);
 	}
+
+	// Make sure stationary things are stationary
+	for (unsigned int i = 0; i < game.monsters.size(); i++)
+	{
+		if (game.bottomMostTile(game.monsters[i].location) == TRAP_TILE)
+			game.monsters[i].canMove = false;
+	}
+	if (game.bottomMostTile(game.chip.location) == TRAP_TILE)
+		game.chip.canMove = false;
 
 	// Only restart the music if we change maps:
 	if ((oldMap != levelNumber || oldMap == 0)  && playMusic)
