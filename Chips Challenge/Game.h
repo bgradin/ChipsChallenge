@@ -83,6 +83,8 @@ public:
 class Player
 {
 public:
+	Player() { canMove = true; movedRecently = false; }
+
 	POINT location;
 	int lastMove;
 	bool canMove, notForward, movedRecently;
@@ -107,7 +109,7 @@ public:
 class Monster : public Player
 {
 public:
-	Monster() { location.x = location.y = type = canMove = notForward = 0; }
+	Monster() { location.x = location.y = type = notForward = 0; canMove = true; }
 	Monster(POINT newLocation, int newType) : type(newType / 4)
 	{
 		location.x = newLocation.x;
@@ -126,7 +128,10 @@ public:
 class Chip: public Player
 {
 public:
-	Chip() {} // Chip's location must be specified by each level
+	Chip()
+	{
+		canMove = true;
+	} // Chip's location must be specified by each level
 
 	bool lastMoveWasForced;
 	bool isDead;
@@ -141,23 +146,6 @@ public:
 	int blueKeys;
 	int redKeys;
 	int yellowKeys;
-};
-
-class Trap
-{
-public:
-	Trap(COMPARABLE_POINT buttonLocation, COMPARABLE_POINT trapLocation, bool open) : m_buttonLocation(buttonLocation), m_trapLocation(trapLocation), isOpen(open) {}
-
-	COMPARABLE_POINT getButtonLocation() { return m_buttonLocation; }
-	COMPARABLE_POINT getTrapLocation() { return m_trapLocation; }
-	bool isOpen;
-
-	void openTrap() { isOpen = true; }
-	void closeTrap() { isOpen = false; }
-
-private:
-	COMPARABLE_POINT m_buttonLocation;
-	COMPARABLE_POINT m_trapLocation;
 };
 
 typedef deque<pair<POINT, direction>>::iterator blockIterator;
@@ -263,20 +251,6 @@ public:
 	bool chipHasHitMonster();
 
 	//
-	// FUNCTION: isOpen(int, int)
-	//
-	// PURPOSE:  Returns whether or not the trap at the specified location is open
-	//
-	bool isOpen(POINT);
-
-	//
-	// FUNCTION: toggleOpen(int, int, bool)
-	//
-	// PURPOSE:  Allow specification of whether or not the trap at the location is open
-	//
-	void toggleOpen(POINT, bool);
-
-	//
 	// FUNCTION: moveChip(int, int, bool)
 	//
 	// PURPOSE:  Handles moving Chip to the proper new location
@@ -292,7 +266,7 @@ public:
 	//				- Always called from handle_monsters()
 	//				- Takes x and y change parameters, and a reference to the current monster
 	//
-	void moveMonster(POINT_CHANGE, deque<Monster>::iterator&, int&);
+	void moveMonster(POINT_CHANGE, vector<Monster>::iterator&, int&);
 
 	//
 	// FUNCTION: moveBlock(int, int, deque<pair<pair<int, int>, direction>>::iterator&)
@@ -393,12 +367,13 @@ public:
 	//// General game and sound objects ////
 
 	Chip chip;
-	deque<Monster> monsters;
+	vector<Monster> monsters;
 	MIDI backgroundMusic;
 	map<COMPARABLE_POINT, COMPARABLE_POINT> cloners;
+	map<COMPARABLE_POINT, COMPARABLE_POINT> traps;
+	map<COMPARABLE_POINT, int> trapOpen;
 	map<string, wav> soundEffects;
 	Map map;
-	list<Trap> traps;
 	deque<pair<POINT, direction>> movingBlocks;
 	INI saveData;
 
