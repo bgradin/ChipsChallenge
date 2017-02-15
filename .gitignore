@@ -1,12 +1,13 @@
-#Ignore everything in the bin, obj, and .git folders
 "Chips Challenge/Debug"
 "Chips Challenge/Release"
 Debug/
 Release/
+bin/
+obj/
 ipch/
 .git/
+.vs/
 
-#Ignore anything ending in .user or .suo
 *.user
 *.suo
 *.sdf
