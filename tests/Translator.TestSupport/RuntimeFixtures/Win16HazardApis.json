@@ -1,0 +1,251 @@
+[
+  {
+    "ServiceId": 1009,
+    "Module": "USER",
+    "Name": "MessageBox",
+    "Ordinal": 1,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "SignedWord",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 836,
+    "Arguments": [
+      {
+        "Name": "hwnd",
+        "Type": "Handle",
+        "StackWord": 5
+      },
+      {
+        "Name": "text",
+        "Type": "FarPointer",
+        "StackWord": 3
+      },
+      {
+        "Name": "caption",
+        "Type": "FarPointer",
+        "StackWord": 1
+      },
+      {
+        "Name": "flags",
+        "Type": "Word",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 1010,
+    "Module": "USER",
+    "Name": "LoadCursor",
+    "Ordinal": 173,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "Handle",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 840,
+    "Arguments": [
+      {
+        "Name": "instance",
+        "Type": "Handle",
+        "StackWord": 2
+      },
+      {
+        "Name": "name",
+        "Type": "FarPointer",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 1011,
+    "Module": "USER",
+    "Name": "SetCursor",
+    "Ordinal": 69,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "Handle",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 844,
+    "Arguments": [
+      {
+        "Name": "cursor",
+        "Type": "Handle",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 1012,
+    "Module": "USER",
+    "Name": "SetCapture",
+    "Ordinal": 18,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "Handle",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 848,
+    "Arguments": [
+      {
+        "Name": "hwnd",
+        "Type": "Handle",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 1013,
+    "Module": "USER",
+    "Name": "ReleaseCapture",
+    "Ordinal": 19,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "Bool",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 852,
+    "Arguments": []
+  },
+  {
+    "ServiceId": 1014,
+    "Module": "USER",
+    "Name": "SetWindowText",
+    "Ordinal": 37,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "Bool",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 856,
+    "Arguments": [
+      {
+        "Name": "hwnd",
+        "Type": "Handle",
+        "StackWord": 2
+      },
+      {
+        "Name": "text",
+        "Type": "FarPointer",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 1015,
+    "Module": "USER",
+    "Name": "EnableMenuItem",
+    "Ordinal": 155,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "Word",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 860,
+    "Arguments": [
+      {
+        "Name": "menu",
+        "Type": "Handle",
+        "StackWord": 2
+      },
+      {
+        "Name": "item",
+        "Type": "Word",
+        "StackWord": 1
+      },
+      {
+        "Name": "flags",
+        "Type": "Word",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 1016,
+    "Module": "GDI",
+    "Name": "SetBkMode",
+    "Ordinal": 2,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "SignedWord",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 864,
+    "Arguments": [
+      {
+        "Name": "dc",
+        "Type": "Handle",
+        "StackWord": 1
+      },
+      {
+        "Name": "mode",
+        "Type": "SignedWord",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 1017,
+    "Module": "GDI",
+    "Name": "GetTextMetrics",
+    "Ordinal": 93,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "Bool",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 868,
+    "Arguments": [
+      {
+        "Name": "dc",
+        "Type": "Handle",
+        "StackWord": 2
+      },
+      {
+        "Name": "metrics",
+        "Type": "FarPointer",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 1018,
+    "Module": "KERNEL",
+    "Name": "GlobalFree",
+    "Ordinal": 17,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "Handle",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 872,
+    "Arguments": [
+      {
+        "Name": "handle",
+        "Type": "Handle",
+        "StackWord": 0
+      }
+    ]
+  }
+]

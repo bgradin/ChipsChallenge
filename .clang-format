@@ -1,0 +1,16 @@
+BasedOnStyle: LLVM
+IndentWidth: 4
+# Preserve deliberate line breaks, including the required multiline ternaries.
+ColumnLimit: 0
+AlignOperands: DontAlign
+BreakBeforeBraces: Allman
+InsertBraces: true
+AllowShortBlocksOnASingleLine: Never
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+BreakBeforeTernaryOperators: true
+SortIncludes: Never
+ReflowComments: false
+AttributeMacros: [ABI, NOINLINE]
+InsertNewlineAtEOF: true

@@ -1,0 +1,116 @@
+[
+  {
+    "Module": "GDI32.dll",
+    "Name": "CreateCompatibleDC",
+    "Symbol": "native_CreateCompatibleDC",
+    "Scope": "graphics"
+  },
+  {
+    "Module": "GDI32.dll",
+    "Name": "CreateDIBSection",
+    "Symbol": "native_CreateDIBSection",
+    "Scope": "graphics"
+  },
+  {
+    "Module": "GDI32.dll",
+    "Name": "SelectObject",
+    "Symbol": "native_SelectObject",
+    "Scope": "graphics"
+  },
+  {
+    "Module": "GDI32.dll",
+    "Name": "DeleteObject",
+    "Symbol": "native_DeleteObject",
+    "Scope": "graphics"
+  },
+  {
+    "Module": "GDI32.dll",
+    "Name": "DeleteDC",
+    "Symbol": "native_DeleteDC",
+    "Scope": "graphics"
+  },
+  {
+    "Module": "GDI32.dll",
+    "Name": "GdiFlush",
+    "Symbol": "native_GdiFlush",
+    "Scope": "graphics"
+  },
+  {
+    "Module": "GDI32.dll",
+    "Name": "SetViewportOrgEx",
+    "Symbol": "native_SetViewportOrgEx",
+    "Scope": "graphics"
+  },
+  {
+    "Module": "GDI32.dll",
+    "Name": "PatBlt",
+    "Symbol": "native_PatBlt",
+    "Scope": "graphics"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "CreateWindowExW",
+    "Symbol": "native_CreateWindowExW",
+    "Scope": "callbacks"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "DestroyWindow",
+    "Symbol": "native_DestroyWindow",
+    "Scope": "callbacks"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "EnumChildWindows",
+    "Symbol": "native_EnumChildWindows",
+    "Scope": "callbacks"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "CallWindowProcW",
+    "Symbol": "native_CallWindowProcW",
+    "Scope": "callbacks"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "DefWindowProcW",
+    "Symbol": "native_DefWindowProcW",
+    "Scope": "callbacks"
+  },
+  {
+    "Module": "KERNEL32.dll",
+    "Name": "VirtualAlloc",
+    "Symbol": "native_VirtualAlloc",
+    "Scope": "callbacks"
+  },
+  {
+    "Module": "KERNEL32.dll",
+    "Name": "VirtualProtect",
+    "Symbol": "native_VirtualProtect",
+    "Scope": "callbacks"
+  },
+  {
+    "Module": "KERNEL32.dll",
+    "Name": "VirtualFree",
+    "Symbol": "native_VirtualFree",
+    "Scope": "callbacks"
+  },
+  {
+    "Module": "KERNEL32.dll",
+    "Name": "FlushInstructionCache",
+    "Symbol": "native_FlushInstructionCache",
+    "Scope": "callbacks"
+  },
+  {
+    "Module": "KERNEL32.dll",
+    "Name": "GetCurrentProcess",
+    "Symbol": "native_GetCurrentProcess",
+    "Scope": "callbacks"
+  },
+  {
+    "Module": "KERNEL32.dll",
+    "Name": "GetCurrentThreadId",
+    "Symbol": "native_GetCurrentThreadId",
+    "Scope": "callbacks"
+  }
+]

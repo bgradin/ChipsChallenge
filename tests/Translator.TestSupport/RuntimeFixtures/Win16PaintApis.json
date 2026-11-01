@@ -1,0 +1,101 @@
+[
+  {
+    "ServiceId": 49,
+    "Module": "KERNEL",
+    "Name": "FindResource",
+    "Ordinal": 60,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "Handle",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 392,
+    "Arguments": [
+      {
+        "Name": "instance",
+        "Type": "Handle",
+        "StackWord": 4
+      },
+      {
+        "Name": "name",
+        "Type": "FarPointer",
+        "StackWord": 2
+      },
+      {
+        "Name": "type",
+        "Type": "FarPointer",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 50,
+    "Module": "KERNEL",
+    "Name": "LoadResource",
+    "Ordinal": 61,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "Handle",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 400,
+    "Arguments": [
+      {
+        "Name": "instance",
+        "Type": "Handle",
+        "StackWord": 1
+      },
+      {
+        "Name": "resource",
+        "Type": "Handle",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 51,
+    "Module": "KERNEL",
+    "Name": "LockResource",
+    "Ordinal": 62,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "FarPointer",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 408,
+    "Arguments": [
+      {
+        "Name": "resource",
+        "Type": "Handle",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 52,
+    "Module": "KERNEL",
+    "Name": "FreeResource",
+    "Ordinal": 63,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "Bool",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 416,
+    "Arguments": [
+      {
+        "Name": "resource",
+        "Type": "Handle",
+        "StackWord": 0
+      }
+    ]
+  }
+]

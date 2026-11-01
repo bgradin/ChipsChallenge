@@ -1,0 +1,235 @@
+[
+  {
+    "ServiceId": 701,
+    "Module": "USER",
+    "Name": "InflateRect",
+    "Ordinal": 78,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "Bool",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 804,
+    "Arguments": [
+      {
+        "Name": "rect",
+        "Type": "FarPointer",
+        "StackWord": 2
+      },
+      {
+        "Name": "dx",
+        "Type": "SignedWord",
+        "StackWord": 1
+      },
+      {
+        "Name": "dy",
+        "Type": "SignedWord",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 702,
+    "Module": "USER",
+    "Name": "DrawText",
+    "Ordinal": 85,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "SignedWord",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 808,
+    "Arguments": [
+      {
+        "Name": "dc",
+        "Type": "Handle",
+        "StackWord": 6
+      },
+      {
+        "Name": "text",
+        "Type": "FarPointer",
+        "StackWord": 4
+      },
+      {
+        "Name": "length",
+        "Type": "SignedWord",
+        "StackWord": 3
+      },
+      {
+        "Name": "rect",
+        "Type": "FarPointer",
+        "StackWord": 1
+      },
+      {
+        "Name": "flags",
+        "Type": "Word",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 703,
+    "Module": "USER",
+    "Name": "_wsprintf",
+    "Ordinal": 420,
+    "Kind": "Procedure",
+    "Convention": "Cdecl",
+    "ArgumentOrder": "RightToLeft",
+    "ReturnType": "SignedWord",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": false,
+    "Supported": true,
+    "EntryOffset": 812,
+    "Arguments": [
+      {
+        "Name": "destination",
+        "Type": "FarPointer",
+        "StackWord": 0
+      },
+      {
+        "Name": "format",
+        "Type": "FarPointer",
+        "StackWord": 2
+      },
+      {
+        "Name": "text",
+        "Type": "FarPointer",
+        "StackWord": 4
+      }
+    ]
+  },
+  {
+    "ServiceId": 704,
+    "Module": "GDI",
+    "Name": "SetTextColor",
+    "Ordinal": 9,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "Dword",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 816,
+    "Arguments": [
+      {
+        "Name": "dc",
+        "Type": "Handle",
+        "StackWord": 2
+      },
+      {
+        "Name": "color",
+        "Type": "Dword",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 705,
+    "Module": "GDI",
+    "Name": "SetBkColor",
+    "Ordinal": 1,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "Dword",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 820,
+    "Arguments": [
+      {
+        "Name": "dc",
+        "Type": "Handle",
+        "StackWord": 2
+      },
+      {
+        "Name": "color",
+        "Type": "Dword",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 706,
+    "Module": "GDI",
+    "Name": "GetDeviceCaps",
+    "Ordinal": 80,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "SignedWord",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 824,
+    "Arguments": [
+      {
+        "Name": "dc",
+        "Type": "Handle",
+        "StackWord": 1
+      },
+      {
+        "Name": "index",
+        "Type": "SignedWord",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 707,
+    "Module": "GDI",
+    "Name": "MulDiv",
+    "Ordinal": 128,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "SignedWord",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 828,
+    "Arguments": [
+      {
+        "Name": "number",
+        "Type": "SignedWord",
+        "StackWord": 2
+      },
+      {
+        "Name": "numerator",
+        "Type": "SignedWord",
+        "StackWord": 1
+      },
+      {
+        "Name": "denominator",
+        "Type": "SignedWord",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 708,
+    "Module": "GDI",
+    "Name": "CreateFontIndirect",
+    "Ordinal": 57,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "Handle",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 832,
+    "Arguments": [
+      {
+        "Name": "logfont",
+        "Type": "FarPointer",
+        "StackWord": 0
+      }
+    ]
+  }
+]

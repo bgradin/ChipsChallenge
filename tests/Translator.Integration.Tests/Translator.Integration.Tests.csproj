@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/Translator.Delivery/Translator.Delivery.csproj" />
+    <ProjectReference Include="../../src/Translator.Analysis/Translator.Analysis.csproj"/>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5" PrivateAssets="all" />
+    <ProjectReference Include="../../src/Translator.Cli/Translator.Cli.csproj" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="../../src/Translator.Binary/Translator.Binary.csproj" />
+    <ProjectReference Include="../../src/Translator.Assembly/Translator.Assembly.csproj" />
+    <ProjectReference Include="../../src/Translator.ChipsChallenge/Translator.ChipsChallenge.csproj" />
+    <ProjectReference Include="../../src/Translator.CodeGen/Translator.CodeGen.csproj" />
+    <ProjectReference Include="../../src/Translator.Linker/Translator.Linker.csproj" />
+  </ItemGroup>
+  <ItemGroup><ProjectReference Include="../Translator.TestSupport/Translator.TestSupport.csproj" /></ItemGroup>
+  <ItemGroup><ProjectReference Include="../../src/Translator.Production/Translator.Production.csproj" ReferenceOutputAssembly="false" /></ItemGroup>
+</Project>

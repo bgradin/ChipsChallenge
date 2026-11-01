@@ -1,0 +1,8 @@
+[
+  {
+    "Module": "KERNEL",
+    "Name": "GlobalFree",
+    "Ordinal": 17,
+    "Source": "https://github.com/wine-mirror/wine/blob/master/dlls/krnl386.exe16/krnl386.exe16.spec"
+  }
+]

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable></PropertyGroup>
+  <PropertyGroup>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>false</SelfContained>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Translator.Analysis/Translator.Analysis.csproj"/>
+    <ProjectReference Include="../Translator.Binary/Translator.Binary.csproj" />
+    <ProjectReference Include="../Translator.Assembly/Translator.Assembly.csproj" />
+    <ProjectReference Include="../Translator.Transform/Translator.Transform.csproj" />
+    <ProjectReference Include="../Translator.CodeGen/Translator.CodeGen.csproj" />
+    <ProjectReference Include="../Translator.Linker/Translator.Linker.csproj" />
+    <ProjectReference Include="../Translator.ChipsChallenge/Translator.ChipsChallenge.csproj" />
+  </ItemGroup>
+  <ItemGroup><ProjectReference Include="../../tests/Translator.TestSupport/Translator.TestSupport.csproj" /></ItemGroup>
+</Project>

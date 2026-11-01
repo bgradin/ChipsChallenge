@@ -1,0 +1,32 @@
+{
+  "Arguments": [
+    128,
+    130,
+    134,
+    3,
+    2
+  ],
+  "Writes": [
+    {
+      "SegmentIndex": 10,
+      "Offset": 128,
+      "BytesHex": "0000000000000400"
+    }
+  ],
+  "ExpectedRegisters": {
+    "AX": 1,
+    "SP": 14126
+  },
+  "ExpectedMemory": [
+    {
+      "SegmentIndex": 10,
+      "Offset": 128,
+      "BytesHex": "0100000000500700"
+    },
+    {
+      "Selector": 20480,
+      "Offset": 0,
+      "BytesHex": "000000000000"
+    }
+  ]
+}

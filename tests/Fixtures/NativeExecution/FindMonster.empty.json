@@ -1,0 +1,22 @@
+{
+  "Arguments": [
+    1,
+    2
+  ],
+  "Writes": [
+    {
+      "SegmentIndex": 10,
+      "Offset": 5760,
+      "BytesHex": "0001"
+    },
+    {
+      "SegmentIndex": 10,
+      "Offset": 2600,
+      "BytesHex": "0000"
+    }
+  ],
+  "ExpectedRegisters": {
+    "AX": 65535,
+    "SP": 14132
+  }
+}

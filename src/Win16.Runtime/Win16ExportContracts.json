@@ -1,0 +1,4437 @@
+[
+  {
+    "Module": "KERNEL",
+    "Ordinal": 3,
+    "Name": "GetVersion",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [],
+    "ReturnBytes": 4,
+    "CleanupBytes": 0,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "DWORD",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 5,
+    "Name": "LocalAlloc",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 1,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "WORD"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 4,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "HLOCAL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 6,
+    "Name": "LocalReAlloc",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "typed HLOCAL16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HLOCAL16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 1,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "WORD"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 6,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "HLOCAL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 7,
+    "Name": "LocalFree",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "typed HLOCAL16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HLOCAL16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "HLOCAL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 10,
+    "Name": "LocalSize",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "typed HLOCAL16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HLOCAL16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "UINT16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 15,
+    "Name": "GlobalAlloc",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "long",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "DWORD"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 6,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "HGLOBAL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 16,
+    "Name": "GlobalReAlloc",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 3,
+        "Marshalling": "typed HGLOBAL16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HGLOBAL16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "long",
+        "Bytes": 4,
+        "StackWord": 1,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "DWORD"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 8,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "HGLOBAL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 17,
+    "Name": "GlobalFree",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "typed HGLOBAL16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HGLOBAL16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "HGLOBAL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 18,
+    "Name": "GlobalLock",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "typed HGLOBAL16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HGLOBAL16"
+      }
+    ],
+    "ReturnBytes": 4,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "LPVOID",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 19,
+    "Name": "GlobalUnlock",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "typed HGLOBAL16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HGLOBAL16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "BOOL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 20,
+    "Name": "GlobalSize",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "typed HGLOBAL16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HGLOBAL16"
+      }
+    ],
+    "ReturnBytes": 4,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "DWORD",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 23,
+    "Name": "LockSegment",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "typed HGLOBAL16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HGLOBAL16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "HGLOBAL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 24,
+    "Name": "UnlockSegment",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "typed HGLOBAL16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HGLOBAL16"
+      }
+    ],
+    "ReturnBytes": 0,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "void",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 30,
+    "Name": "WaitEvent",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "typed HTASK16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HTASK16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "BOOL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 49,
+    "Name": "GetModuleFileName",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 3,
+        "Marshalling": "typed HINSTANCE16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HINSTANCE16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "ptr",
+        "Bytes": 4,
+        "StackWord": 1,
+        "Marshalling": "segmented LPSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPSTR"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 8,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "INT16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 50,
+    "Name": "GetProcAddress",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "typed HMODULE16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HMODULE16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      }
+    ],
+    "ReturnBytes": 4,
+    "CleanupBytes": 6,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "FARPROC16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 51,
+    "Name": "MakeProcInstance",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "segptr",
+        "Bytes": 4,
+        "StackWord": 1,
+        "Marshalling": "original 16:16 procedure; approved compiled entry, captured instance DS and callback stack policy",
+        "OriginalType": "FARPROC16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "typed HANDLE16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HANDLE16"
+      }
+    ],
+    "ReturnBytes": 4,
+    "CleanupBytes": 6,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "FARPROC16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 52,
+    "Name": "FreeProcInstance",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "segptr",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "original 16:16 procedure; approved compiled entry, captured instance DS and callback stack policy",
+        "OriginalType": "FARPROC16"
+      }
+    ],
+    "ReturnBytes": 0,
+    "CleanupBytes": 4,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "void",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 60,
+    "Name": "FindResource",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 4,
+        "Marshalling": "typed HINSTANCE16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HINSTANCE16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 2,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 10,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "HRSRC16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 61,
+    "Name": "LoadResource",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 1,
+        "Marshalling": "typed HINSTANCE16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HINSTANCE16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "typed HRSRC16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HRSRC16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 4,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "HGLOBAL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 62,
+    "Name": "LockResource",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "typed HGLOBAL16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HGLOBAL16"
+      }
+    ],
+    "ReturnBytes": 4,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "LPVOID",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 63,
+    "Name": "FreeResource",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "typed HGLOBAL16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HGLOBAL16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "BOOL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 74,
+    "Name": "OpenFile",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 3,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "ptr",
+        "Bytes": 4,
+        "StackWord": 1,
+        "Marshalling": "segmented OFSTRUCT* view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "OFSTRUCT*"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 10,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "HFILE16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 81,
+    "Name": "_lclose",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "typed HFILE16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HFILE16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "HFILE16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 82,
+    "Name": "_lread",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 3,
+        "Marshalling": "typed HFILE16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HFILE16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "segptr",
+        "Bytes": 4,
+        "StackWord": 1,
+        "Marshalling": "segmented LPVOID view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPVOID"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 8,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "UINT16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 84,
+    "Name": "_llseek",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 3,
+        "Marshalling": "typed HFILE16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HFILE16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "long",
+        "Bytes": 4,
+        "StackWord": 1,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "LONG"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      }
+    ],
+    "ReturnBytes": 4,
+    "CleanupBytes": 8,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "LONG",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 88,
+    "Name": "lstrcpy",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "segptr",
+        "Bytes": 4,
+        "StackWord": 2,
+        "Marshalling": "segmented buffer/string/procedure; direction and structure require per-service policy",
+        "OriginalType": "SEGPTR"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      }
+    ],
+    "ReturnBytes": 4,
+    "CleanupBytes": 8,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "SEGPTR",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 90,
+    "Name": "lstrlen",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 4,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "INT16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 91,
+    "Name": "InitTask",
+    "Kind": "RegisterProcedure",
+    "Convention": "Register",
+    "Arguments": [],
+    "ReturnBytes": 0,
+    "CleanupBytes": 0,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "register state",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 95,
+    "Name": "LoadLibrary",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 4,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "HINSTANCE16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 96,
+    "Name": "FreeLibrary",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "typed HINSTANCE16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HINSTANCE16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "VOID",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 102,
+    "Name": "DOS3Call",
+    "Kind": "RegisterProcedure",
+    "Convention": "Register",
+    "Arguments": [],
+    "ReturnBytes": 0,
+    "CleanupBytes": 0,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "register state",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 107,
+    "Name": "SetErrorMode",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "UINT16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 127,
+    "Name": "GetPrivateProfileInt",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 5,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 3,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg3",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 14,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "UINT16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 128,
+    "Name": "GetPrivateProfileString",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 9,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 7,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 5,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      },
+      {
+        "Name": "arg3",
+        "WireType": "ptr",
+        "Bytes": 4,
+        "StackWord": 3,
+        "Marshalling": "segmented LPSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPSTR"
+      },
+      {
+        "Name": "arg4",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      },
+      {
+        "Name": "arg5",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 22,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "INT16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 129,
+    "Name": "WritePrivateProfileString",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 6,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 4,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 2,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      },
+      {
+        "Name": "arg3",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 16,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "BOOL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 131,
+    "Name": "GetDOSEnvironment",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [],
+    "ReturnBytes": 4,
+    "CleanupBytes": 0,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "SEGPTR",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 134,
+    "Name": "GetWindowsDirectory",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "ptr",
+        "Bytes": 4,
+        "StackWord": 1,
+        "Marshalling": "segmented LPSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPSTR"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 6,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "UINT16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 137,
+    "Name": "FatalAppExit",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      }
+    ],
+    "ReturnBytes": 0,
+    "CleanupBytes": 6,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "void",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winbase16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 1,
+    "Name": "MessageBox",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 5,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 3,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 1,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      },
+      {
+        "Name": "arg3",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 12,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "INT16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 5,
+    "Name": "InitApp",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "typed HINSTANCE16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HINSTANCE16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "INT16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 6,
+    "Name": "PostQuitMessage",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      }
+    ],
+    "ReturnBytes": 0,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "void",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 10,
+    "Name": "SetTimer",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 4,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 3,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      },
+      {
+        "Name": "arg3",
+        "WireType": "segptr",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "original 16:16 procedure; approved compiled entry, captured instance DS and callback stack policy",
+        "OriginalType": "TIMERPROC16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 10,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "UINT16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 12,
+    "Name": "KillTimer",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 1,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 4,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "BOOL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 15,
+    "Name": "GetCurrentTime",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [],
+    "ReturnBytes": 4,
+    "CleanupBytes": 0,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "DWORD",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 18,
+    "Name": "SetCapture",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "HWND16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 19,
+    "Name": "ReleaseCapture",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [],
+    "ReturnBytes": 0,
+    "CleanupBytes": 0,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "void",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 22,
+    "Name": "SetFocus",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "HWND16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 31,
+    "Name": "IsIconic",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "BOOL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 33,
+    "Name": "GetClientRect",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "ptr",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented LPRECT16 view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPRECT16"
+      }
+    ],
+    "ReturnBytes": 0,
+    "CleanupBytes": 6,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "void",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 34,
+    "Name": "EnableWindow",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 1,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "BOOL16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 4,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "BOOL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 37,
+    "Name": "SetWindowText",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "segstr",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented buffer/string/procedure; direction and structure require per-service policy",
+        "OriginalType": "SEGPTR"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 6,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "BOOL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 39,
+    "Name": "BeginPaint",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "ptr",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented LPPAINTSTRUCT16 view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPPAINTSTRUCT16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 6,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "HDC16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 40,
+    "Name": "EndPaint",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "ptr",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented const PAINTSTRUCT16* view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "const PAINTSTRUCT16*"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 6,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "BOOL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 41,
+    "Name": "CreateWindow",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 13,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 11,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "long",
+        "Bytes": 4,
+        "StackWord": 9,
+        "Marshalling": "message/command-dependent original-width value; convert embedded pointers/handles only under the specific message contract",
+        "OriginalType": "DWORD"
+      },
+      {
+        "Name": "arg3",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 8,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg4",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 7,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg5",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 6,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg6",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 5,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg7",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 4,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      },
+      {
+        "Name": "arg8",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 3,
+        "Marshalling": "typed HMENU16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HMENU16"
+      },
+      {
+        "Name": "arg9",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "typed HINSTANCE16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HINSTANCE16"
+      },
+      {
+        "Name": "arg10",
+        "WireType": "segptr",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented LPVOID view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPVOID"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 30,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "HWND16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 42,
+    "Name": "ShowWindow",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 1,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 4,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "BOOL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 53,
+    "Name": "DestroyWindow",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "BOOL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 57,
+    "Name": "RegisterClass",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "ptr",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented const WNDCLASS16* view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "const WNDCLASS16*"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 4,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "ATOM",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 61,
+    "Name": "ScrollWindow",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 6,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 5,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 4,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg3",
+        "WireType": "ptr",
+        "Bytes": 4,
+        "StackWord": 2,
+        "Marshalling": "segmented const RECT16* view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "const RECT16*"
+      },
+      {
+        "Name": "arg4",
+        "WireType": "ptr",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented const RECT16* view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "const RECT16*"
+      }
+    ],
+    "ReturnBytes": 0,
+    "CleanupBytes": 14,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "void",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 66,
+    "Name": "GetDC",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "HDC16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 68,
+    "Name": "ReleaseDC",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 1,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "typed HDC16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HDC16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 4,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "INT16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 69,
+    "Name": "SetCursor",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "typed HCURSOR16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HCURSOR16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "HCURSOR16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 78,
+    "Name": "InflateRect",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "ptr",
+        "Bytes": 4,
+        "StackWord": 2,
+        "Marshalling": "segmented LPRECT16 view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPRECT16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 1,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      }
+    ],
+    "ReturnBytes": 0,
+    "CleanupBytes": 8,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "void",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 85,
+    "Name": "DrawText",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 6,
+        "Marshalling": "typed HDC16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HDC16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 4,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 3,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg3",
+        "WireType": "ptr",
+        "Bytes": 4,
+        "StackWord": 1,
+        "Marshalling": "segmented LPRECT16 view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPRECT16"
+      },
+      {
+        "Name": "arg4",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 14,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "INT16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 87,
+    "Name": "DialogBox",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 5,
+        "Marshalling": "typed HINSTANCE16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HINSTANCE16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 3,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      },
+      {
+        "Name": "arg3",
+        "WireType": "segptr",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "original 16:16 procedure; approved compiled entry, captured instance DS and callback stack policy",
+        "OriginalType": "DLGPROC16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 12,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "INT16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 88,
+    "Name": "EndDialog",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 1,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 4,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "BOOL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 91,
+    "Name": "GetDlgItem",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 1,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 4,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "HWND16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 92,
+    "Name": "SetDlgItemText",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 3,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "segstr",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented buffer/string/procedure; direction and structure require per-service policy",
+        "OriginalType": "SEGPTR"
+      }
+    ],
+    "ReturnBytes": 0,
+    "CleanupBytes": 8,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "void",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 93,
+    "Name": "GetDlgItemText",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 4,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 3,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "segptr",
+        "Bytes": 4,
+        "StackWord": 1,
+        "Marshalling": "segmented buffer/string/procedure; direction and structure require per-service policy",
+        "OriginalType": "SEGPTR"
+      },
+      {
+        "Name": "arg3",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 10,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "INT16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 95,
+    "Name": "GetDlgItemInt",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 4,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 3,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "ptr",
+        "Bytes": 4,
+        "StackWord": 1,
+        "Marshalling": "segmented BOOL16* view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "BOOL16*"
+      },
+      {
+        "Name": "arg3",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "BOOL16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 10,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "UINT16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 101,
+    "Name": "SendDlgItemMessage",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 5,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 4,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 3,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      },
+      {
+        "Name": "arg3",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "message/command-dependent original-width value; convert embedded pointers/handles only under the specific message contract",
+        "OriginalType": "WPARAM16"
+      },
+      {
+        "Name": "arg4",
+        "WireType": "long",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented LPARAM view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPARAM"
+      }
+    ],
+    "ReturnBytes": 4,
+    "CleanupBytes": 12,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "LRESULT",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 102,
+    "Name": "AdjustWindowRect",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "ptr",
+        "Bytes": 4,
+        "StackWord": 3,
+        "Marshalling": "segmented LPRECT16 view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPRECT16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "long",
+        "Bytes": 4,
+        "StackWord": 1,
+        "Marshalling": "message/command-dependent original-width value; convert embedded pointers/handles only under the specific message contract",
+        "OriginalType": "DWORD"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "BOOL16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 10,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "BOOL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 104,
+    "Name": "MessageBeep",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "VOID",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 106,
+    "Name": "GetKeyState",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "INT16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 107,
+    "Name": "DefWindowProc",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 4,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 3,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "message/command-dependent original-width value; convert embedded pointers/handles only under the specific message contract",
+        "OriginalType": "WPARAM16"
+      },
+      {
+        "Name": "arg3",
+        "WireType": "long",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented LPARAM view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPARAM"
+      }
+    ],
+    "ReturnBytes": 4,
+    "CleanupBytes": 10,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "LRESULT",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 109,
+    "Name": "PeekMessage",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "ptr",
+        "Bytes": 4,
+        "StackWord": 4,
+        "Marshalling": "segmented MSG16* view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "MSG16*"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 3,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      },
+      {
+        "Name": "arg3",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 1,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      },
+      {
+        "Name": "arg4",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 12,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "BOOL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 110,
+    "Name": "PostMessage",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 4,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 3,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "message/command-dependent original-width value; convert embedded pointers/handles only under the specific message contract",
+        "OriginalType": "WPARAM16"
+      },
+      {
+        "Name": "arg3",
+        "WireType": "long",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented LPARAM view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPARAM"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 10,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "BOOL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 111,
+    "Name": "SendMessage",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 4,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 3,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "message/command-dependent original-width value; convert embedded pointers/handles only under the specific message contract",
+        "OriginalType": "WPARAM16"
+      },
+      {
+        "Name": "arg3",
+        "WireType": "long",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented LPARAM view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPARAM"
+      }
+    ],
+    "ReturnBytes": 4,
+    "CleanupBytes": 10,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "LRESULT",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 113,
+    "Name": "TranslateMessage",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "ptr",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented const MSG16* view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "const MSG16*"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 4,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "BOOL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 114,
+    "Name": "DispatchMessage",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "ptr",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented const MSG16* view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "const MSG16*"
+      }
+    ],
+    "ReturnBytes": 4,
+    "CleanupBytes": 4,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "LONG",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 124,
+    "Name": "UpdateWindow",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "VOID",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 125,
+    "Name": "InvalidateRect",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 3,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "ptr",
+        "Bytes": 4,
+        "StackWord": 1,
+        "Marshalling": "segmented const RECT16* view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "const RECT16*"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "BOOL16"
+      }
+    ],
+    "ReturnBytes": 0,
+    "CleanupBytes": 8,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "void",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 127,
+    "Name": "ValidateRect",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "ptr",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented const RECT16* view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "const RECT16*"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 6,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "VOID",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 133,
+    "Name": "GetWindowWord",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 1,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 4,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "WORD",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 134,
+    "Name": "SetWindowWord",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 1,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "WORD"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 6,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "WORD",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 150,
+    "Name": "LoadMenu",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "typed HINSTANCE16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HINSTANCE16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 6,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "HMENU16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 154,
+    "Name": "CheckMenuItem",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "typed HMENU16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HMENU16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 1,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 6,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "BOOL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 155,
+    "Name": "EnableMenuItem",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "typed HMENU16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HMENU16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 1,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 6,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "BOOL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 159,
+    "Name": "GetSubMenu",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 1,
+        "Marshalling": "typed HMENU16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HMENU16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 4,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "HMENU16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 160,
+    "Name": "DrawMenuBar",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "VOID",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 173,
+    "Name": "LoadCursor",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "typed HINSTANCE16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HINSTANCE16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 6,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "HCURSOR16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 174,
+    "Name": "LoadIcon",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "typed HINSTANCE16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HINSTANCE16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 6,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "HICON16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 175,
+    "Name": "LoadBitmap",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "typed HANDLE16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HANDLE16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 6,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "HBITMAP16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 177,
+    "Name": "LoadAccelerators",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "word"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented buffer/string/procedure; direction and structure require per-service policy",
+        "OriginalType": "str"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 6,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "HACCEL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 178,
+    "Name": "TranslateAccelerator",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 3,
+        "Marshalling": "typed HWND16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HWND16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "typed HACCEL16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HACCEL16"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "ptr",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented LPMSG16 view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPMSG16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 8,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "INT16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 411,
+    "Name": "AppendMenu",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 4,
+        "Marshalling": "typed HMENU16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HMENU16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 3,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      },
+      {
+        "Name": "arg3",
+        "WireType": "segptr",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented buffer/string/procedure; direction and structure require per-service policy",
+        "OriginalType": "SEGPTR"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 10,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "BOOL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 420,
+    "Name": "_wsprintf",
+    "Kind": "Procedure",
+    "Convention": "Cdecl",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "ptr",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented buffer/string/procedure; direction and structure require per-service policy",
+        "OriginalType": "ptr"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 2,
+        "Marshalling": "segmented buffer/string/procedure; direction and structure require per-service policy",
+        "OriginalType": "str"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 0,
+    "Variadic": true,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "INT16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 471,
+    "Name": "lstrcmpi",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 2,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "str",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented LPCSTR view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCSTR"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 8,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "INT16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 483,
+    "Name": "SystemParametersInfo",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 4,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 3,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "ptr",
+        "Bytes": 4,
+        "StackWord": 1,
+        "Marshalling": "segmented LPVOID view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPVOID"
+      },
+      {
+        "Name": "arg3",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 10,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/c6f121df19adc233f37e34ca30a2ffcc0148844f/dlls/user.exe16/user.exe16.spec",
+    "SourceSha256": "d873fa88079c4f922cbba2fb3a75f40e2ff23b4d56434b0f4326169397539e32",
+    "ReturnType": "BOOL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/winuser16.h"
+  },
+  {
+    "Module": "GDI",
+    "Ordinal": 1,
+    "Name": "SetBkColor",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "typed HDC16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HDC16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "long",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "COLORREF"
+      }
+    ],
+    "ReturnBytes": 4,
+    "CleanupBytes": 6,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/4edcf1caa52a09fffaf032a35ffd129259084096/dlls/gdi.exe16/gdi.exe16.spec",
+    "SourceSha256": "3bd84b26a9d4b7aa91a9114d0a46dc13e4d6fcd71290120afdd9b7cfaffe76ab",
+    "ReturnType": "COLORREF",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/wingdi16.h"
+  },
+  {
+    "Module": "GDI",
+    "Ordinal": 2,
+    "Name": "SetBkMode",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 1,
+        "Marshalling": "typed HDC16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HDC16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 4,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/4edcf1caa52a09fffaf032a35ffd129259084096/dlls/gdi.exe16/gdi.exe16.spec",
+    "SourceSha256": "3bd84b26a9d4b7aa91a9114d0a46dc13e4d6fcd71290120afdd9b7cfaffe76ab",
+    "ReturnType": "INT16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/wingdi16.h"
+  },
+  {
+    "Module": "GDI",
+    "Ordinal": 9,
+    "Name": "SetTextColor",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "typed HDC16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HDC16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "long",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "COLORREF"
+      }
+    ],
+    "ReturnBytes": 4,
+    "CleanupBytes": 6,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/4edcf1caa52a09fffaf032a35ffd129259084096/dlls/gdi.exe16/gdi.exe16.spec",
+    "SourceSha256": "3bd84b26a9d4b7aa91a9114d0a46dc13e4d6fcd71290120afdd9b7cfaffe76ab",
+    "ReturnType": "COLORREF",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/wingdi16.h"
+  },
+  {
+    "Module": "GDI",
+    "Ordinal": 29,
+    "Name": "PatBlt",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 6,
+        "Marshalling": "typed HDC16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HDC16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 5,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 4,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg3",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 3,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg4",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg5",
+        "WireType": "long",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "DWORD"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 14,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/4edcf1caa52a09fffaf032a35ffd129259084096/dlls/gdi.exe16/gdi.exe16.spec",
+    "SourceSha256": "3bd84b26a9d4b7aa91a9114d0a46dc13e4d6fcd71290120afdd9b7cfaffe76ab",
+    "ReturnType": "BOOL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/wingdi16.h"
+  },
+  {
+    "Module": "GDI",
+    "Ordinal": 34,
+    "Name": "BitBlt",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 9,
+        "Marshalling": "typed HDC16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HDC16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 8,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 7,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg3",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 6,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg4",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 5,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg5",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 4,
+        "Marshalling": "typed HDC16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HDC16"
+      },
+      {
+        "Name": "arg6",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 3,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg7",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg8",
+        "WireType": "long",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "DWORD"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 20,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/4edcf1caa52a09fffaf032a35ffd129259084096/dlls/gdi.exe16/gdi.exe16.spec",
+    "SourceSha256": "3bd84b26a9d4b7aa91a9114d0a46dc13e4d6fcd71290120afdd9b7cfaffe76ab",
+    "ReturnType": "BOOL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/wingdi16.h"
+  },
+  {
+    "Module": "GDI",
+    "Ordinal": 35,
+    "Name": "StretchBlt",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 11,
+        "Marshalling": "typed HDC16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HDC16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 10,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 9,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg3",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 8,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg4",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 7,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg5",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 6,
+        "Marshalling": "typed HDC16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HDC16"
+      },
+      {
+        "Name": "arg6",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 5,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg7",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 4,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg8",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 3,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg9",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg10",
+        "WireType": "long",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "DWORD"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 24,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/4edcf1caa52a09fffaf032a35ffd129259084096/dlls/gdi.exe16/gdi.exe16.spec",
+    "SourceSha256": "3bd84b26a9d4b7aa91a9114d0a46dc13e4d6fcd71290120afdd9b7cfaffe76ab",
+    "ReturnType": "BOOL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/wingdi16.h"
+  },
+  {
+    "Module": "GDI",
+    "Ordinal": 45,
+    "Name": "SelectObject",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 1,
+        "Marshalling": "typed HDC16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HDC16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "typed HGDIOBJ16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HGDIOBJ16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 4,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/4edcf1caa52a09fffaf032a35ffd129259084096/dlls/gdi.exe16/gdi.exe16.spec",
+    "SourceSha256": "3bd84b26a9d4b7aa91a9114d0a46dc13e4d6fcd71290120afdd9b7cfaffe76ab",
+    "ReturnType": "HGDIOBJ16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/wingdi16.h"
+  },
+  {
+    "Module": "GDI",
+    "Ordinal": 52,
+    "Name": "CreateCompatibleDC",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "typed HDC16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HDC16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/4edcf1caa52a09fffaf032a35ffd129259084096/dlls/gdi.exe16/gdi.exe16.spec",
+    "SourceSha256": "3bd84b26a9d4b7aa91a9114d0a46dc13e4d6fcd71290120afdd9b7cfaffe76ab",
+    "ReturnType": "HDC16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/wingdi16.h"
+  },
+  {
+    "Module": "GDI",
+    "Ordinal": 57,
+    "Name": "CreateFontIndirect",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "ptr",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented const LOGFONT16* view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "const LOGFONT16*"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 4,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/4edcf1caa52a09fffaf032a35ffd129259084096/dlls/gdi.exe16/gdi.exe16.spec",
+    "SourceSha256": "3bd84b26a9d4b7aa91a9114d0a46dc13e4d6fcd71290120afdd9b7cfaffe76ab",
+    "ReturnType": "HFONT16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/wingdi16.h"
+  },
+  {
+    "Module": "GDI",
+    "Ordinal": 68,
+    "Name": "DeleteDC",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "typed HDC16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HDC16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/4edcf1caa52a09fffaf032a35ffd129259084096/dlls/gdi.exe16/gdi.exe16.spec",
+    "SourceSha256": "3bd84b26a9d4b7aa91a9114d0a46dc13e4d6fcd71290120afdd9b7cfaffe76ab",
+    "ReturnType": "BOOL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/wingdi16.h"
+  },
+  {
+    "Module": "GDI",
+    "Ordinal": 69,
+    "Name": "DeleteObject",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "typed HGDIOBJ16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HGDIOBJ16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/4edcf1caa52a09fffaf032a35ffd129259084096/dlls/gdi.exe16/gdi.exe16.spec",
+    "SourceSha256": "3bd84b26a9d4b7aa91a9114d0a46dc13e4d6fcd71290120afdd9b7cfaffe76ab",
+    "ReturnType": "BOOL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/wingdi16.h"
+  },
+  {
+    "Module": "GDI",
+    "Ordinal": 80,
+    "Name": "GetDeviceCaps",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 1,
+        "Marshalling": "typed HDC16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HDC16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 4,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/4edcf1caa52a09fffaf032a35ffd129259084096/dlls/gdi.exe16/gdi.exe16.spec",
+    "SourceSha256": "3bd84b26a9d4b7aa91a9114d0a46dc13e4d6fcd71290120afdd9b7cfaffe76ab",
+    "ReturnType": "INT16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/wingdi16.h"
+  },
+  {
+    "Module": "GDI",
+    "Ordinal": 82,
+    "Name": "GetObject",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 3,
+        "Marshalling": "typed HANDLE16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HANDLE16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "ptr",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented LPVOID view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPVOID"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 8,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/4edcf1caa52a09fffaf032a35ffd129259084096/dlls/gdi.exe16/gdi.exe16.spec",
+    "SourceSha256": "3bd84b26a9d4b7aa91a9114d0a46dc13e4d6fcd71290120afdd9b7cfaffe76ab",
+    "ReturnType": "INT16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/wingdi16.h"
+  },
+  {
+    "Module": "GDI",
+    "Ordinal": 87,
+    "Name": "GetStockObject",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/4edcf1caa52a09fffaf032a35ffd129259084096/dlls/gdi.exe16/gdi.exe16.spec",
+    "SourceSha256": "3bd84b26a9d4b7aa91a9114d0a46dc13e4d6fcd71290120afdd9b7cfaffe76ab",
+    "ReturnType": "HGDIOBJ16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/wingdi16.h"
+  },
+  {
+    "Module": "GDI",
+    "Ordinal": 93,
+    "Name": "GetTextMetrics",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "typed HDC16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HDC16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "ptr",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "segmented LPTEXTMETRIC16 view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPTEXTMETRIC16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 6,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/4edcf1caa52a09fffaf032a35ffd129259084096/dlls/gdi.exe16/gdi.exe16.spec",
+    "SourceSha256": "3bd84b26a9d4b7aa91a9114d0a46dc13e4d6fcd71290120afdd9b7cfaffe76ab",
+    "ReturnType": "BOOL16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/wingdi16.h"
+  },
+  {
+    "Module": "GDI",
+    "Ordinal": 128,
+    "Name": "MulDiv",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 1,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 6,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/4edcf1caa52a09fffaf032a35ffd129259084096/dlls/gdi.exe16/gdi.exe16.spec",
+    "SourceSha256": "3bd84b26a9d4b7aa91a9114d0a46dc13e4d6fcd71290120afdd9b7cfaffe76ab",
+    "ReturnType": "INT16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/wingdi16.h"
+  },
+  {
+    "Module": "GDI",
+    "Ordinal": 443,
+    "Name": "SetDIBitsToDevice",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 13,
+        "Marshalling": "typed HDC16 handle identity and service-specific ownership; never a host pointer",
+        "OriginalType": "HDC16"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 12,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 11,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg3",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 10,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg4",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 9,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg5",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 8,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg6",
+        "WireType": "s_word",
+        "Bytes": 2,
+        "StackWord": 7,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "INT16"
+      },
+      {
+        "Name": "arg7",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 6,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      },
+      {
+        "Name": "arg8",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 5,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      },
+      {
+        "Name": "arg9",
+        "WireType": "ptr",
+        "Bytes": 4,
+        "StackWord": 3,
+        "Marshalling": "segmented LPCVOID view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "LPCVOID"
+      },
+      {
+        "Name": "arg10",
+        "WireType": "ptr",
+        "Bytes": 4,
+        "StackWord": 1,
+        "Marshalling": "segmented const BITMAPINFO* view; validate bounded range, convert the named Win16 structure/ANSI encoding and copy back only defined output fields",
+        "OriginalType": "const BITMAPINFO*"
+      },
+      {
+        "Name": "arg11",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width value; handles require per-service typed mapping",
+        "OriginalType": "UINT16"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 28,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/4edcf1caa52a09fffaf032a35ffd129259084096/dlls/gdi.exe16/gdi.exe16.spec",
+    "SourceSha256": "3bd84b26a9d4b7aa91a9114d0a46dc13e4d6fcd71290120afdd9b7cfaffe76ab",
+    "ReturnType": "INT16",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/include/wine/wingdi16.h"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 178,
+    "Name": "__WINFLAGS",
+    "Kind": "Constant",
+    "Convention": "None",
+    "Arguments": [],
+    "ReturnBytes": 0,
+    "CleanupBytes": 0,
+    "Variadic": false,
+    "ConstantValue": 1043,
+    "Source": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec",
+    "SourceSha256": "8d799b701d1cf16d4e882b5e354dc6e357056d4adcd83e629571dc4b33b02075",
+    "ReturnType": "WORD constant",
+    "ReturnTypeSource": "https://raw.githubusercontent.com/wine-mirror/wine/819d049f1277090033bcfe17783490cd6b190c88/dlls/krnl386.exe16/krnl386.exe16.spec"
+  },
+  {
+    "Module": "KERNEL",
+    "Ordinal": 1,
+    "Name": "FatalExit",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "code",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "exit code",
+        "OriginalType": "word"
+      }
+    ],
+    "ReturnBytes": 0,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "CHIPS.EXE 0001:0604-060C; original bytes must be checked by audit",
+    "SourceSha256": "8e26acd67cf120bd5b512de4b4e78b80aca1579413cd04f3b2b68909a375866c",
+    "ReturnType": "void; terminal/debugger behavior requires verification",
+    "ReturnTypeSource": "CHIPS.EXE 0001:0604-060C; original bytes must be checked by audit"
+  },
+  {
+    "Module": "WEP4UTIL",
+    "Ordinal": 2,
+    "Name": "FCHKWEPVERS",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width; specific WEP contract policy required",
+        "OriginalType": "word"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "Original WEP4UTIL.DLL exports, argument loads and RETF immediate; CHIPS.EXE call sites",
+    "SourceSha256": "40a405813946caac1aa2ec3e31fa570de1c418f8db43182d614e0bac4e1978cb",
+    "OriginalEntry": 5793,
+    "ReturnInstruction": 5859,
+    "ReturnBytesHex": "CA0200",
+    "ReturnType": "BOOL16",
+    "ReturnTypeSource": "Original WEP4UTIL.DLL exports, argument loads and RETF immediate; CHIPS.EXE call sites"
+  },
+  {
+    "Module": "WEP4UTIL",
+    "Ordinal": 4,
+    "Name": "WEPABOUT2",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 1,
+        "Marshalling": "original-width; specific WEP contract policy required",
+        "OriginalType": "word"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width; specific WEP contract policy required",
+        "OriginalType": "word"
+      }
+    ],
+    "ReturnBytes": null,
+    "CleanupBytes": 4,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "Original WEP4UTIL.DLL exports, argument loads and RETF immediate; CHIPS.EXE call sites",
+    "SourceSha256": "40a405813946caac1aa2ec3e31fa570de1c418f8db43182d614e0bac4e1978cb",
+    "OriginalEntry": 784,
+    "ReturnInstruction": 939,
+    "ReturnBytesHex": "CA0400",
+    "ReturnType": "Unspecified; original callers ignore result",
+    "ReturnTypeSource": "Original WEP4UTIL.DLL exports, argument loads and RETF immediate; CHIPS.EXE call sites"
+  },
+  {
+    "Module": "WEP4UTIL",
+    "Ordinal": 5,
+    "Name": "WEPHELP",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 4,
+        "Marshalling": "original-width; specific WEP contract policy required",
+        "OriginalType": "word"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 3,
+        "Marshalling": "original-width; specific WEP contract policy required",
+        "OriginalType": "word"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "original-width; specific WEP contract policy required",
+        "OriginalType": "word"
+      },
+      {
+        "Name": "arg3",
+        "WireType": "long",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "command-dependent DWORD: scalar context or original segmented string pointer",
+        "OriginalType": "long"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 10,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "Original WEP4UTIL.DLL exports, argument loads and RETF immediate; CHIPS.EXE call sites",
+    "SourceSha256": "40a405813946caac1aa2ec3e31fa570de1c418f8db43182d614e0bac4e1978cb",
+    "OriginalEntry": 5862,
+    "ReturnInstruction": 5993,
+    "ReturnBytesHex": "CA0A00",
+    "ReturnType": "BOOL16",
+    "ReturnTypeSource": "Original WEP4UTIL.DLL exports, argument loads and RETF immediate; CHIPS.EXE call sites"
+  },
+  {
+    "Module": "WEP4UTIL",
+    "Ordinal": 103,
+    "Name": "CENTERHWND",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 0,
+        "Marshalling": "original-width; specific WEP contract policy required",
+        "OriginalType": "word"
+      }
+    ],
+    "ReturnBytes": null,
+    "CleanupBytes": 2,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "Original WEP4UTIL.DLL exports, argument loads and RETF immediate; CHIPS.EXE call sites",
+    "SourceSha256": "40a405813946caac1aa2ec3e31fa570de1c418f8db43182d614e0bac4e1978cb",
+    "OriginalEntry": 5996,
+    "ReturnInstruction": 6083,
+    "ReturnBytesHex": "CA0200",
+    "ReturnType": "Unspecified; original callers ignore result",
+    "ReturnTypeSource": "Original WEP4UTIL.DLL exports, argument loads and RETF immediate; CHIPS.EXE call sites"
+  },
+  {
+    "Module": "WEP4UTIL",
+    "Ordinal": 1202,
+    "Name": "GRAYDLGPROC",
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "Arguments": [
+      {
+        "Name": "arg0",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 4,
+        "Marshalling": "original-width; specific WEP contract policy required",
+        "OriginalType": "word"
+      },
+      {
+        "Name": "arg1",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 3,
+        "Marshalling": "original-width; specific WEP contract policy required",
+        "OriginalType": "word"
+      },
+      {
+        "Name": "arg2",
+        "WireType": "word",
+        "Bytes": 2,
+        "StackWord": 2,
+        "Marshalling": "original-width; specific WEP contract policy required",
+        "OriginalType": "word"
+      },
+      {
+        "Name": "arg3",
+        "WireType": "long",
+        "Bytes": 4,
+        "StackWord": 0,
+        "Marshalling": "original-width; specific WEP contract policy required",
+        "OriginalType": "long"
+      }
+    ],
+    "ReturnBytes": 2,
+    "CleanupBytes": 10,
+    "Variadic": false,
+    "ConstantValue": null,
+    "Source": "Original WEP4UTIL.DLL exports, argument loads and RETF immediate; CHIPS.EXE call sites",
+    "SourceSha256": "40a405813946caac1aa2ec3e31fa570de1c418f8db43182d614e0bac4e1978cb",
+    "OriginalEntry": 2185,
+    "ReturnInstruction": 2280,
+    "ReturnBytesHex": "CA0A00",
+    "ReturnType": "WORD; brush handle or zero",
+    "ReturnTypeSource": "Original WEP4UTIL.DLL exports, argument loads and RETF immediate; CHIPS.EXE call sites"
+  }
+]

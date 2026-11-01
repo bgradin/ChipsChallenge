@@ -1,0 +1,1466 @@
+[
+  {
+    "Identity": "GDI.#1",
+    "ServiceClass": "Win16TaskGui",
+    "ManagedSource": "Win16TaskGui.cs",
+    "NativeSource": "Native/task_gui.h",
+    "NativeExport": "__win16_gui_scalar",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeGuiServiceTests"
+    ],
+    "Limitations": "Typed scalar/handle/string adaptation; approved native provider required."
+  },
+  {
+    "Identity": "GDI.#128",
+    "ServiceClass": "Win16TaskGui",
+    "ManagedSource": "Win16TaskGui.cs",
+    "NativeSource": "Native/task_gui.h",
+    "NativeExport": "__win16_gui_scalar",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeGuiServiceTests"
+    ],
+    "Limitations": "Typed scalar/handle/string adaptation; approved native provider required."
+  },
+  {
+    "Identity": "GDI.#2",
+    "ServiceClass": "Win16TaskGui",
+    "ManagedSource": "Win16TaskGui.cs",
+    "NativeSource": "Native/task_gui.h",
+    "NativeExport": "__win16_gui_scalar",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeGuiServiceTests"
+    ],
+    "Limitations": "Typed scalar/handle/string adaptation; approved native provider required."
+  },
+  {
+    "Identity": "GDI.#29",
+    "ServiceClass": "Win16TaskGui",
+    "ManagedSource": "Win16TaskGui.cs",
+    "NativeSource": "Native/task_gui.h",
+    "NativeExport": "__win16_gui_scalar",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeGuiServiceTests"
+    ],
+    "Limitations": "Typed scalar/handle/string adaptation; approved native provider required."
+  },
+  {
+    "Identity": "GDI.#34",
+    "ServiceClass": "Win16TaskGui",
+    "ManagedSource": "Win16TaskGui.cs",
+    "NativeSource": "Native/task_gui.h",
+    "NativeExport": "__win16_gui_scalar",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeGuiServiceTests"
+    ],
+    "Limitations": "Typed scalar/handle/string adaptation; approved native provider required."
+  },
+  {
+    "Identity": "GDI.#35",
+    "ServiceClass": "Win16TaskGui",
+    "ManagedSource": "Win16TaskGui.cs",
+    "NativeSource": "Native/task_gui.h",
+    "NativeExport": "__win16_gui_scalar",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeGuiServiceTests"
+    ],
+    "Limitations": "Typed scalar/handle/string adaptation; approved native provider required."
+  },
+  {
+    "Identity": "GDI.#443",
+    "ServiceClass": "Win16TaskGraphics",
+    "ManagedSource": "Win16TaskGraphics.cs",
+    "NativeSource": "Native/task_ui_structures.h",
+    "NativeExport": "__win16_ui_structure",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeStructureServiceTests"
+    ],
+    "Limitations": "Packed GDI conversion and bounded buffers; per-operand restrictions apply."
+  },
+  {
+    "Identity": "GDI.#45",
+    "ServiceClass": "Win16TaskGui",
+    "ManagedSource": "Win16TaskGui.cs",
+    "NativeSource": "Native/task_gui.h",
+    "NativeExport": "__win16_gui_scalar",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeGuiServiceTests"
+    ],
+    "Limitations": "Typed scalar/handle/string adaptation; approved native provider required."
+  },
+  {
+    "Identity": "GDI.#52",
+    "ServiceClass": "Win16TaskGui",
+    "ManagedSource": "Win16TaskGui.cs",
+    "NativeSource": "Native/task_gui.h",
+    "NativeExport": "__win16_gui_scalar",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeGuiServiceTests"
+    ],
+    "Limitations": "Typed scalar/handle/string adaptation; approved native provider required."
+  },
+  {
+    "Identity": "GDI.#57",
+    "ServiceClass": "Win16TaskGraphics",
+    "ManagedSource": "Win16TaskGraphics.cs",
+    "NativeSource": "Native/task_ui_structures.h",
+    "NativeExport": "__win16_ui_structure",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeStructureServiceTests"
+    ],
+    "Limitations": "Packed GDI conversion and bounded buffers; per-operand restrictions apply."
+  },
+  {
+    "Identity": "GDI.#68",
+    "ServiceClass": "Win16TaskGui",
+    "ManagedSource": "Win16TaskGui.cs",
+    "NativeSource": "Native/task_gui.h",
+    "NativeExport": "__win16_gui_scalar",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeGuiServiceTests"
+    ],
+    "Limitations": "Typed scalar/handle/string adaptation; approved native provider required."
+  },
+  {
+    "Identity": "GDI.#69",
+    "ServiceClass": "Win16TaskGui",
+    "ManagedSource": "Win16TaskGui.cs",
+    "NativeSource": "Native/task_gui.h",
+    "NativeExport": "__win16_gui_scalar",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeGuiServiceTests"
+    ],
+    "Limitations": "Typed scalar/handle/string adaptation; approved native provider required."
+  },
+  {
+    "Identity": "GDI.#80",
+    "ServiceClass": "Win16TaskGui",
+    "ManagedSource": "Win16TaskGui.cs",
+    "NativeSource": "Native/task_gui.h",
+    "NativeExport": "__win16_gui_scalar",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeGuiServiceTests"
+    ],
+    "Limitations": "Typed scalar/handle/string adaptation; approved native provider required."
+  },
+  {
+    "Identity": "GDI.#82",
+    "ServiceClass": "Win16TaskGraphics",
+    "ManagedSource": "Win16TaskGraphics.cs",
+    "NativeSource": "Native/task_ui_structures.h",
+    "NativeExport": "__win16_ui_structure",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeStructureServiceTests"
+    ],
+    "Limitations": "Packed GDI conversion and bounded buffers; per-operand restrictions apply."
+  },
+  {
+    "Identity": "GDI.#87",
+    "ServiceClass": "Win16TaskGui",
+    "ManagedSource": "Win16TaskGui.cs",
+    "NativeSource": "Native/task_gui.h",
+    "NativeExport": "__win16_gui_scalar",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeGuiServiceTests"
+    ],
+    "Limitations": "Typed scalar/handle/string adaptation; approved native provider required."
+  },
+  {
+    "Identity": "GDI.#9",
+    "ServiceClass": "Win16TaskGui",
+    "ManagedSource": "Win16TaskGui.cs",
+    "NativeSource": "Native/task_gui.h",
+    "NativeExport": "__win16_gui_scalar",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeGuiServiceTests"
+    ],
+    "Limitations": "Typed scalar/handle/string adaptation; approved native provider required."
+  },
+  {
+    "Identity": "GDI.#93",
+    "ServiceClass": "Win16TaskGraphics",
+    "ManagedSource": "Win16TaskGraphics.cs",
+    "NativeSource": "Native/task_ui_structures.h",
+    "NativeExport": "__win16_ui_structure",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeStructureServiceTests"
+    ],
+    "Limitations": "Packed GDI conversion and bounded buffers; per-operand restrictions apply."
+  },
+  {
+    "Identity": "KERNEL.#1",
+    "ServiceClass": "Win16TaskLifecycle",
+    "ManagedSource": "Win16TaskLifecycle.cs",
+    "NativeSource": "Native/task_lifecycle.h",
+    "NativeExport": "__win16_task_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeLifecycleServiceTests"
+    ],
+    "Limitations": "InitTask, PSP, event and DOS register subsets; original CRT owns application initialization."
+  },
+  {
+    "Identity": "KERNEL.#10",
+    "ServiceClass": "Win16TaskKernelServices",
+    "ManagedSource": "Win16TaskKernelServices.cs",
+    "NativeSource": "Native/task_kernel.h",
+    "NativeExport": "__win16_kernel_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeTaskImportTests"
+    ],
+    "Limitations": "Task local/global storage, ASCII strings and environment; locale/operand limits remain explicit."
+  },
+  {
+    "Identity": "KERNEL.#102",
+    "ServiceClass": "Win16TaskLifecycle",
+    "ManagedSource": "Win16TaskLifecycle.cs",
+    "NativeSource": "Native/task_lifecycle.h",
+    "NativeExport": "__win16_task_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeLifecycleServiceTests"
+    ],
+    "Limitations": "InitTask, PSP, event and DOS register subsets; original CRT owns application initialization."
+  },
+  {
+    "Identity": "KERNEL.#107",
+    "ServiceClass": "Win16TaskKernelServices",
+    "ManagedSource": "Win16TaskKernelServices.cs",
+    "NativeSource": "Native/task_kernel.h",
+    "NativeExport": "__win16_kernel_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeTaskImportTests"
+    ],
+    "Limitations": "Task local/global storage, ASCII strings and environment; locale/operand limits remain explicit."
+  },
+  {
+    "Identity": "KERNEL.#127",
+    "ServiceClass": "Win16TaskProfiles",
+    "ManagedSource": "Win16TaskProfiles.cs",
+    "NativeSource": "Native/task_profiles.h",
+    "NativeExport": "__win16_profile_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeProfileServiceTests"
+    ],
+    "Limitations": "Durable INI provider, enumeration and deletion; Windows backend pending Windows execution."
+  },
+  {
+    "Identity": "KERNEL.#128",
+    "ServiceClass": "Win16TaskProfiles",
+    "ManagedSource": "Win16TaskProfiles.cs",
+    "NativeSource": "Native/task_profiles.h",
+    "NativeExport": "__win16_profile_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeProfileServiceTests"
+    ],
+    "Limitations": "Durable INI provider, enumeration and deletion; Windows backend pending Windows execution."
+  },
+  {
+    "Identity": "KERNEL.#129",
+    "ServiceClass": "Win16TaskProfiles",
+    "ManagedSource": "Win16TaskProfiles.cs",
+    "NativeSource": "Native/task_profiles.h",
+    "NativeExport": "__win16_profile_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeProfileServiceTests"
+    ],
+    "Limitations": "Durable INI provider, enumeration and deletion; Windows backend pending Windows execution."
+  },
+  {
+    "Identity": "KERNEL.#131",
+    "ServiceClass": "Win16TaskKernelServices",
+    "ManagedSource": "Win16TaskKernelServices.cs",
+    "NativeSource": "Native/task_kernel.h",
+    "NativeExport": "__win16_kernel_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeTaskImportTests"
+    ],
+    "Limitations": "Task local/global storage, ASCII strings and environment; locale/operand limits remain explicit."
+  },
+  {
+    "Identity": "KERNEL.#134",
+    "ServiceClass": "Win16TaskSystem",
+    "ManagedSource": "Win16TaskSystem.cs",
+    "NativeSource": "Native/task_system.h",
+    "NativeExport": "__win16_system_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeSystemServiceTests"
+    ],
+    "Limitations": "Task instance paths and explicit Win3.1/DOS5 policy."
+  },
+  {
+    "Identity": "KERNEL.#137",
+    "ServiceClass": "Win16TaskLifecycle",
+    "ManagedSource": "Win16TaskLifecycle.cs",
+    "NativeSource": "Native/task_lifecycle.h",
+    "NativeExport": "__win16_task_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeLifecycleServiceTests"
+    ],
+    "Limitations": "InitTask, PSP, event and DOS register subsets; original CRT owns application initialization."
+  },
+  {
+    "Identity": "KERNEL.#15",
+    "ServiceClass": "Win16TaskKernelServices",
+    "ManagedSource": "Win16TaskKernelServices.cs",
+    "NativeSource": "Native/task_kernel.h",
+    "NativeExport": "__win16_kernel_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeTaskImportTests"
+    ],
+    "Limitations": "Task local/global storage, ASCII strings and environment; locale/operand limits remain explicit."
+  },
+  {
+    "Identity": "KERNEL.#16",
+    "ServiceClass": "Win16TaskKernelServices",
+    "ManagedSource": "Win16TaskKernelServices.cs",
+    "NativeSource": "Native/task_kernel.h",
+    "NativeExport": "__win16_kernel_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeTaskImportTests"
+    ],
+    "Limitations": "Task local/global storage, ASCII strings and environment; locale/operand limits remain explicit."
+  },
+  {
+    "Identity": "KERNEL.#17",
+    "ServiceClass": "Win16TaskKernelServices",
+    "ManagedSource": "Win16TaskKernelServices.cs",
+    "NativeSource": "Native/task_kernel.h",
+    "NativeExport": "__win16_kernel_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeTaskImportTests"
+    ],
+    "Limitations": "Task local/global storage, ASCII strings and environment; locale/operand limits remain explicit."
+  },
+  {
+    "Identity": "KERNEL.#18",
+    "ServiceClass": "Win16TaskKernelServices",
+    "ManagedSource": "Win16TaskKernelServices.cs",
+    "NativeSource": "Native/task_kernel.h",
+    "NativeExport": "__win16_kernel_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeTaskImportTests"
+    ],
+    "Limitations": "Task local/global storage, ASCII strings and environment; locale/operand limits remain explicit."
+  },
+  {
+    "Identity": "KERNEL.#19",
+    "ServiceClass": "Win16TaskKernelServices",
+    "ManagedSource": "Win16TaskKernelServices.cs",
+    "NativeSource": "Native/task_kernel.h",
+    "NativeExport": "__win16_kernel_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeTaskImportTests"
+    ],
+    "Limitations": "Task local/global storage, ASCII strings and environment; locale/operand limits remain explicit."
+  },
+  {
+    "Identity": "KERNEL.#20",
+    "ServiceClass": "Win16TaskKernelServices",
+    "ManagedSource": "Win16TaskKernelServices.cs",
+    "NativeSource": "Native/task_kernel.h",
+    "NativeExport": "__win16_kernel_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeTaskImportTests"
+    ],
+    "Limitations": "Task local/global storage, ASCII strings and environment; locale/operand limits remain explicit."
+  },
+  {
+    "Identity": "KERNEL.#23",
+    "ServiceClass": "Win16TaskKernelServices",
+    "ManagedSource": "Win16TaskKernelServices.cs",
+    "NativeSource": "Native/task_kernel.h",
+    "NativeExport": "__win16_kernel_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeTaskImportTests"
+    ],
+    "Limitations": "Task local/global storage, ASCII strings and environment; locale/operand limits remain explicit."
+  },
+  {
+    "Identity": "KERNEL.#24",
+    "ServiceClass": "Win16TaskKernelServices",
+    "ManagedSource": "Win16TaskKernelServices.cs",
+    "NativeSource": "Native/task_kernel.h",
+    "NativeExport": "__win16_kernel_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeTaskImportTests"
+    ],
+    "Limitations": "Task local/global storage, ASCII strings and environment; locale/operand limits remain explicit."
+  },
+  {
+    "Identity": "KERNEL.#3",
+    "ServiceClass": "Win16TaskSystem",
+    "ManagedSource": "Win16TaskSystem.cs",
+    "NativeSource": "Native/task_system.h",
+    "NativeExport": "__win16_system_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeSystemServiceTests"
+    ],
+    "Limitations": "Task instance paths and explicit Win3.1/DOS5 policy."
+  },
+  {
+    "Identity": "KERNEL.#30",
+    "ServiceClass": "Win16TaskLifecycle",
+    "ManagedSource": "Win16TaskLifecycle.cs",
+    "NativeSource": "Native/task_lifecycle.h",
+    "NativeExport": "__win16_task_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeLifecycleServiceTests"
+    ],
+    "Limitations": "InitTask, PSP, event and DOS register subsets; original CRT owns application initialization."
+  },
+  {
+    "Identity": "KERNEL.#49",
+    "ServiceClass": "Win16TaskSystem",
+    "ManagedSource": "Win16TaskSystem.cs",
+    "NativeSource": "Native/task_system.h",
+    "NativeExport": "__win16_system_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeSystemServiceTests"
+    ],
+    "Limitations": "Task instance paths and explicit Win3.1/DOS5 policy."
+  },
+  {
+    "Identity": "KERNEL.#5",
+    "ServiceClass": "Win16TaskKernelServices",
+    "ManagedSource": "Win16TaskKernelServices.cs",
+    "NativeSource": "Native/task_kernel.h",
+    "NativeExport": "__win16_kernel_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeTaskImportTests"
+    ],
+    "Limitations": "Task local/global storage, ASCII strings and environment; locale/operand limits remain explicit."
+  },
+  {
+    "Identity": "KERNEL.#50",
+    "ServiceClass": "Win16TaskModules",
+    "ManagedSource": "Win16TaskModules.cs",
+    "NativeSource": "Native/task_modules.h",
+    "NativeExport": "__win16_module_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeModuleServiceTests"
+    ],
+    "Limitations": "Only evidenced MMSYSTEM identities; fixed precompiled procedure entries, explicit flag/command limits."
+  },
+  {
+    "Identity": "KERNEL.#51",
+    "ServiceClass": "Win16TaskInstances",
+    "ManagedSource": "Win16TaskInstances.cs",
+    "NativeSource": "Native/task_instances.h",
+    "NativeExport": "__win16_instance_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeInstanceServiceTests"
+    ],
+    "Limitations": "Precompiled callback instance thunks; original target and selector validation required."
+  },
+  {
+    "Identity": "KERNEL.#52",
+    "ServiceClass": "Win16TaskInstances",
+    "ManagedSource": "Win16TaskInstances.cs",
+    "NativeSource": "Native/task_instances.h",
+    "NativeExport": "__win16_instance_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeInstanceServiceTests"
+    ],
+    "Limitations": "Precompiled callback instance thunks; original target and selector validation required."
+  },
+  {
+    "Identity": "KERNEL.#6",
+    "ServiceClass": "Win16TaskKernelServices",
+    "ManagedSource": "Win16TaskKernelServices.cs",
+    "NativeSource": "Native/task_kernel.h",
+    "NativeExport": "__win16_kernel_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeTaskImportTests"
+    ],
+    "Limitations": "Task local/global storage, ASCII strings and environment; locale/operand limits remain explicit."
+  },
+  {
+    "Identity": "KERNEL.#60",
+    "ServiceClass": "Win16TaskResources",
+    "ManagedSource": "Win16TaskResources.cs",
+    "NativeSource": "Native/task_resources.h",
+    "NativeExport": "__win16_resource_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeResourceServiceTests"
+    ],
+    "Limitations": "NE reference/data lifetimes; huge resource views remain unsupported."
+  },
+  {
+    "Identity": "KERNEL.#61",
+    "ServiceClass": "Win16TaskResources",
+    "ManagedSource": "Win16TaskResources.cs",
+    "NativeSource": "Native/task_resources.h",
+    "NativeExport": "__win16_resource_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeResourceServiceTests"
+    ],
+    "Limitations": "NE reference/data lifetimes; huge resource views remain unsupported."
+  },
+  {
+    "Identity": "KERNEL.#62",
+    "ServiceClass": "Win16TaskResources",
+    "ManagedSource": "Win16TaskResources.cs",
+    "NativeSource": "Native/task_resources.h",
+    "NativeExport": "__win16_resource_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeResourceServiceTests"
+    ],
+    "Limitations": "NE reference/data lifetimes; huge resource views remain unsupported."
+  },
+  {
+    "Identity": "KERNEL.#63",
+    "ServiceClass": "Win16TaskResources",
+    "ManagedSource": "Win16TaskResources.cs",
+    "NativeSource": "Native/task_resources.h",
+    "NativeExport": "__win16_resource_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeResourceServiceTests"
+    ],
+    "Limitations": "NE reference/data lifetimes; huge resource views remain unsupported."
+  },
+  {
+    "Identity": "KERNEL.#7",
+    "ServiceClass": "Win16TaskKernelServices",
+    "ManagedSource": "Win16TaskKernelServices.cs",
+    "NativeSource": "Native/task_kernel.h",
+    "NativeExport": "__win16_kernel_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeTaskImportTests"
+    ],
+    "Limitations": "Task local/global storage, ASCII strings and environment; locale/operand limits remain explicit."
+  },
+  {
+    "Identity": "KERNEL.#74",
+    "ServiceClass": "Win16TaskFiles",
+    "ManagedSource": "Win16TaskFiles.cs",
+    "NativeSource": "Native/task_files.h",
+    "NativeExport": "__win16_file_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeFileServiceTests"
+    ],
+    "Limitations": "Read-only HFILE provider; write/create modes fail."
+  },
+  {
+    "Identity": "KERNEL.#81",
+    "ServiceClass": "Win16TaskFiles",
+    "ManagedSource": "Win16TaskFiles.cs",
+    "NativeSource": "Native/task_files.h",
+    "NativeExport": "__win16_file_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeFileServiceTests"
+    ],
+    "Limitations": "Read-only HFILE provider; write/create modes fail."
+  },
+  {
+    "Identity": "KERNEL.#82",
+    "ServiceClass": "Win16TaskFiles",
+    "ManagedSource": "Win16TaskFiles.cs",
+    "NativeSource": "Native/task_files.h",
+    "NativeExport": "__win16_file_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeFileServiceTests"
+    ],
+    "Limitations": "Read-only HFILE provider; write/create modes fail."
+  },
+  {
+    "Identity": "KERNEL.#84",
+    "ServiceClass": "Win16TaskFiles",
+    "ManagedSource": "Win16TaskFiles.cs",
+    "NativeSource": "Native/task_files.h",
+    "NativeExport": "__win16_file_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeFileServiceTests"
+    ],
+    "Limitations": "Read-only HFILE provider; write/create modes fail."
+  },
+  {
+    "Identity": "KERNEL.#88",
+    "ServiceClass": "Win16TaskKernelServices",
+    "ManagedSource": "Win16TaskKernelServices.cs",
+    "NativeSource": "Native/task_kernel.h",
+    "NativeExport": "__win16_kernel_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeTaskImportTests"
+    ],
+    "Limitations": "Task local/global storage, ASCII strings and environment; locale/operand limits remain explicit."
+  },
+  {
+    "Identity": "KERNEL.#90",
+    "ServiceClass": "Win16TaskKernelServices",
+    "ManagedSource": "Win16TaskKernelServices.cs",
+    "NativeSource": "Native/task_kernel.h",
+    "NativeExport": "__win16_kernel_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeTaskImportTests"
+    ],
+    "Limitations": "Task local/global storage, ASCII strings and environment; locale/operand limits remain explicit."
+  },
+  {
+    "Identity": "KERNEL.#91",
+    "ServiceClass": "Win16TaskLifecycle",
+    "ManagedSource": "Win16TaskLifecycle.cs",
+    "NativeSource": "Native/task_lifecycle.h",
+    "NativeExport": "__win16_task_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeLifecycleServiceTests"
+    ],
+    "Limitations": "InitTask, PSP, event and DOS register subsets; original CRT owns application initialization."
+  },
+  {
+    "Identity": "KERNEL.#95",
+    "ServiceClass": "Win16TaskModules",
+    "ManagedSource": "Win16TaskModules.cs",
+    "NativeSource": "Native/task_modules.h",
+    "NativeExport": "__win16_module_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeModuleServiceTests"
+    ],
+    "Limitations": "Only evidenced MMSYSTEM identities; fixed precompiled procedure entries, explicit flag/command limits."
+  },
+  {
+    "Identity": "KERNEL.#96",
+    "ServiceClass": "Win16TaskModules",
+    "ManagedSource": "Win16TaskModules.cs",
+    "NativeSource": "Native/task_modules.h",
+    "NativeExport": "__win16_module_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeModuleServiceTests"
+    ],
+    "Limitations": "Only evidenced MMSYSTEM identities; fixed precompiled procedure entries, explicit flag/command limits."
+  },
+  {
+    "Identity": "USER.#1",
+    "ServiceClass": "Win16TaskUserStructures",
+    "ManagedSource": "Win16TaskUserStructures.cs",
+    "NativeSource": "Native/task_ui_structures.h",
+    "NativeExport": "__win16_ui_structure",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeStructureServiceTests"
+    ],
+    "Limitations": "Packed USER structures, pointer conversion and varargs subset; unsupported operands reject."
+  },
+  {
+    "Identity": "USER.#10",
+    "ServiceClass": "Win16TaskWindowHost",
+    "ManagedSource": "Win16TaskWindowHost.cs",
+    "NativeSource": "Native/task_ui_windows.h",
+    "NativeExport": "__win16_ui_window",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeWindowHostTests"
+    ],
+    "Limitations": "Original callbacks, message/structure conversion and lifecycle ownership; Windows verification pending."
+  },
+  {
+    "Identity": "USER.#101",
+    "ServiceClass": "Win16TaskWindowHost",
+    "ManagedSource": "Win16TaskWindowHost.cs",
+    "NativeSource": "Native/task_ui_windows.h",
+    "NativeExport": "__win16_ui_window",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeWindowHostTests"
+    ],
+    "Limitations": "Original callbacks, message/structure conversion and lifecycle ownership; Windows verification pending."
+  },
+  {
+    "Identity": "USER.#102",
+    "ServiceClass": "Win16TaskUserStructures",
+    "ManagedSource": "Win16TaskUserStructures.cs",
+    "NativeSource": "Native/task_ui_structures.h",
+    "NativeExport": "__win16_ui_structure",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeStructureServiceTests"
+    ],
+    "Limitations": "Packed USER structures, pointer conversion and varargs subset; unsupported operands reject."
+  },
+  {
+    "Identity": "USER.#104",
+    "ServiceClass": "Win16TaskGui",
+    "ManagedSource": "Win16TaskGui.cs",
+    "NativeSource": "Native/task_gui.h",
+    "NativeExport": "__win16_gui_scalar",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeGuiServiceTests"
+    ],
+    "Limitations": "Typed scalar/handle/string adaptation; approved native provider required."
+  },
+  {
+    "Identity": "USER.#106",
+    "ServiceClass": "Win16TaskGui",
+    "ManagedSource": "Win16TaskGui.cs",
+    "NativeSource": "Native/task_gui.h",
+    "NativeExport": "__win16_gui_scalar",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeGuiServiceTests"
+    ],
+    "Limitations": "Typed scalar/handle/string adaptation; approved native provider required."
+  },
+  {
+    "Identity": "USER.#107",
+    "ServiceClass": "Win16TaskWindowHost",
+    "ManagedSource": "Win16TaskWindowHost.cs",
+    "NativeSource": "Native/task_ui_windows.h",
+    "NativeExport": "__win16_ui_window",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeWindowHostTests"
+    ],
+    "Limitations": "Original callbacks, message/structure conversion and lifecycle ownership; Windows verification pending."
+  },
+  {
+    "Identity": "USER.#109",
+    "ServiceClass": "Win16TaskWindowHost",
+    "ManagedSource": "Win16TaskWindowHost.cs",
+    "NativeSource": "Native/task_ui_windows.h",
+    "NativeExport": "__win16_ui_window",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeWindowHostTests"
+    ],
+    "Limitations": "Original callbacks, message/structure conversion and lifecycle ownership; Windows verification pending."
+  },
+  {
+    "Identity": "USER.#110",
+    "ServiceClass": "Win16TaskWindowHost",
+    "ManagedSource": "Win16TaskWindowHost.cs",
+    "NativeSource": "Native/task_ui_windows.h",
+    "NativeExport": "__win16_ui_window",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeWindowHostTests"
+    ],
+    "Limitations": "Original callbacks, message/structure conversion and lifecycle ownership; Windows verification pending."
+  },
+  {
+    "Identity": "USER.#111",
+    "ServiceClass": "Win16TaskWindowHost",
+    "ManagedSource": "Win16TaskWindowHost.cs",
+    "NativeSource": "Native/task_ui_windows.h",
+    "NativeExport": "__win16_ui_window",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeWindowHostTests"
+    ],
+    "Limitations": "Original callbacks, message/structure conversion and lifecycle ownership; Windows verification pending."
+  },
+  {
+    "Identity": "USER.#113",
+    "ServiceClass": "Win16TaskWindowHost",
+    "ManagedSource": "Win16TaskWindowHost.cs",
+    "NativeSource": "Native/task_ui_windows.h",
+    "NativeExport": "__win16_ui_window",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeWindowHostTests"
+    ],
+    "Limitations": "Original callbacks, message/structure conversion and lifecycle ownership; Windows verification pending."
+  },
+  {
+    "Identity": "USER.#114",
+    "ServiceClass": "Win16TaskWindowHost",
+    "ManagedSource": "Win16TaskWindowHost.cs",
+    "NativeSource": "Native/task_ui_windows.h",
+    "NativeExport": "__win16_ui_window",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeWindowHostTests"
+    ],
+    "Limitations": "Original callbacks, message/structure conversion and lifecycle ownership; Windows verification pending."
+  },
+  {
+    "Identity": "USER.#12",
+    "ServiceClass": "Win16TaskWindowHost",
+    "ManagedSource": "Win16TaskWindowHost.cs",
+    "NativeSource": "Native/task_ui_windows.h",
+    "NativeExport": "__win16_ui_window",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeWindowHostTests"
+    ],
+    "Limitations": "Original callbacks, message/structure conversion and lifecycle ownership; Windows verification pending."
+  },
+  {
+    "Identity": "USER.#124",
+    "ServiceClass": "Win16TaskGui",
+    "ManagedSource": "Win16TaskGui.cs",
+    "NativeSource": "Native/task_gui.h",
+    "NativeExport": "__win16_gui_scalar",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeGuiServiceTests"
+    ],
+    "Limitations": "Typed scalar/handle/string adaptation; approved native provider required."
+  },
+  {
+    "Identity": "USER.#125",
+    "ServiceClass": "Win16TaskUserStructures",
+    "ManagedSource": "Win16TaskUserStructures.cs",
+    "NativeSource": "Native/task_ui_structures.h",
+    "NativeExport": "__win16_ui_structure",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeStructureServiceTests"
+    ],
+    "Limitations": "Packed USER structures, pointer conversion and varargs subset; unsupported operands reject."
+  },
+  {
+    "Identity": "USER.#127",
+    "ServiceClass": "Win16TaskUserStructures",
+    "ManagedSource": "Win16TaskUserStructures.cs",
+    "NativeSource": "Native/task_ui_structures.h",
+    "NativeExport": "__win16_ui_structure",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeStructureServiceTests"
+    ],
+    "Limitations": "Packed USER structures, pointer conversion and varargs subset; unsupported operands reject."
+  },
+  {
+    "Identity": "USER.#133",
+    "ServiceClass": "Win16TaskWindowHost",
+    "ManagedSource": "Win16TaskWindowHost.cs",
+    "NativeSource": "Native/task_ui_windows.h",
+    "NativeExport": "__win16_ui_window",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeWindowHostTests"
+    ],
+    "Limitations": "Original callbacks, message/structure conversion and lifecycle ownership; Windows verification pending."
+  },
+  {
+    "Identity": "USER.#134",
+    "ServiceClass": "Win16TaskWindowHost",
+    "ManagedSource": "Win16TaskWindowHost.cs",
+    "NativeSource": "Native/task_ui_windows.h",
+    "NativeExport": "__win16_ui_window",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeWindowHostTests"
+    ],
+    "Limitations": "Original callbacks, message/structure conversion and lifecycle ownership; Windows verification pending."
+  },
+  {
+    "Identity": "USER.#15",
+    "ServiceClass": "Win16TaskUserStructures",
+    "ManagedSource": "Win16TaskUserStructures.cs",
+    "NativeSource": "Native/task_ui_structures.h",
+    "NativeExport": "__win16_ui_structure",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeStructureServiceTests"
+    ],
+    "Limitations": "Packed USER structures, pointer conversion and varargs subset; unsupported operands reject."
+  },
+  {
+    "Identity": "USER.#150",
+    "ServiceClass": "Win16TaskGuiResources",
+    "ManagedSource": "Win16TaskGuiResources.cs",
+    "NativeSource": "Native/task_ui_resources.h",
+    "NativeExport": "__win16_ui_resource",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeStructureServiceTests"
+    ],
+    "Limitations": "Resource conversion and native object ownership; full resource parity not established."
+  },
+  {
+    "Identity": "USER.#154",
+    "ServiceClass": "Win16TaskGui",
+    "ManagedSource": "Win16TaskGui.cs",
+    "NativeSource": "Native/task_gui.h",
+    "NativeExport": "__win16_gui_scalar",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeGuiServiceTests"
+    ],
+    "Limitations": "Typed scalar/handle/string adaptation; approved native provider required."
+  },
+  {
+    "Identity": "USER.#155",
+    "ServiceClass": "Win16TaskGui",
+    "ManagedSource": "Win16TaskGui.cs",
+    "NativeSource": "Native/task_gui.h",
+    "NativeExport": "__win16_gui_scalar",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeGuiServiceTests"
+    ],
+    "Limitations": "Typed scalar/handle/string adaptation; approved native provider required."
+  },
+  {
+    "Identity": "USER.#159",
+    "ServiceClass": "Win16TaskGui",
+    "ManagedSource": "Win16TaskGui.cs",
+    "NativeSource": "Native/task_gui.h",
+    "NativeExport": "__win16_gui_scalar",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeGuiServiceTests"
+    ],
+    "Limitations": "Typed scalar/handle/string adaptation; approved native provider required."
+  },
+  {
+    "Identity": "USER.#160",
+    "ServiceClass": "Win16TaskGui",
+    "ManagedSource": "Win16TaskGui.cs",
+    "NativeSource": "Native/task_gui.h",
+    "NativeExport": "__win16_gui_scalar",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeGuiServiceTests"
+    ],
+    "Limitations": "Typed scalar/handle/string adaptation; approved native provider required."
+  },
+  {
+    "Identity": "USER.#173",
+    "ServiceClass": "Win16TaskGuiResources",
+    "ManagedSource": "Win16TaskGuiResources.cs",
+    "NativeSource": "Native/task_ui_resources.h",
+    "NativeExport": "__win16_ui_resource",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeStructureServiceTests"
+    ],
+    "Limitations": "Resource conversion and native object ownership; full resource parity not established."
+  },
+  {
+    "Identity": "USER.#174",
+    "ServiceClass": "Win16TaskGuiResources",
+    "ManagedSource": "Win16TaskGuiResources.cs",
+    "NativeSource": "Native/task_ui_resources.h",
+    "NativeExport": "__win16_ui_resource",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeStructureServiceTests"
+    ],
+    "Limitations": "Resource conversion and native object ownership; full resource parity not established."
+  },
+  {
+    "Identity": "USER.#175",
+    "ServiceClass": "Win16TaskGuiResources",
+    "ManagedSource": "Win16TaskGuiResources.cs",
+    "NativeSource": "Native/task_ui_resources.h",
+    "NativeExport": "__win16_ui_resource",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeStructureServiceTests"
+    ],
+    "Limitations": "Resource conversion and native object ownership; full resource parity not established."
+  },
+  {
+    "Identity": "USER.#177",
+    "ServiceClass": "Win16TaskGuiResources",
+    "ManagedSource": "Win16TaskGuiResources.cs",
+    "NativeSource": "Native/task_ui_resources.h",
+    "NativeExport": "__win16_ui_resource",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeStructureServiceTests"
+    ],
+    "Limitations": "Resource conversion and native object ownership; full resource parity not established."
+  },
+  {
+    "Identity": "USER.#178",
+    "ServiceClass": "Win16TaskWindowHost",
+    "ManagedSource": "Win16TaskWindowHost.cs",
+    "NativeSource": "Native/task_ui_windows.h",
+    "NativeExport": "__win16_ui_window",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeWindowHostTests"
+    ],
+    "Limitations": "Original callbacks, message/structure conversion and lifecycle ownership; Windows verification pending."
+  },
+  {
+    "Identity": "USER.#18",
+    "ServiceClass": "Win16TaskGui",
+    "ManagedSource": "Win16TaskGui.cs",
+    "NativeSource": "Native/task_gui.h",
+    "NativeExport": "__win16_gui_scalar",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeGuiServiceTests"
+    ],
+    "Limitations": "Typed scalar/handle/string adaptation; approved native provider required."
+  },
+  {
+    "Identity": "USER.#19",
+    "ServiceClass": "Win16TaskGui",
+    "ManagedSource": "Win16TaskGui.cs",
+    "NativeSource": "Native/task_gui.h",
+    "NativeExport": "__win16_gui_scalar",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeGuiServiceTests"
+    ],
+    "Limitations": "Typed scalar/handle/string adaptation; approved native provider required."
+  },
+  {
+    "Identity": "USER.#22",
+    "ServiceClass": "Win16TaskGui",
+    "ManagedSource": "Win16TaskGui.cs",
+    "NativeSource": "Native/task_gui.h",
+    "NativeExport": "__win16_gui_scalar",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeGuiServiceTests"
+    ],
+    "Limitations": "Typed scalar/handle/string adaptation; approved native provider required."
+  },
+  {
+    "Identity": "USER.#31",
+    "ServiceClass": "Win16TaskGui",
+    "ManagedSource": "Win16TaskGui.cs",
+    "NativeSource": "Native/task_gui.h",
+    "NativeExport": "__win16_gui_scalar",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeGuiServiceTests"
+    ],
+    "Limitations": "Typed scalar/handle/string adaptation; approved native provider required."
+  },
+  {
+    "Identity": "USER.#33",
+    "ServiceClass": "Win16TaskUserStructures",
+    "ManagedSource": "Win16TaskUserStructures.cs",
+    "NativeSource": "Native/task_ui_structures.h",
+    "NativeExport": "__win16_ui_structure",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeStructureServiceTests"
+    ],
+    "Limitations": "Packed USER structures, pointer conversion and varargs subset; unsupported operands reject."
+  },
+  {
+    "Identity": "USER.#34",
+    "ServiceClass": "Win16TaskGui",
+    "ManagedSource": "Win16TaskGui.cs",
+    "NativeSource": "Native/task_gui.h",
+    "NativeExport": "__win16_gui_scalar",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeGuiServiceTests"
+    ],
+    "Limitations": "Typed scalar/handle/string adaptation; approved native provider required."
+  },
+  {
+    "Identity": "USER.#37",
+    "ServiceClass": "Win16TaskGui",
+    "ManagedSource": "Win16TaskGui.cs",
+    "NativeSource": "Native/task_gui.h",
+    "NativeExport": "__win16_gui_scalar",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeGuiServiceTests"
+    ],
+    "Limitations": "Typed scalar/handle/string adaptation; approved native provider required."
+  },
+  {
+    "Identity": "USER.#39",
+    "ServiceClass": "Win16TaskWindowHost",
+    "ManagedSource": "Win16TaskWindowHost.cs",
+    "NativeSource": "Native/task_ui_windows.h",
+    "NativeExport": "__win16_ui_window",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeWindowHostTests"
+    ],
+    "Limitations": "Original callbacks, message/structure conversion and lifecycle ownership; Windows verification pending."
+  },
+  {
+    "Identity": "USER.#40",
+    "ServiceClass": "Win16TaskWindowHost",
+    "ManagedSource": "Win16TaskWindowHost.cs",
+    "NativeSource": "Native/task_ui_windows.h",
+    "NativeExport": "__win16_ui_window",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeWindowHostTests"
+    ],
+    "Limitations": "Original callbacks, message/structure conversion and lifecycle ownership; Windows verification pending."
+  },
+  {
+    "Identity": "USER.#41",
+    "ServiceClass": "Win16TaskWindowHost",
+    "ManagedSource": "Win16TaskWindowHost.cs",
+    "NativeSource": "Native/task_ui_windows.h",
+    "NativeExport": "__win16_ui_window",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeWindowHostTests"
+    ],
+    "Limitations": "Original callbacks, message/structure conversion and lifecycle ownership; Windows verification pending."
+  },
+  {
+    "Identity": "USER.#411",
+    "ServiceClass": "Win16TaskUserStructures",
+    "ManagedSource": "Win16TaskUserStructures.cs",
+    "NativeSource": "Native/task_ui_structures.h",
+    "NativeExport": "__win16_ui_structure",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeStructureServiceTests"
+    ],
+    "Limitations": "Packed USER structures, pointer conversion and varargs subset; unsupported operands reject."
+  },
+  {
+    "Identity": "USER.#42",
+    "ServiceClass": "Win16TaskGui",
+    "ManagedSource": "Win16TaskGui.cs",
+    "NativeSource": "Native/task_gui.h",
+    "NativeExport": "__win16_gui_scalar",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeGuiServiceTests"
+    ],
+    "Limitations": "Typed scalar/handle/string adaptation; approved native provider required."
+  },
+  {
+    "Identity": "USER.#420",
+    "ServiceClass": "Win16TaskUserStructures",
+    "ManagedSource": "Win16TaskUserStructures.cs",
+    "NativeSource": "Native/task_ui_structures.h",
+    "NativeExport": "__win16_ui_structure",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeStructureServiceTests"
+    ],
+    "Limitations": "Packed USER structures, pointer conversion and varargs subset; unsupported operands reject."
+  },
+  {
+    "Identity": "USER.#471",
+    "ServiceClass": "Win16TaskKernelServices",
+    "ManagedSource": "Win16TaskKernelServices.cs",
+    "NativeSource": "Native/task_kernel.h",
+    "NativeExport": "__win16_user_string_compare",
+    "Invocation": "State",
+    "ContractTests": [
+      "NeTaskImportTests"
+    ],
+    "Limitations": "Task local/global storage, ASCII strings and environment; locale/operand limits remain explicit."
+  },
+  {
+    "Identity": "USER.#483",
+    "ServiceClass": "Win16TaskUserStructures",
+    "ManagedSource": "Win16TaskUserStructures.cs",
+    "NativeSource": "Native/task_ui_structures.h",
+    "NativeExport": "__win16_ui_structure",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeStructureServiceTests"
+    ],
+    "Limitations": "Packed USER structures, pointer conversion and varargs subset; unsupported operands reject."
+  },
+  {
+    "Identity": "USER.#5",
+    "ServiceClass": "Win16TaskUserStructures",
+    "ManagedSource": "Win16TaskUserStructures.cs",
+    "NativeSource": "Native/task_ui_structures.h",
+    "NativeExport": "__win16_ui_structure",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeStructureServiceTests"
+    ],
+    "Limitations": "Packed USER structures, pointer conversion and varargs subset; unsupported operands reject."
+  },
+  {
+    "Identity": "USER.#53",
+    "ServiceClass": "Win16TaskGui",
+    "ManagedSource": "Win16TaskGui.cs",
+    "NativeSource": "Native/task_gui.h",
+    "NativeExport": "__win16_gui_scalar",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeGuiServiceTests"
+    ],
+    "Limitations": "Typed scalar/handle/string adaptation; approved native provider required."
+  },
+  {
+    "Identity": "USER.#57",
+    "ServiceClass": "Win16TaskWindowHost",
+    "ManagedSource": "Win16TaskWindowHost.cs",
+    "NativeSource": "Native/task_ui_windows.h",
+    "NativeExport": "__win16_ui_window",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeWindowHostTests"
+    ],
+    "Limitations": "Original callbacks, message/structure conversion and lifecycle ownership; Windows verification pending."
+  },
+  {
+    "Identity": "USER.#6",
+    "ServiceClass": "Win16TaskUserStructures",
+    "ManagedSource": "Win16TaskUserStructures.cs",
+    "NativeSource": "Native/task_ui_structures.h",
+    "NativeExport": "__win16_ui_structure",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeStructureServiceTests"
+    ],
+    "Limitations": "Packed USER structures, pointer conversion and varargs subset; unsupported operands reject."
+  },
+  {
+    "Identity": "USER.#61",
+    "ServiceClass": "Win16TaskUserStructures",
+    "ManagedSource": "Win16TaskUserStructures.cs",
+    "NativeSource": "Native/task_ui_structures.h",
+    "NativeExport": "__win16_ui_structure",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeStructureServiceTests"
+    ],
+    "Limitations": "Packed USER structures, pointer conversion and varargs subset; unsupported operands reject."
+  },
+  {
+    "Identity": "USER.#66",
+    "ServiceClass": "Win16TaskWindowHost",
+    "ManagedSource": "Win16TaskWindowHost.cs",
+    "NativeSource": "Native/task_ui_windows.h",
+    "NativeExport": "__win16_ui_window",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeWindowHostTests"
+    ],
+    "Limitations": "Original callbacks, message/structure conversion and lifecycle ownership; Windows verification pending."
+  },
+  {
+    "Identity": "USER.#68",
+    "ServiceClass": "Win16TaskWindowHost",
+    "ManagedSource": "Win16TaskWindowHost.cs",
+    "NativeSource": "Native/task_ui_windows.h",
+    "NativeExport": "__win16_ui_window",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeWindowHostTests"
+    ],
+    "Limitations": "Original callbacks, message/structure conversion and lifecycle ownership; Windows verification pending."
+  },
+  {
+    "Identity": "USER.#69",
+    "ServiceClass": "Win16TaskGui",
+    "ManagedSource": "Win16TaskGui.cs",
+    "NativeSource": "Native/task_gui.h",
+    "NativeExport": "__win16_gui_scalar",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeGuiServiceTests"
+    ],
+    "Limitations": "Typed scalar/handle/string adaptation; approved native provider required."
+  },
+  {
+    "Identity": "USER.#78",
+    "ServiceClass": "Win16TaskUserStructures",
+    "ManagedSource": "Win16TaskUserStructures.cs",
+    "NativeSource": "Native/task_ui_structures.h",
+    "NativeExport": "__win16_ui_structure",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeStructureServiceTests"
+    ],
+    "Limitations": "Packed USER structures, pointer conversion and varargs subset; unsupported operands reject."
+  },
+  {
+    "Identity": "USER.#85",
+    "ServiceClass": "Win16TaskUserStructures",
+    "ManagedSource": "Win16TaskUserStructures.cs",
+    "NativeSource": "Native/task_ui_structures.h",
+    "NativeExport": "__win16_ui_structure",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeStructureServiceTests"
+    ],
+    "Limitations": "Packed USER structures, pointer conversion and varargs subset; unsupported operands reject."
+  },
+  {
+    "Identity": "USER.#87",
+    "ServiceClass": "Win16TaskWindowHost",
+    "ManagedSource": "Win16TaskWindowHost.cs",
+    "NativeSource": "Native/task_ui_windows.h",
+    "NativeExport": "__win16_ui_window",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeWindowHostTests"
+    ],
+    "Limitations": "Original callbacks, message/structure conversion and lifecycle ownership; Windows verification pending."
+  },
+  {
+    "Identity": "USER.#88",
+    "ServiceClass": "Win16TaskUserStructures",
+    "ManagedSource": "Win16TaskUserStructures.cs",
+    "NativeSource": "Native/task_ui_structures.h",
+    "NativeExport": "__win16_ui_structure",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeStructureServiceTests"
+    ],
+    "Limitations": "Packed USER structures, pointer conversion and varargs subset; unsupported operands reject."
+  },
+  {
+    "Identity": "USER.#91",
+    "ServiceClass": "Win16TaskGui",
+    "ManagedSource": "Win16TaskGui.cs",
+    "NativeSource": "Native/task_gui.h",
+    "NativeExport": "__win16_gui_scalar",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeGuiServiceTests"
+    ],
+    "Limitations": "Typed scalar/handle/string adaptation; approved native provider required."
+  },
+  {
+    "Identity": "USER.#92",
+    "ServiceClass": "Win16TaskUserStructures",
+    "ManagedSource": "Win16TaskUserStructures.cs",
+    "NativeSource": "Native/task_ui_structures.h",
+    "NativeExport": "__win16_ui_structure",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeStructureServiceTests"
+    ],
+    "Limitations": "Packed USER structures, pointer conversion and varargs subset; unsupported operands reject."
+  },
+  {
+    "Identity": "USER.#93",
+    "ServiceClass": "Win16TaskUserStructures",
+    "ManagedSource": "Win16TaskUserStructures.cs",
+    "NativeSource": "Native/task_ui_structures.h",
+    "NativeExport": "__win16_ui_structure",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeStructureServiceTests"
+    ],
+    "Limitations": "Packed USER structures, pointer conversion and varargs subset; unsupported operands reject."
+  },
+  {
+    "Identity": "USER.#95",
+    "ServiceClass": "Win16TaskUserStructures",
+    "ManagedSource": "Win16TaskUserStructures.cs",
+    "NativeSource": "Native/task_ui_structures.h",
+    "NativeExport": "__win16_ui_structure",
+    "Invocation": "ModuleOrdinal",
+    "ContractTests": [
+      "NeStructureServiceTests"
+    ],
+    "Limitations": "Packed USER structures, pointer conversion and varargs subset; unsupported operands reject."
+  },
+  {
+    "Identity": "WEP4UTIL.#103",
+    "ServiceClass": "Win16TaskWep",
+    "ManagedSource": "Win16TaskWep.cs",
+    "NativeSource": "Native/task_wep.h",
+    "NativeExport": "__win16_wep_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeWepServiceTests"
+    ],
+    "Limitations": "Pinned utility DLL resources and compatibility behavior; original DLL identity required, no native 16-bit loading."
+  },
+  {
+    "Identity": "WEP4UTIL.#1202",
+    "ServiceClass": "Win16TaskWep",
+    "ManagedSource": "Win16TaskWep.cs",
+    "NativeSource": "Native/task_wep.h",
+    "NativeExport": "__win16_wep_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeWepServiceTests"
+    ],
+    "Limitations": "Pinned utility DLL resources and compatibility behavior; original DLL identity required, no native 16-bit loading."
+  },
+  {
+    "Identity": "WEP4UTIL.#2",
+    "ServiceClass": "Win16TaskWep",
+    "ManagedSource": "Win16TaskWep.cs",
+    "NativeSource": "Native/task_wep.h",
+    "NativeExport": "__win16_wep_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeWepServiceTests"
+    ],
+    "Limitations": "Pinned utility DLL resources and compatibility behavior; original DLL identity required, no native 16-bit loading."
+  },
+  {
+    "Identity": "WEP4UTIL.#4",
+    "ServiceClass": "Win16TaskWep",
+    "ManagedSource": "Win16TaskWep.cs",
+    "NativeSource": "Native/task_wep.h",
+    "NativeExport": "__win16_wep_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeWepServiceTests"
+    ],
+    "Limitations": "Pinned utility DLL resources and compatibility behavior; original DLL identity required, no native 16-bit loading."
+  },
+  {
+    "Identity": "WEP4UTIL.#5",
+    "ServiceClass": "Win16TaskWep",
+    "ManagedSource": "Win16TaskWep.cs",
+    "NativeSource": "Native/task_wep.h",
+    "NativeExport": "__win16_wep_service",
+    "Invocation": "Ordinal",
+    "ContractTests": [
+      "NeWepServiceTests"
+    ],
+    "Limitations": "Pinned utility DLL resources and compatibility behavior; original DLL identity required, no native 16-bit loading."
+  }
+]

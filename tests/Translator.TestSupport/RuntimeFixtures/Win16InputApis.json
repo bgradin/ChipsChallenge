@@ -1,0 +1,49 @@
+[
+  {
+    "ServiceId": 206,
+    "Module": "USER",
+    "Name": "GetDC",
+    "Ordinal": 66,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "Handle",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 560,
+    "Arguments": [
+      {
+        "Name": "hwnd",
+        "Type": "Handle",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 208,
+    "Module": "USER",
+    "Name": "ReleaseDC",
+    "Ordinal": 68,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "SignedWord",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 568,
+    "Arguments": [
+      {
+        "Name": "hwnd",
+        "Type": "Handle",
+        "StackWord": 1
+      },
+      {
+        "Name": "hdc",
+        "Type": "Handle",
+        "StackWord": 0
+      }
+    ]
+  }
+]

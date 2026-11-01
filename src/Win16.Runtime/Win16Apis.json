@@ -1,0 +1,183 @@
+[
+  {
+    "ServiceId": 0,
+    "Module": "KERNEL",
+    "Name": "GlobalUnlock",
+    "Ordinal": 19,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "Bool",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 64,
+    "Arguments": [
+      {
+        "Name": "handle",
+        "Type": "Handle",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 1,
+    "Module": "KERNEL",
+    "Name": "GlobalReAlloc",
+    "Ordinal": 16,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "Handle",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 32,
+    "Arguments": [
+      {
+        "Name": "handle",
+        "Type": "Handle",
+        "StackWord": 3
+      },
+      {
+        "Name": "bytes",
+        "Type": "Dword",
+        "StackWord": 1
+      },
+      {
+        "Name": "flags",
+        "Type": "Word",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 2,
+    "Module": "KERNEL",
+    "Name": "GlobalAlloc",
+    "Ordinal": 15,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "Handle",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 16,
+    "Arguments": [
+      {
+        "Name": "flags",
+        "Type": "Word",
+        "StackWord": 2
+      },
+      {
+        "Name": "bytes",
+        "Type": "Dword",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 3,
+    "Module": "KERNEL",
+    "Name": "GlobalLock",
+    "Ordinal": 18,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "FarPointer",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 48,
+    "Arguments": [
+      {
+        "Name": "handle",
+        "Type": "Handle",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 4,
+    "Module": "GDI",
+    "Name": "PatBlt",
+    "Ordinal": 29,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "Bool",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 80,
+    "Arguments": [
+      {
+        "Name": "hdc",
+        "Type": "Handle",
+        "StackWord": 6
+      },
+      {
+        "Name": "x",
+        "Type": "SignedWord",
+        "StackWord": 5
+      },
+      {
+        "Name": "y",
+        "Type": "SignedWord",
+        "StackWord": 4
+      },
+      {
+        "Name": "width",
+        "Type": "SignedWord",
+        "StackWord": 3
+      },
+      {
+        "Name": "height",
+        "Type": "SignedWord",
+        "StackWord": 2
+      },
+      {
+        "Name": "rop",
+        "Type": "Dword",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 5,
+    "Module": "USER",
+    "Name": "DefWindowProc",
+    "Ordinal": 107,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "SignedDword",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 96,
+    "Arguments": [
+      {
+        "Name": "hwnd",
+        "Type": "Handle",
+        "StackWord": 4
+      },
+      {
+        "Name": "message",
+        "Type": "Word",
+        "StackWord": 3
+      },
+      {
+        "Name": "wParam",
+        "Type": "Word",
+        "StackWord": 2
+      },
+      {
+        "Name": "lParam",
+        "Type": "SignedDword",
+        "StackWord": 0
+      }
+    ]
+  }
+]

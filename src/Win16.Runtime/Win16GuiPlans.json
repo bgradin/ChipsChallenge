@@ -1,0 +1,369 @@
+[
+  {
+    "Module": "USER",
+    "Ordinal": 18,
+    "NativeName": "SetCapture",
+    "Arguments": [
+      "h"
+    ],
+    "Result": "h",
+    "Failure": 0,
+    "ReleaseArgument": -1
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 19,
+    "NativeName": "ReleaseCapture",
+    "Arguments": [],
+    "Result": "void",
+    "Failure": 0,
+    "ReleaseArgument": -1
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 22,
+    "NativeName": "SetFocus",
+    "Arguments": [
+      "h?"
+    ],
+    "Result": "h",
+    "Failure": 0,
+    "ReleaseArgument": -1
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 31,
+    "NativeName": "IsIconic",
+    "Arguments": [
+      "h"
+    ],
+    "Result": "word",
+    "Failure": 0,
+    "ReleaseArgument": -1
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 34,
+    "NativeName": "EnableWindow",
+    "Arguments": [
+      "h",
+      "u"
+    ],
+    "Result": "word",
+    "Failure": 0,
+    "ReleaseArgument": -1
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 37,
+    "NativeName": "SetWindowTextW",
+    "Arguments": [
+      "h",
+      "text"
+    ],
+    "Result": "word",
+    "Failure": 0,
+    "ReleaseArgument": -1
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 42,
+    "NativeName": "ShowWindow",
+    "Arguments": [
+      "h",
+      "s"
+    ],
+    "Result": "word",
+    "Failure": 0,
+    "ReleaseArgument": -1
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 69,
+    "NativeName": "SetCursor",
+    "Arguments": [
+      "c?"
+    ],
+    "Result": "c",
+    "Failure": 0,
+    "ReleaseArgument": -1
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 91,
+    "NativeName": "GetDlgItem",
+    "Arguments": [
+      "h",
+      "s"
+    ],
+    "Result": "h",
+    "Failure": 0,
+    "ReleaseArgument": -1
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 104,
+    "NativeName": "MessageBeep",
+    "Arguments": [
+      "u"
+    ],
+    "Result": "void",
+    "Failure": 0,
+    "ReleaseArgument": -1
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 106,
+    "NativeName": "GetKeyState",
+    "Arguments": [
+      "s"
+    ],
+    "Result": "word",
+    "Failure": 0,
+    "ReleaseArgument": -1
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 124,
+    "NativeName": "UpdateWindow",
+    "Arguments": [
+      "h"
+    ],
+    "Result": "void",
+    "Failure": 0,
+    "ReleaseArgument": -1
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 154,
+    "NativeName": "CheckMenuItem",
+    "Arguments": [
+      "m",
+      "u",
+      "u"
+    ],
+    "Result": "word",
+    "Failure": 65535,
+    "ReleaseArgument": -1
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 155,
+    "NativeName": "EnableMenuItem",
+    "Arguments": [
+      "m",
+      "u",
+      "u"
+    ],
+    "Result": "word",
+    "Failure": 65535,
+    "ReleaseArgument": -1
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 159,
+    "NativeName": "GetSubMenu",
+    "Arguments": [
+      "m",
+      "s"
+    ],
+    "Result": "m",
+    "Failure": 0,
+    "ReleaseArgument": -1
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 160,
+    "NativeName": "DrawMenuBar",
+    "Arguments": [
+      "h"
+    ],
+    "Result": "void",
+    "Failure": 0,
+    "ReleaseArgument": -1
+  },
+  {
+    "Module": "USER",
+    "Ordinal": 53,
+    "NativeName": "DestroyWindow",
+    "Arguments": [
+      "h"
+    ],
+    "Result": "word",
+    "Failure": 0,
+    "ReleaseArgument": 0
+  },
+  {
+    "Module": "GDI",
+    "Ordinal": 1,
+    "NativeName": "SetBkColor",
+    "Arguments": [
+      "d",
+      "l"
+    ],
+    "Result": "long",
+    "Failure": 4294967295,
+    "ReleaseArgument": -1
+  },
+  {
+    "Module": "GDI",
+    "Ordinal": 2,
+    "NativeName": "SetBkMode",
+    "Arguments": [
+      "d",
+      "s"
+    ],
+    "Result": "word",
+    "Failure": 0,
+    "ReleaseArgument": -1
+  },
+  {
+    "Module": "GDI",
+    "Ordinal": 9,
+    "NativeName": "SetTextColor",
+    "Arguments": [
+      "d",
+      "l"
+    ],
+    "Result": "long",
+    "Failure": 4294967295,
+    "ReleaseArgument": -1
+  },
+  {
+    "Module": "GDI",
+    "Ordinal": 29,
+    "NativeName": "PatBlt",
+    "Arguments": [
+      "d",
+      "s",
+      "s",
+      "s",
+      "s",
+      "l"
+    ],
+    "Result": "word",
+    "Failure": 0,
+    "ReleaseArgument": -1
+  },
+  {
+    "Module": "GDI",
+    "Ordinal": 34,
+    "NativeName": "BitBlt",
+    "Arguments": [
+      "d",
+      "s",
+      "s",
+      "s",
+      "s",
+      "d",
+      "s",
+      "s",
+      "l"
+    ],
+    "Result": "word",
+    "Failure": 0,
+    "ReleaseArgument": -1
+  },
+  {
+    "Module": "GDI",
+    "Ordinal": 35,
+    "NativeName": "StretchBlt",
+    "Arguments": [
+      "d",
+      "s",
+      "s",
+      "s",
+      "s",
+      "d",
+      "s",
+      "s",
+      "s",
+      "s",
+      "l"
+    ],
+    "Result": "word",
+    "Failure": 0,
+    "ReleaseArgument": -1
+  },
+  {
+    "Module": "GDI",
+    "Ordinal": 45,
+    "NativeName": "SelectObject",
+    "Arguments": [
+      "d",
+      "g"
+    ],
+    "Result": "g",
+    "Failure": 0,
+    "ReleaseArgument": -1
+  },
+  {
+    "Module": "GDI",
+    "Ordinal": 52,
+    "NativeName": "CreateCompatibleDC",
+    "Arguments": [
+      "d?"
+    ],
+    "Result": "owned-d",
+    "Failure": 0,
+    "ReleaseArgument": -1
+  },
+  {
+    "Module": "GDI",
+    "Ordinal": 80,
+    "NativeName": "GetDeviceCaps",
+    "Arguments": [
+      "d",
+      "s"
+    ],
+    "Result": "word",
+    "Failure": 0,
+    "ReleaseArgument": -1
+  },
+  {
+    "Module": "GDI",
+    "Ordinal": 87,
+    "NativeName": "GetStockObject",
+    "Arguments": [
+      "s"
+    ],
+    "Result": "g",
+    "Failure": 0,
+    "ReleaseArgument": -1
+  },
+  {
+    "Module": "GDI",
+    "Ordinal": 128,
+    "NativeName": "MulDiv",
+    "Arguments": [
+      "s",
+      "s",
+      "s"
+    ],
+    "Result": "muldiv",
+    "Failure": 0,
+    "ReleaseArgument": -1
+  },
+  {
+    "Module": "GDI",
+    "Ordinal": 68,
+    "NativeName": "DeleteDC",
+    "Arguments": [
+      "owned-d"
+    ],
+    "Result": "word",
+    "Failure": 0,
+    "ReleaseArgument": 0
+  },
+  {
+    "Module": "GDI",
+    "Ordinal": 69,
+    "NativeName": "DeleteObject",
+    "Arguments": [
+      "owned-g"
+    ],
+    "Result": "word",
+    "Failure": 0,
+    "ReleaseArgument": 0
+  }
+]

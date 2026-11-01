@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net10.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Translator.Linker/Translator.Linker.csproj" />
+    <ProjectReference Include="../Translator.ChipsChallenge/Translator.ChipsChallenge.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,14 +1,7 @@
-"Chips Challenge/Debug"
-"Chips Challenge/Release"
-Debug/
-Release/
-bin/
-obj/
-ipch/
-.git/
-.vs/
-
-*.user
-*.suo
-*.sdf
-*.opensdf
+**/bin/
+**/obj/
+**/__pycache__/
+*.pyc
+.agents/
+.aws/
+.codex/

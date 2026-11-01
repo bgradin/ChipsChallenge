@@ -1,0 +1,476 @@
+[
+  {
+    "Module": "USER32.dll",
+    "Name": "AdjustWindowRect",
+    "Count": 3,
+    "Symbol": "ui_native_AdjustWindowRect"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "AppendMenuW",
+    "Count": 4,
+    "Symbol": "ui_native_AppendMenuW"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "BeginPaint",
+    "Count": 2,
+    "Symbol": "ui_native_BeginPaint"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "CreateAcceleratorTableW",
+    "Count": 2,
+    "Symbol": "ui_native_CreateAcceleratorTableW"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "CreateIconFromResourceEx",
+    "Count": 7,
+    "Symbol": "ui_native_CreateIconFromResourceEx"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "CreateMenu",
+    "Count": 0,
+    "Symbol": "ui_native_CreateMenu"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "CreatePopupMenu",
+    "Count": 0,
+    "Symbol": "ui_native_CreatePopupMenu"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "CreateWindowExW",
+    "Count": 12,
+    "Symbol": "ui_native_CreateWindowExW"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "DefWindowProcW",
+    "Count": 4,
+    "Symbol": "ui_native_DefWindowProcW"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "DestroyAcceleratorTable",
+    "Count": 1,
+    "Symbol": "ui_native_DestroyAcceleratorTable"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "DestroyCursor",
+    "Count": 1,
+    "Symbol": "ui_native_DestroyCursor"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "DestroyIcon",
+    "Count": 1,
+    "Symbol": "ui_native_DestroyIcon"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "DestroyMenu",
+    "Count": 1,
+    "Symbol": "ui_native_DestroyMenu"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "DestroyWindow",
+    "Count": 1,
+    "Symbol": "ui_native_DestroyWindow"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "DialogBoxIndirectParamW",
+    "Count": 5,
+    "Symbol": "ui_native_DialogBoxIndirectParamW"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "DispatchMessageW",
+    "Count": 1,
+    "Symbol": "ui_native_DispatchMessageW"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "DrawTextW",
+    "Count": 5,
+    "Symbol": "ui_native_DrawTextW"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "EndDialog",
+    "Count": 2,
+    "Symbol": "ui_native_EndDialog"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "EndPaint",
+    "Count": 2,
+    "Symbol": "ui_native_EndPaint"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "GetClassNameW",
+    "Count": 3,
+    "Symbol": "ui_native_GetClassNameW"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "GetClientRect",
+    "Count": 2,
+    "Symbol": "ui_native_GetClientRect"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "GetDC",
+    "Count": 1,
+    "Symbol": "ui_native_GetDC"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "GetDlgItem",
+    "Count": 2,
+    "Symbol": "ui_native_GetDlgItem"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "GetDlgItemInt",
+    "Count": 4,
+    "Symbol": "ui_native_GetDlgItemInt"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "GetDlgItemTextW",
+    "Count": 4,
+    "Symbol": "ui_native_GetDlgItemTextW"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "GetParent",
+    "Count": 1,
+    "Symbol": "ui_native_GetParent"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "GetSystemMetrics",
+    "Count": 1,
+    "Symbol": "ui_native_GetSystemMetrics"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "GetWindowLongPtrW",
+    "Count": 2,
+    "Symbol": "ui_native_GetWindowLongPtrW"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "GetWindowLongW",
+    "Count": 2,
+    "Symbol": "ui_native_GetWindowLongW"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "GetWindowRect",
+    "Count": 2,
+    "Symbol": "ui_native_GetWindowRect"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "InvalidateRect",
+    "Count": 3,
+    "Symbol": "ui_native_InvalidateRect"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "KillTimer",
+    "Count": 2,
+    "Symbol": "ui_native_KillTimer"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "LoadCursorW",
+    "Count": 2,
+    "Symbol": "ui_native_LoadCursorW"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "LoadIconW",
+    "Count": 2,
+    "Symbol": "ui_native_LoadIconW"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "MessageBoxW",
+    "Count": 4,
+    "Symbol": "ui_native_MessageBoxW"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "PeekMessageW",
+    "Count": 5,
+    "Symbol": "ui_native_PeekMessageW"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "PostMessageW",
+    "Count": 4,
+    "Symbol": "ui_native_PostMessageW"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "PostQuitMessage",
+    "Count": 1,
+    "Symbol": "ui_native_PostQuitMessage"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "RegisterClassW",
+    "Count": 1,
+    "Symbol": "ui_native_RegisterClassW"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "ReleaseDC",
+    "Count": 2,
+    "Symbol": "ui_native_ReleaseDC"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "ScrollWindow",
+    "Count": 5,
+    "Symbol": "ui_native_ScrollWindow"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "SendDlgItemMessageW",
+    "Count": 5,
+    "Symbol": "ui_native_SendDlgItemMessageW"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "SendMessageW",
+    "Count": 4,
+    "Symbol": "ui_native_SendMessageW"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "SetDlgItemTextW",
+    "Count": 3,
+    "Symbol": "ui_native_SetDlgItemTextW"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "SetParent",
+    "Count": 2,
+    "Symbol": "ui_native_SetParent"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "SetTimer",
+    "Count": 4,
+    "Symbol": "ui_native_SetTimer"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "SetWindowLongPtrW",
+    "Count": 3,
+    "Symbol": "ui_native_SetWindowLongPtrW"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "SetWindowLongW",
+    "Count": 3,
+    "Symbol": "ui_native_SetWindowLongW"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "SetWindowPos",
+    "Count": 7,
+    "Symbol": "ui_native_SetWindowPos"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "SetWindowTextW",
+    "Count": 2,
+    "Symbol": "ui_native_SetWindowTextW"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "SystemParametersInfoW",
+    "Count": 4,
+    "Symbol": "ui_native_SystemParametersInfoW"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "TranslateAcceleratorW",
+    "Count": 3,
+    "Symbol": "ui_native_TranslateAcceleratorW"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "TranslateMessage",
+    "Count": 1,
+    "Symbol": "ui_native_TranslateMessage"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "UnregisterClassW",
+    "Count": 2,
+    "Symbol": "ui_native_UnregisterClassW"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "ValidateRect",
+    "Count": 2,
+    "Symbol": "ui_native_ValidateRect"
+  },
+  {
+    "Module": "USER32.dll",
+    "Name": "WinHelpW",
+    "Count": 4,
+    "Symbol": "ui_native_WinHelpW"
+  },
+  {
+    "Module": "GDI32.dll",
+    "Name": "CreateDIBitmap",
+    "Count": 6,
+    "Symbol": "ui_native_CreateDIBitmap"
+  },
+  {
+    "Module": "GDI32.dll",
+    "Name": "CreateFontIndirectW",
+    "Count": 1,
+    "Symbol": "ui_native_CreateFontIndirectW"
+  },
+  {
+    "Module": "GDI32.dll",
+    "Name": "DeleteObject",
+    "Count": 1,
+    "Symbol": "ui_native_DeleteObject"
+  },
+  {
+    "Module": "GDI32.dll",
+    "Name": "GetObjectType",
+    "Count": 1,
+    "Symbol": "ui_native_GetObjectType"
+  },
+  {
+    "Module": "GDI32.dll",
+    "Name": "GetObjectW",
+    "Count": 3,
+    "Symbol": "ui_native_GetObjectW"
+  },
+  {
+    "Module": "GDI32.dll",
+    "Name": "GetStockObject",
+    "Count": 1,
+    "Symbol": "ui_native_GetStockObject"
+  },
+  {
+    "Module": "GDI32.dll",
+    "Name": "GetTextMetricsA",
+    "Count": 2,
+    "Symbol": "ui_native_GetTextMetricsA"
+  },
+  {
+    "Module": "GDI32.dll",
+    "Name": "PatBlt",
+    "Count": 6,
+    "Symbol": "ui_native_PatBlt"
+  },
+  {
+    "Module": "GDI32.dll",
+    "Name": "SelectObject",
+    "Count": 2,
+    "Symbol": "ui_native_SelectObject"
+  },
+  {
+    "Module": "GDI32.dll",
+    "Name": "SetBkColor",
+    "Count": 2,
+    "Symbol": "ui_native_SetBkColor"
+  },
+  {
+    "Module": "GDI32.dll",
+    "Name": "SetBkMode",
+    "Count": 2,
+    "Symbol": "ui_native_SetBkMode"
+  },
+  {
+    "Module": "GDI32.dll",
+    "Name": "SetDIBitsToDevice",
+    "Count": 12,
+    "Symbol": "ui_native_SetDIBitsToDevice"
+  },
+  {
+    "Module": "KERNEL32.dll",
+    "Name": "CloseHandle",
+    "Count": 1,
+    "Symbol": "ui_native_CloseHandle"
+  },
+  {
+    "Module": "KERNEL32.dll",
+    "Name": "CreateEventW",
+    "Count": 4,
+    "Symbol": "ui_native_CreateEventW"
+  },
+  {
+    "Module": "KERNEL32.dll",
+    "Name": "FreeLibrary",
+    "Count": 1,
+    "Symbol": "ui_native_FreeLibrary"
+  },
+  {
+    "Module": "KERNEL32.dll",
+    "Name": "GetFileAttributesW",
+    "Count": 1,
+    "Symbol": "ui_native_GetFileAttributesW"
+  },
+  {
+    "Module": "KERNEL32.dll",
+    "Name": "GetModuleHandleW",
+    "Count": 1,
+    "Symbol": "ui_native_GetModuleHandleW"
+  },
+  {
+    "Module": "KERNEL32.dll",
+    "Name": "GetProcAddress",
+    "Count": 2,
+    "Symbol": "ui_native_GetProcAddress"
+  },
+  {
+    "Module": "KERNEL32.dll",
+    "Name": "GetTickCount",
+    "Count": 0,
+    "Symbol": "ui_native_GetTickCount"
+  },
+  {
+    "Module": "KERNEL32.dll",
+    "Name": "LoadLibraryExW",
+    "Count": 3,
+    "Symbol": "ui_native_LoadLibraryExW"
+  },
+  {
+    "Module": "KERNEL32.dll",
+    "Name": "LoadLibraryW",
+    "Count": 1,
+    "Symbol": "ui_native_LoadLibraryW"
+  },
+  {
+    "Module": "KERNEL32.dll",
+    "Name": "SetEvent",
+    "Count": 1,
+    "Symbol": "ui_native_SetEvent"
+  },
+  {
+    "Module": "KERNEL32.dll",
+    "Name": "WaitForSingleObject",
+    "Count": 2,
+    "Symbol": "ui_native_WaitForSingleObject"
+  }
+]

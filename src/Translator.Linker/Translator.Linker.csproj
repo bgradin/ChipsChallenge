@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Translator.Analysis/Translator.Analysis.csproj"/>
+    <ProjectReference Include="../Translator.Transform/Translator.Transform.csproj"/>
+    <ProjectReference Include="../Translator.Core/Translator.Core.csproj"/>
+    <ProjectReference Include="../Translator.CodeGen/Translator.CodeGen.csproj"/>
+  </ItemGroup>
+</Project>

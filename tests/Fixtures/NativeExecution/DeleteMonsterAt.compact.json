@@ -1,0 +1,80 @@
+{
+  "Arguments": [
+    0,
+    3,
+    4
+  ],
+  "Segments": [
+    {
+      "Selector": 24576,
+      "Size": 65536
+    },
+    {
+      "Selector": 24584,
+      "Size": 65536
+    }
+  ],
+  "Writes": [
+    {
+      "SegmentIndex": 10,
+      "Offset": 5760,
+      "BytesHex": "0001"
+    },
+    {
+      "SegmentIndex": 10,
+      "Offset": 2600,
+      "BytesHex": "0200"
+    },
+    {
+      "SegmentIndex": 10,
+      "Offset": 2606,
+      "BytesHex": "00000060"
+    },
+    {
+      "SegmentIndex": 10,
+      "Offset": 2590,
+      "BytesHex": "0200"
+    },
+    {
+      "SegmentIndex": 10,
+      "Offset": 2596,
+      "BytesHex": "00000860"
+    },
+    {
+      "Selector": 24576,
+      "Offset": 0,
+      "BytesHex": "0A030004000000000001000B07000800000000000000"
+    },
+    {
+      "Selector": 24584,
+      "Offset": 0,
+      "BytesHex": "0A030004000000000001000B09000900000000000000"
+    }
+  ],
+  "ExpectedRegisters": {
+    "BP": 0,
+    "SP": 14130
+  },
+  "ExpectedMemory": [
+    {
+      "SegmentIndex": 10,
+      "Offset": 2600,
+      "BytesHex": "0100"
+    },
+    {
+      "SegmentIndex": 10,
+      "Offset": 2590,
+      "BytesHex": "0100"
+    },
+    {
+      "Selector": 24576,
+      "Offset": 0,
+      "BytesHex": "0B07000800000000000000"
+    },
+    {
+      "Selector": 24584,
+      "Offset": 0,
+      "BytesHex": "0B09000900000000000000"
+    }
+  ]
+}

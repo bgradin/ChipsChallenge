@@ -1,0 +1,281 @@
+[
+  {
+    "ServiceId": 1019,
+    "Module": "KERNEL",
+    "Name": "MakeProcInstance",
+    "Ordinal": 51,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "FarPointer",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 876,
+    "Arguments": [
+      {
+        "Name": "procedure",
+        "Type": "FarPointer",
+        "StackWord": 1
+      },
+      {
+        "Name": "instance",
+        "Type": "Handle",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 1020,
+    "Module": "KERNEL",
+    "Name": "FreeProcInstance",
+    "Ordinal": 52,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "Word",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 880,
+    "Arguments": [
+      {
+        "Name": "procedure",
+        "Type": "FarPointer",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 1021,
+    "Module": "KERNEL",
+    "Name": "GetPrivateProfileInt",
+    "Ordinal": 127,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "Word",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 884,
+    "Arguments": [
+      {
+        "Name": "section",
+        "Type": "FarPointer",
+        "StackWord": 5
+      },
+      {
+        "Name": "key",
+        "Type": "FarPointer",
+        "StackWord": 3
+      },
+      {
+        "Name": "default",
+        "Type": "SignedWord",
+        "StackWord": 2
+      },
+      {
+        "Name": "file",
+        "Type": "FarPointer",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 1022,
+    "Module": "KERNEL",
+    "Name": "GetPrivateProfileString",
+    "Ordinal": 128,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "Word",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 888,
+    "Arguments": [
+      {
+        "Name": "section",
+        "Type": "FarPointer",
+        "StackWord": 9
+      },
+      {
+        "Name": "key",
+        "Type": "FarPointer",
+        "StackWord": 7
+      },
+      {
+        "Name": "default",
+        "Type": "FarPointer",
+        "StackWord": 5
+      },
+      {
+        "Name": "destination",
+        "Type": "FarPointer",
+        "StackWord": 3
+      },
+      {
+        "Name": "size",
+        "Type": "Word",
+        "StackWord": 2
+      },
+      {
+        "Name": "file",
+        "Type": "FarPointer",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 1023,
+    "Module": "KERNEL",
+    "Name": "WritePrivateProfileString",
+    "Ordinal": 129,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "Bool",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 892,
+    "Arguments": [
+      {
+        "Name": "section",
+        "Type": "FarPointer",
+        "StackWord": 6
+      },
+      {
+        "Name": "key",
+        "Type": "FarPointer",
+        "StackWord": 4
+      },
+      {
+        "Name": "value",
+        "Type": "FarPointer",
+        "StackWord": 2
+      },
+      {
+        "Name": "file",
+        "Type": "FarPointer",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 1024,
+    "Module": "USER",
+    "Name": "DialogBox",
+    "Ordinal": 87,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "SignedWord",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 896,
+    "Arguments": [
+      {
+        "Name": "instance",
+        "Type": "Handle",
+        "StackWord": 5
+      },
+      {
+        "Name": "template",
+        "Type": "FarPointer",
+        "StackWord": 3
+      },
+      {
+        "Name": "owner",
+        "Type": "Handle",
+        "StackWord": 2
+      },
+      {
+        "Name": "procedure",
+        "Type": "FarPointer",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 1025,
+    "Module": "USER",
+    "Name": "EndDialog",
+    "Ordinal": 88,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "Bool",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 900,
+    "Arguments": [
+      {
+        "Name": "dialog",
+        "Type": "Handle",
+        "StackWord": 1
+      },
+      {
+        "Name": "result",
+        "Type": "SignedWord",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 1026,
+    "Module": "USER",
+    "Name": "SetDlgItemText",
+    "Ordinal": 92,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "Bool",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 904,
+    "Arguments": [
+      {
+        "Name": "dialog",
+        "Type": "Handle",
+        "StackWord": 3
+      },
+      {
+        "Name": "item",
+        "Type": "Word",
+        "StackWord": 2
+      },
+      {
+        "Name": "text",
+        "Type": "FarPointer",
+        "StackWord": 0
+      }
+    ]
+  },
+  {
+    "ServiceId": 1027,
+    "Module": "WEP4UTIL",
+    "Name": "CENTERHWND",
+    "Ordinal": 103,
+    "Kind": "Procedure",
+    "Convention": "Pascal",
+    "ArgumentOrder": "LeftToRight",
+    "ReturnType": "Word",
+    "Marshalling": "StackValues",
+    "CalleeCleanup": true,
+    "Supported": true,
+    "EntryOffset": 908,
+    "Arguments": [
+      {
+        "Name": "window",
+        "Type": "Handle",
+        "StackWord": 0
+      }
+    ]
+  }
+]
