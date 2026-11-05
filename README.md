@@ -4,10 +4,18 @@
 [![Coverage](https://codecov.io/gh/bgradin/ChipsChallenge/branch/master/graph/badge.svg)](https://codecov.io/gh/bgradin/ChipsChallenge)
 
 ChipShift64 translates the original Windows 16-bit Chip’s Challenge into a native
-64-bit Windows executable. It compiles the original game instructions to AMD64,
-preserves its embedded resources, and supplies compatibility services for the
-Win16 APIs the game uses. The resulting `CHIPS64.EXE` runs directly on x64 Windows,
-without a 16-bit Windows environment or an installed .NET runtime.
+64-bit Windows executable.
+
+It reads the original NE executable, discovers code
+from entry points, relocations and control flow, lowers instructions through an
+intermediate representation, and links AMD64 code with a Win16 compatibility
+payload into a PE32+ executable. The original game logic is preserved, while the
+compatibility layer supplies memory, windowing, graphics, audio and other Windows
+services. Embedded resources are preserved or converted; the built-in HC30 /
+WinHelp 3.0 converter produces HTML Help without an external help compiler.
+Unsupported inputs or unresolved required dependencies stop delivery. The
+resulting `CHIPS64.EXE` runs directly on x64 Windows, without a 16-bit Windows
+environment or an installed .NET runtime.
 
 The project targets a verified edition of the original game. It is not a general
 Win16 application converter. Translation preserves the original game’s logic;
@@ -79,6 +87,10 @@ Exit codes are `0` for success, `2` for invalid input, usage or I/O errors, and
 removes incomplete output.
 
 ## Build from source
+
+The `Translator.*` projects implement the compiler, packaging and developer tools;
+`Win16.Runtime` supplies compatibility support, and `ChipShift64` provides the
+Windows interface. No original game is needed to build the translator.
 
 Install the **.NET 10 SDK** on Windows. From the repository root:
 
@@ -169,26 +181,6 @@ To collect coverage locally:
 ```powershell
 .\test.ps1 -TestArguments @('--collect:XPlat Code Coverage', '--results-directory', 'bin/test-results')
 ```
-
-## How it works
-
-The translator reads the original NE (16-bit Windows) executable, discovers code
-from its entry points, relocations and control flow, lowers instructions through
-an intermediate representation, and links AMD64 code with a Win16 compatibility
-payload into a PE32+ (64-bit Windows) executable. The translated program retains
-the original game logic; the compatibility layer supplies memory, windowing,
-graphics, audio and other Windows services.
-
-Embedded resources are preserved or converted. The built-in help converter
-supports HC30 / WinHelp 3.0 and produces HTML Help without an external help
-compiler. Unsupported inputs or unresolved required dependencies stop delivery.
-The project targets the verified executable above, not arbitrary Win16 programs
-or every historical help format.
-
-The `Translator.*` projects implement the compiler, packaging and developer tools;
-`Win16.Runtime` supplies compatibility support, and `ChipShift64` provides the
-Windows interface. Tests use authored fixtures and optional, locally supplied
-original files. No original game is needed to build the translator.
 
 ## License and legal notice
 
