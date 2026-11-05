@@ -9,7 +9,7 @@ namespace Translator.Integration.Tests;
 
 public sealed class NeProductionBoundaryTests
 {
-    private static string ProductionDll => Path.GetFullPath("../../../../../src/Translator.Production/bin/Debug/net10.0/Translator.Production.dll");
+    private static string ProductionDll => TestBuildPaths.ProjectDll("Translator.Production");
 
     private static int Run(params string[] arguments)
     {

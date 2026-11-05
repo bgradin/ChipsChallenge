@@ -8,7 +8,7 @@ public sealed class CliIntegrationTests
 {
     internal static (int Code, string Output) Run(params string[] arguments)
     {
-        string cli = Path.GetFullPath("../../../../../src/Translator.Cli/bin/Debug/net10.0/Translator.Cli.dll");
+        string cli = TestBuildPaths.ProjectDll("Translator.Cli");
         // Use the running test host's framework installation (works with dotnet test and vstest).
         string dotnet = Environment.GetEnvironmentVariable("DOTNET_HOST_PATH") ?? Path.Combine(System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeDirectory(), "..", "..", "..", OperatingSystem.IsWindows()
             ? "dotnet.exe"

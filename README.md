@@ -1,5 +1,8 @@
 # ChipShift64
 
+[![CI](https://github.com/bgradin/ChipsChallenge/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/bgradin/ChipsChallenge/actions/workflows/ci.yml)
+[![Coverage](https://codecov.io/gh/bgradin/ChipsChallenge/branch/master/graph/badge.svg)](https://codecov.io/gh/bgradin/ChipsChallenge)
+
 ChipShift64 translates the original Windows 16-bit Chip’s Challenge into a native
 64-bit Windows executable. It compiles the original game instructions to AMD64,
 preserves its embedded resources, and supplies compatibility services for the
@@ -127,6 +130,45 @@ python tests/Translator.TestSupport/Native/test_native_source.py
 Rebuilding native payloads additionally requires GCC, GNU binutils and
 clang-format 18. See the [native development guide](src/Win16.Runtime/Native/README.md)
 for regeneration commands and deeper native verification.
+
+## CI and releases
+
+[GitHub Actions](.github/workflows/ci.yml) builds and tests Release configuration
+on Windows with .NET 10 for branch pushes, pull requests and tags. Successful
+builds retain the translator ZIP, SHA-256 checksum, test results and Cobertura
+coverage reports as workflow artifacts.
+
+To publish a GitHub release, push a tag after merging the workflow, for example:
+
+```powershell
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+Every pushed tag runs the checks and publishes a release containing
+`ChipShift64-win-x64.zip` and `SHA256SUMS` only after the build and tests pass.
+The ZIP contains the framework-dependent translator, README and license;
+users need the .NET 10 Desktop Runtime. It contains no original game files.
+Release publication uses GitHub's automatic `GITHUB_TOKEN`; no personal access
+token is required. A failed release publication that leaves a draft can be
+recovered by publishing that draft from GitHub's Releases page.
+
+Coverage uses [Codecov's free plan](https://about.codecov.io/pricing/), which
+includes unlimited public repositories and public-repository uploads. This
+repository is public, so no paid coverage subscription is needed. For the
+coverage badge, enable this repository in [Codecov](https://codecov.io/) and add
+its upload token as the GitHub Actions repository secret `CODECOV_TOKEN`.
+Coverage uploads are best-effort so an unavailable service or missing token on
+a fork pull request does not block builds or releases. Reports remain available
+as workflow artifacts. The badges populate after the first successful uploads.
+Coverage measures managed code exercised by the available tests; native payloads
+and original-game checks skipped without locally supplied assets are not covered.
+
+To collect coverage locally:
+
+```powershell
+.\test.ps1 -TestArguments @('--collect:XPlat Code Coverage', '--results-directory', 'bin/test-results')
+```
 
 ## How it works
 
