@@ -289,11 +289,22 @@ public sealed partial class NeNativeStartupTests
                     }
 
                     GuestSnapshot? actual = null;
-                    Until(() =>
+                    try
                     {
-                        actual = Observe(session);
-                        return actual.X == test.X && actual.Y == test.Y && actual.Death == test.Death && (test.InventoryIndex < 0 || actual.Inventory[test.InventoryIndex] == test.InventoryCount) && (test.Chips is null || actual.Global(0x1692) == test.Chips) && (test.Extra is null || test.Extra(actual));
-                    }, session.Process, "Original scenario differs: " + test.Id);
+                        Until(() =>
+                        {
+                            actual = Observe(session);
+                            return actual.X == test.X && actual.Y == test.Y && actual.Death == test.Death && (test.InventoryIndex < 0 || actual.Inventory[test.InventoryIndex] == test.InventoryCount) && (test.Chips is null || actual.Global(0x1692) == test.Chips) && (test.Extra is null || test.Extra(actual));
+                        }, session.Process, "Original scenario differs: " + test.Id);
+                    }
+                    catch
+                    {
+                        if (actual is not null)
+                        {
+                            File.WriteAllText(Path.Combine(evidence, test.Id + "-failure.json"), JsonSerializer.Serialize(actual));
+                        }
+                        throw;
+                    }
                     byte actualTile = actual!.Game[actual.Y * 32 + actual.X];
                     if (test.Death is 1 or 2)
                     {

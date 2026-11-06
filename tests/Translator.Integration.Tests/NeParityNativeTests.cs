@@ -76,10 +76,26 @@ public sealed partial class NeNativeStartupTests
                 }, Process, "Native parity startup failed");
                 Window = w;
             }
-            catch
+            catch (Exception error)
             {
+                var windows = new List<object>();
+                EnumWindows((window, _) =>
+                {
+                    GetWindowThreadProcessId(window, out uint pid);
+                    if (pid == Process.Id)
+                    {
+                        windows.Add(new { Class = Class(window), Text = Text(window) });
+                        EnumChildWindows(window, (child, _) =>
+                        {
+                            windows.Add(new { Class = Class(child), Text = Text(child) });
+                            return true;
+                        }, 0);
+                    }
+                    return true;
+                }, 0);
+                File.WriteAllText(Path.Combine(Evidence, "startup-failure.json"), JsonSerializer.Serialize(windows));
                 Dispose();
-                throw;
+                throw new InvalidOperationException("Startup windows: " + JsonSerializer.Serialize(windows), error);
             }
         }
 

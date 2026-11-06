@@ -10,7 +10,7 @@ public static class ChipsClockProfile
     private static void Word(byte[] b, int at, int value) => BitConverter.GetBytes(unchecked((ushort)value)).CopyTo(b, at);
 
     private static SceneWrite Write(ushort at, ushort value) => new(at, BitConverter.GetBytes(value), "Deterministic clock precondition; automation only");
-    public static ChipsInputPlan Create(byte[] originalState, Func<byte[], ushort, IReadOnlyList<ScenePixels>> pixels)
+    public static ChipsInputPlan Create(byte[] originalState, Func<byte[], ushort, IReadOnlyList<ScenePixels>> pixels, bool includeGlitches = false)
     {
         var state = originalState.ToArray();
         Word(state, 0xa24, 11);
@@ -81,6 +81,30 @@ public static class ChipsClockProfile
         state[14 * 32 + 14] = 0x6e;
         Word(state, 0xa40, 0);
         Add("OriginalIdleFacingAndCountdown", 52, 3, 95, 0, [Steps(7)]);
+        if (includeGlitches)
+        {
+            // Long First Second: seed the session counter near ushort rollover.
+            // The original timer body must skip decrementing at tick zero.
+            // Check the entire game state as well as the countdown boundary.
+            byte[] rolloverState = state.ToArray();
+            void Rollover(string name, int ticks, ushort counter, ushort remaining, int idle, SceneWrite[]? setup = null)
+            {
+                Word(rolloverState, 0xa3e, idle);
+                cases.Add(new(name, setup ?? [], [Steps((uint)ticks)],
+                    [new(0x4000, rolloverState.ToArray()), new(0x64e, BitConverter.GetBytes(counter)), new(0x1694, BitConverter.GetBytes(remaining))])
+                { Pixels = pixels(state, 0).Where(p => p.Window == 6).ToArray() });
+            }
+            Rollover("GlitchLongFirstSecondBeforeRollover", 5, 65535, 95, 2,
+                [Write(0x64e, 65530), Write(0x1694, 95), Write(0x4a3e, 0)]);
+            Rollover("GlitchLongFirstSecondZeroDoesNotDecrement", 1, 0, 95, 3);
+            Rollover("GlitchLongFirstSecondNineStillDoesNotDecrement", 9, 9, 95, 7);
+            Rollover("GlitchLongFirstSecondTenFinallyDecrements", 1, 10, 94, 8);
+            // Leave the established final diagnostic state unchanged.
+            cases.Add(new("GlitchLongFirstSecondRestore", [new(0x4000, state.ToArray(), "Restore clock fixture"),
+                Write(0x64e, 52), Write(0x1694, 95)], [new(0, 0, 0, 0, InputDriverOperation.ProbeTimerContracts)],
+                [new(0x4000, state.ToArray()), new(0x64e, BitConverter.GetBytes((ushort)52)),
+                new(0x1694, BitConverter.GetBytes((ushort)95))]) { Pixels = pixels(state, 0) });
+        }
         return new("0002:225C", 0, 0, [new(0x10, 0), new(0x12, 1)], [0x25, 0x26, 0x27, 0x28], [Write(0x22, 0), Write(0x13c8, 0)], cases)
         {
             Movement = true

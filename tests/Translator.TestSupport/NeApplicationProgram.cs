@@ -39,7 +39,7 @@ public sealed class NeApplicationProgram
     }
 
     private static string Hash(ReadOnlySpan<byte> data) => Convert.ToHexString(SHA256.HashData(data)).ToLowerInvariant();
-    public static NeApplicationProgram Build(ReadOnlySpan<byte> bytes, NeApplicationStartup startup, NeVerifiedSymbols? symbols = null, NeRuntimeOptions? runtimeOptions = null, byte[]? levelData = null)
+    public static NeApplicationProgram Build(ReadOnlySpan<byte> bytes, NeApplicationStartup startup, NeVerifiedSymbols? symbols = null, NeRuntimeOptions? runtimeOptions = null, byte[]? levelData = null, bool clockGlitches = false)
     {
         ArgumentNullException.ThrowIfNull(startup);
         if (startup.Gameplay)
@@ -194,7 +194,7 @@ public sealed class NeApplicationProgram
                     : startup.TileInteractions
                         ? ChipsTileProfile.Create(level!.State, (state, inventory) => MovementPixels(source, referenceScene, state, 0, inventory))
                         : startup.GameClock
-                            ? ChipsClockProfile.Create(level!.State, (state, yellow) => MovementPixels(source, referenceScene, state, yellow))
+                            ? ChipsClockProfile.Create(level!.State, (state, yellow) => MovementPixels(source, referenceScene, state, yellow), includeGlitches: clockGlitches)
                             : ChipsMovementProfile.Create(level!.State, (state, yellow) => MovementPixels(source, referenceScene, state, yellow));
         }
 
